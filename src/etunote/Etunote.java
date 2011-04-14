@@ -95,12 +95,7 @@ public class Etunote extends JFrame implements ActionListener
 		JButton italicButton = new JButton();
 		JButton underlineButton = new JButton();
 		JButton colorButton = new JButton();
-		JButton cutButton = new JButton();
-		JButton copyButton = new JButton();
-		JButton pasteButton = new JButton();
-		JButton leftButton = new JButton();
-		JButton centerButton = new JButton();
-		JButton rightButton = new JButton();
+
 		JButton testButton = new JButton();
 		JButton linkButton = new JButton();
 		JButton imageButton = new JButton();
@@ -131,42 +126,7 @@ public class Etunote extends JFrame implements ActionListener
 		}
 		bar.addSeparator();
 		a = viewer.getActionMap().get(StyledEditorKit.cutAction);
-		if (a != null)
-		{
-			cutButton = bar.add(a);
-			cutButton.setText("X");
-		}
-		a = viewer.getActionMap().get(StyledEditorKit.copyAction);
-		if (a != null)
-		{
-			copyButton = bar.add(a);
-			copyButton.setText("C");
-		}
-		a = viewer.getActionMap().get(StyledEditorKit.pasteAction);
-		if (a != null)
-		{
-			pasteButton = bar.add(a);
-			pasteButton.setText("V");
-		}
-		bar.addSeparator();
-		a = new StyledEditorKit.AlignmentAction("left",0);
-		if (a != null)
-		{
-			leftButton = bar.add(a);
-			leftButton.setText("<");
-		}
-		a = new StyledEditorKit.AlignmentAction("center",1);
-		if (a != null)
-		{
-			centerButton = bar.add(a);
-			centerButton.setText("-");
-		}
-		a = new StyledEditorKit.AlignmentAction("right",2);
-		if (a != null)
-		{
-			rightButton = bar.add(a);
-			rightButton.setText(">");
-		}
+
 		bar.addSeparator();
 		h1Button.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent event) {

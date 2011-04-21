@@ -28,7 +28,7 @@ import javax.swing.text.html.HTML;
 import javax.swing.text.html.HTMLDocument;
 import javax.swing.text.html.HTMLEditorKit;
 
-public class Etunote extends JFrame implements ActionListener
+public class TextEditor extends JFrame implements ActionListener
 {
 	//Composant Swing permettant de visualiser un document
 	public JTextPane viewer = new JTextPane();
@@ -37,7 +37,7 @@ public class Etunote extends JFrame implements ActionListener
 	public HTMLEditorKit k = new HTMLEditorKit();
 	public HTMLDocument doc = (HTMLDocument)k.createDefaultDocument();
 
-	public Etunote()
+	public TextEditor()
 	{
 		setTitle("EtuNote");
 		init();

@@ -92,6 +92,10 @@ public class Note{
 	public void setModified_at(Date modified_at) {
 		this.modified_at = modified_at;
 	}
+	
+	public int getId(){
+		return this.id;
+	}
 
 
 	public ArrayList<Uv> getUvs() {

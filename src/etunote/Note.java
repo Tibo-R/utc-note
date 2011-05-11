@@ -101,6 +101,10 @@ public class Note{
 	public ArrayList<Uv> getUvs() {
 		return uvs;
 	}
+	
+	public ArrayList<Content> getContents() {
+		return contents;
+	}
 
 	public void addUv(Uv uv) {
 		this.uvs.add(uv);

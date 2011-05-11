@@ -26,5 +26,14 @@ public class Title extends Content {
 	public String getHTML(){
 		return "<h" + level + ">" + this.name + "</h" + level + ">";
 	}
+	
+
+	
+	public int getLevel(){
+		return level;
+	}
+	public String getName(){
+		return name;
+	}
 
 }

@@ -14,10 +14,10 @@ package etunote;
  *
  * @author mbayemoh
  */
-public class DisplayNote extends javax.swing.JFrame {
+public class DisplayNoteView extends javax.swing.JFrame {
 
     /** Creates new form DisplayNote */
-    public DisplayNote() {
+    public DisplayNoteView() {
         initComponents();
     }
 
@@ -162,14 +162,14 @@ public class DisplayNote extends javax.swing.JFrame {
 
     private void AddSemesterButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AddSemesterButtonActionPerformed
         // TODO add your handling code here:
-    	AddSemester addse=new AddSemester();
+    	AddSemesterView addse=new AddSemesterView();
     	addse.setVisible(true);
     	//new AddSemester().setVisible(true);
     }//GEN-LAST:event_AddSemesterButtonActionPerformed
 
     private void AddUVActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AddUVActionPerformed
         // TODO add your handling code here:
-    	new CreateUV().setVisible(true);
+    	new CreateUvView().setVisible(true);
     }//GEN-LAST:event_AddUVActionPerformed
 
     private void ViewByDateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ViewByDateActionPerformed
@@ -183,7 +183,7 @@ public class DisplayNote extends javax.swing.JFrame {
         java.awt.EventQueue.invokeLater(new Runnable() {
 
             public void run() {
-                new DisplayNote().setVisible(true);
+                new DisplayNoteView().setVisible(true);
             }
         });
     }

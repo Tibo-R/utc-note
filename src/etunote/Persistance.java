@@ -15,9 +15,9 @@ import org.jdom.output.XMLOutputter;
 
 public class Persistance {
 
-	// Début de l'arborescence en créant la racine XML "etunote"
+	// Dï¿½but de l'arborescence en crï¿½ant la racine XML "etunote"
 	private Element racine;
-	// Création d'un nouveau Document JDOM basé sur la racine "etunote"
+	// Crï¿½ation d'un nouveau Document JDOM basï¿½ sur la racine "etunote"
 	private static org.jdom.Document documentSave;
 	private static org.jdom.Document documentLoad;
 
@@ -26,17 +26,17 @@ public class Persistance {
 		documentSave = new Document(racine);
 	}
 
-	public void SaveNote(Note n){
+	public void SaveNote(NoteModel n){
 		SaveNote(n, "save");
 	}
 
-	public void SaveNote(Note n, String f){
-		// Création d'un nouvel Element note que l'on ajoute en tant qu'Element de racine
+	public void SaveNote(NoteModel n, String f){
+		// Crï¿½ation d'un nouvel Element note que l'on ajoute en tant qu'Element de racine
 		Element note = new Element("note");
 		racine.addContent(note);		
 
-		// Création d'un nouvel Attribut classe que l'on ajoute à note
-		// grâce à la méthode setAttribute
+		// Crï¿½ation d'un nouvel Attribut classe que l'on ajoute ï¿½ note
+		// grï¿½ce ï¿½ la mï¿½thode setAttribute
 		Attribute name = new Attribute("name", n.getName());
 		note.setAttribute(name);
 
@@ -49,8 +49,8 @@ public class Persistance {
 		Attribute modified_at = new Attribute("modified_at", String.valueOf(n.getModified_at()));
 		note.setAttribute(modified_at);
 
-		// Création des contenus
-		// Récupération de la listes contenus + itérateur
+		// Crï¿½ation des contenus
+		// Rï¿½cupï¿½ration de la listes contenus + itï¿½rateur
 		ArrayList contenus = n.getContents() ;
 		System.out.println(contenus);
 		Iterator iter = contenus.iterator() ;
@@ -58,21 +58,21 @@ public class Persistance {
 		// Parcours du contenu de la note
 		Element contenu = null;
 		while (iter.hasNext()){
-			Content c = (Content) iter.next();
-			if (c instanceof Title){
+			ContentModel c = (ContentModel) iter.next();
+			if (c instanceof TitleModel){
 				contenu = new Element("title");
-				Attribute level = new Attribute("level", String.valueOf(((Title) c).getLevel()));
+				Attribute level = new Attribute("level", String.valueOf(((TitleModel) c).getLevel()));
 				contenu.setAttribute(level);
-				Attribute position = new Attribute("position", String.valueOf(((Title) c).getPosition()));
+				Attribute position = new Attribute("position", String.valueOf(((TitleModel) c).getPosition()));
 				contenu.setAttribute(position);
-				contenu.setText(((Title) c).getName());
+				contenu.setText(((TitleModel) c).getName());
 				note.addContent(contenu);
 			}
 			else{
 				contenu = new Element("paragraph");
-				Attribute position = new Attribute("position", String.valueOf(((Paragraph) c).getPosition()));
+				Attribute position = new Attribute("position", String.valueOf(((ParagraphModel) c).getPosition()));
 				contenu.setAttribute(position);
-				contenu.setText(((Paragraph) c).getText());
+				contenu.setText(((ParagraphModel) c).getText());
 				note.addContent(contenu);
 			}
 		}
@@ -80,11 +80,11 @@ public class Persistance {
 		save(f+".xml");	
 	}
 
-	public void SaveListNote(ArrayList<Note> an){
+	public void SaveListNote(ArrayList<NoteModel> an){
 		SaveListNote(an, "save");
 	}
 
-	public void SaveListNote(ArrayList<Note> an, String f){
+	public void SaveListNote(ArrayList<NoteModel> an, String f){
 
 	}
 
@@ -93,27 +93,27 @@ public class Persistance {
 	}
 	
 	public void LoadNote(String f){
-		//On crée une instance de SAXBuilder
+		//On crï¿½e une instance de SAXBuilder
 	      SAXBuilder sxb = new SAXBuilder();
 	      try {
-	         //On crée un nouveau document JDOM avec en argument le fichier XML
+	         //On crï¿½e un nouveau document JDOM avec en argument le fichier XML
 	         documentLoad = sxb.build(new File(f+".xml"));
 	      }
 	      catch(Exception e){}
 
-	      //On initialise un nouvel élément racine avec l'élément racine du document.
+	      //On initialise un nouvel ï¿½lï¿½ment racine avec l'ï¿½lï¿½ment racine du document.
 	      racine = documentLoad.getRootElement();
 	      
 	      
-	      // On crée une Liste contenant tous les noeuds "note" de l'Element racine
+	      // On crï¿½e une Liste contenant tous les noeuds "note" de l'Element racine
 	      List listNotes = racine.getChildren("note");
 
 	      System.out.println("\n\n\nAffichage de");
-	      //On crée un Iterator sur notre liste
+	      //On crï¿½e un Iterator sur notre liste
 	      Iterator it = listNotes.iterator();
 	      while(it.hasNext()) {
-	         //On recrée l'Element courant à chaque tour de boucle afin de
-	         //pouvoir utiliser les méthodes propres aux Element comme :
+	         //On recrï¿½e l'Element courant ï¿½ chaque tour de boucle afin de
+	         //pouvoir utiliser les mï¿½thodes propres aux Element comme :
 	         //selectionner un noeud fils, modifier du texte, etc...
 	         Element courant = (Element)it.next();
 	         //On affiche le nom de l'element courant
@@ -130,8 +130,8 @@ public class Persistance {
 		try {
 			//On utilise ici un affichage classique avec getPrettyFormat()
 			XMLOutputter sortie = new XMLOutputter(Format.getPrettyFormat());
-			//Remarquez qu'il suffit simplement de créer une instance de FileOutputStream
-			//avec en argument le nom du fichier pour effectuer la sérialisation.
+			//Remarquez qu'il suffit simplement de crï¿½er une instance de FileOutputStream
+			//avec en argument le nom du fichier pour effectuer la sï¿½rialisation.
 			sortie.output(documentSave, new FileOutputStream(fichier));
 		}
 		catch (java.io.IOException e){}

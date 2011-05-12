@@ -1,7 +1,7 @@
 package etunote;
 
-import etunote.DisplayNote;
+import etunote.DisplayNoteView;
 
 public class Main {
-	DisplayNote ds=new DisplayNote();
+	DisplayNoteView ds=new DisplayNoteView();
 }

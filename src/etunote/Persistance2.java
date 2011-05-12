@@ -14,13 +14,13 @@ import com.thoughtworks.xstream.io.xml.DomDriver;
 
 public class Persistance2 {
 	
-	private ArrayList<Note> notes;
+	private ArrayList<NoteModel> notes;
 
-	public void SerialisationNote(Note n) {
+	public void SerialisationNote(NoteModel n) {
 		SerialisationNote(n, "note");		
 	}
 
-	public void SerialisationNote(Note n, String f) {
+	public void SerialisationNote(NoteModel n, String f) {
 
 		try {
 			// Instanciation de la classe XStream
@@ -30,7 +30,7 @@ public class Persistance2 {
 			// Instanciation d'un flux de sortie fichier
 			FileOutputStream fos = new FileOutputStream(fichier);
 			try {
-				// Sérialisation de l'objet article dans article.xml
+				// Sï¿½rialisation de l'objet article dans article.xml
 				xstream.toXML(n, fos);
 			} finally {
 				// On s'assure de fermer le flux quoi qu'il arrive
@@ -44,11 +44,11 @@ public class Persistance2 {
 		}
 	}
 	
-	public void SerialisationNotes(ArrayList<Note> ln) {
+	public void SerialisationNotes(ArrayList<NoteModel> ln) {
 		SerialisationNotes(ln, "notes");
 	}
 
-	public void SerialisationNotes(ArrayList<Note> ln, String f) {
+	public void SerialisationNotes(ArrayList<NoteModel> ln, String f) {
 		try {
 			// Instanciation de la classe XStream
 			XStream xstream = new XStream(new DomDriver());
@@ -57,7 +57,7 @@ public class Persistance2 {
 			// Instanciation d'un flux de sortie fichier
 			FileOutputStream fos = new FileOutputStream(fichier);
 			try {
-				// Sérialisation de l'objet article dans article.xml
+				// Sï¿½rialisation de l'objet article dans article.xml
 				xstream.toXML(ln, fos);
 			} finally {
 				// On s'assure de fermer le flux quoi qu'il arrive
@@ -72,19 +72,19 @@ public class Persistance2 {
 
 	}
 	
-	public Note DeserialisationNote(){
-		Note note = DeserialisationNote("note");
+	public NoteModel DeserialisationNote(){
+		NoteModel note = DeserialisationNote("note");
 		return note;
 	}
 
-	public Note DeserialisationNote(String f){
-		Note note = null;
+	public NoteModel DeserialisationNote(String f){
+		NoteModel note = null;
 		try {
 			XStream xstream = new XStream(new DomDriver());
 			FileInputStream fis = new FileInputStream(new File(f+".xml"));
 			try {
-				// Désérialisation du fichier article.xml
-				note = (Note) xstream.fromXML(fis);
+				// Dï¿½sï¿½rialisation du fichier article.xml
+				note = (NoteModel) xstream.fromXML(fis);
 
 				// Affichage sur la console du contenu de l'attribut note
 				System.out.println(note);
@@ -102,19 +102,19 @@ public class Persistance2 {
 		return note;
 	}
 	
-	public ArrayList<Note> DeserialisationNotes(){
-		ArrayList<Note> notes = DeserialisationNotes("notes");
+	public ArrayList<NoteModel> DeserialisationNotes(){
+		ArrayList<NoteModel> notes = DeserialisationNotes("notes");
 		return notes;
 	}
 	
-	public ArrayList<Note> DeserialisationNotes(String f){
-		ArrayList<Note> notes = null;
+	public ArrayList<NoteModel> DeserialisationNotes(String f){
+		ArrayList<NoteModel> notes = null;
 		try {
 			XStream xstream = new XStream(new DomDriver());
 			FileInputStream fis = new FileInputStream(new File(f+".xml"));
 			try {
-				// Désérialisation du fichier article.xml
-				notes = (ArrayList<Note>) xstream.fromXML(fis);
+				// Dï¿½sï¿½rialisation du fichier article.xml
+				notes = (ArrayList<NoteModel>) xstream.fromXML(fis);
 
 				// Affichage sur la console du contenu de l'attribut note
 				//System.out.println(note);

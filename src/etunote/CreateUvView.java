@@ -18,11 +18,11 @@ import java.util.ArrayList;
  *
  * @author mbayemoh
  */
-public class CreateUV extends javax.swing.JFrame {
+public class CreateUvView extends javax.swing.JFrame {
 	
 	
     /** Creates new form CreateUV */
-    public CreateUV() {
+    public CreateUvView() {
         initComponents();
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
     }
@@ -128,7 +128,7 @@ public class CreateUV extends javax.swing.JFrame {
         java.awt.EventQueue.invokeLater(new Runnable() {
 
             public void run() {
-                new CreateUV().setVisible(true);
+                new CreateUvView().setVisible(true);
             }
         });
     }

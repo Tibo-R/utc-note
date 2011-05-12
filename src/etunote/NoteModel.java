@@ -17,7 +17,7 @@ import javax.swing.text.html.HTMLEditorKit;
  * @author 
  *
  */
-public class Note{
+public class NoteModel{
 	static int current_id = 0;
 	
 	public static int getCurrent_id() {
@@ -25,14 +25,14 @@ public class Note{
 	}
 
 	public static void setCurrent_id(int current_id) {
-		Note.current_id = current_id;
+		NoteModel.current_id = current_id;
 	}
 
-	public ArrayList<Tag> getTags() {
+	public ArrayList<TagModel> getTags() {
 		return tags;
 	}
 
-	public void setTags(ArrayList<Tag> tags) {
+	public void setTags(ArrayList<TagModel> tags) {
 		this.tags = tags;
 	}
 
@@ -44,11 +44,11 @@ public class Note{
 		this.created_at = created_at;
 	}
 
-	public void setUvs(ArrayList<Uv> uvs) {
+	public void setUvs(ArrayList<UvModel> uvs) {
 		this.uvs = uvs;
 	}
 
-	public void setContents(ArrayList<Content> contents) {
+	public void setContents(ArrayList<ContentModel> contents) {
 		this.contents = contents;
 	}
 
@@ -57,14 +57,14 @@ public class Note{
 	private Date created_at;
 	private Date modified_at;
 	
-	private ArrayList<Uv> uvs;
-	private ArrayList<Tag> tags;
-	private ArrayList<Content> contents;
+	private ArrayList<UvModel> uvs;
+	private ArrayList<TagModel> tags;
+	private ArrayList<ContentModel> contents;
 	
 	/**
 	 * @param uv
 	 */
-	public Note(Uv uv){
+	public NoteModel(UvModel uv){
 		this.init("Nouvelle Note", uv);
 	}
 	
@@ -72,21 +72,21 @@ public class Note{
 	 * @param name
 	 * @param uv
 	 */
-	public Note(String name, Uv uv){
+	public NoteModel(String name, UvModel uv){
 		this.init(name, uv);
 	}
 	
-	public void init(String name, Uv uv){
+	public void init(String name, UvModel uv){
 		this.name = name;
-		this.uvs = new ArrayList<Uv>();
-		this.contents = new ArrayList<Content>();
+		this.uvs = new ArrayList<UvModel>();
+		this.contents = new ArrayList<ContentModel>();
 		this.uvs.add(uv);
 		this.created_at = new Date();
 		this.modified_at = new Date();
-		this.id = Note.current_id;
-		Note.current_id++;
+		this.id = NoteModel.current_id;
+		NoteModel.current_id++;
 		
-		Title t = new Title(0, name);
+		TitleModel t = new TitleModel(0, name);
 		this.contents.add(t);
 		
 		
@@ -130,15 +130,15 @@ public class Note{
 	}
 
 
-	public ArrayList<Uv> getUvs() {
+	public ArrayList<UvModel> getUvs() {
 		return uvs;
 	}
 	
-	public ArrayList<Content> getContents() {
+	public ArrayList<ContentModel> getContents() {
 		return contents;
 	}
 
-	public void addUv(Uv uv) {
+	public void addUv(UvModel uv) {
 		this.uvs.add(uv);
 	}
 
@@ -153,9 +153,9 @@ public class Note{
 		return 1;
 	}
 	
-	public void addContent(Content c){
+	public void addContent(ContentModel c){
 		if(c.getPosition() <= contents.size()){
-			for (Content content : contents){
+			for (ContentModel content : contents){
 				int position = content.getPosition();
 				if(position <= c.getPosition())
 					content.setPosition(position += 1);
@@ -163,9 +163,9 @@ public class Note{
 		}
 		contents.add(c);
 		
-		Collections.sort(contents, new Comparator<Content>(){
+		Collections.sort(contents, new Comparator<ContentModel>(){
 			 
-            public int compare(Content c1, Content c2) {
+            public int compare(ContentModel c1, ContentModel c2) {
                return c1.compareTo(c2);
             }
  
@@ -183,7 +183,7 @@ public class Note{
 		
 		s+="<div id=\"content\">\n";
 
-		for (Content c : contents){
+		for (ContentModel c : contents){
 			s += c.getHTML() + "\n";
 		}
 

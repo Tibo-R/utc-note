@@ -34,13 +34,13 @@ import javax.swing.JOptionPane;
  *
  * @author mbayemoh
  */
-public class PriseNote extends javax.swing.JFrame implements ActionListener {
+public class PriseNoteView extends javax.swing.JFrame implements ActionListener {
 	//TitleSpecificButton Title;
     /** Creates new form PriseNote */
 	javax.swing.GroupLayout jPanel1Layout;
 	JFileChooser fc = new JFileChooser();
 	String file;
-    public PriseNote() {
+    public PriseNoteView() {
         initComponents();
     }
 
@@ -409,7 +409,7 @@ public class PriseNote extends javax.swing.JFrame implements ActionListener {
 
     private void ImageButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ImageButtonActionPerformed
         // TODO add your handling code here:
-    	new CreateImage().setVisible(true);
+    	new CreateImageView().setVisible(true);
     }//GEN-LAST:event_ImageButtonActionPerformed
 
     private void CodeButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CodeButtonActionPerformed
@@ -527,8 +527,8 @@ public class PriseNote extends javax.swing.JFrame implements ActionListener {
         java.awt.EventQueue.invokeLater(new Runnable() {
 
             public void run() {
-                //new PriseNote().setVisible(true);
-            	new DisplayNote().setVisible(true);
+                new PriseNoteView().setVisible(true);
+            	//new DisplayNoteView().setVisible(true);
 
             }
         });

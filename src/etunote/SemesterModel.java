@@ -1,9 +1,9 @@
 package etunote;
 
-public class Semester {
+public class SemesterModel {
 	private String name;
 
-	public Semester(String name) {
+	public SemesterModel(String name) {
 		super();
 		this.name = name;
 	}

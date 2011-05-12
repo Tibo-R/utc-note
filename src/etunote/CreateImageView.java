@@ -15,10 +15,10 @@ package etunote;
  *
  * @author mbayemoh
  */
-public class CreateImage extends javax.swing.JFrame {
+public class CreateImageView extends javax.swing.JFrame {
 
     /** Creates new form CreateImage */
-    public CreateImage() {
+    public CreateImageView() {
         initComponents();
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
     }
@@ -109,7 +109,7 @@ public class CreateImage extends javax.swing.JFrame {
         java.awt.EventQueue.invokeLater(new Runnable() {
 
             public void run() {
-                new CreateImage().setVisible(true);
+                new CreateImageView().setVisible(true);
             }
         });
     }

@@ -17,10 +17,10 @@ import java.util.ArrayList;
  *
  * @author mbayemoh
  */
-public class AddSemester extends javax.swing.JFrame {
+public class AddSemesterView extends javax.swing.JFrame {
 
     /** Creates new form AddSemester */
-    public AddSemester() {
+    public AddSemesterView() {
         initComponents();
     }
 
@@ -111,7 +111,7 @@ public class AddSemester extends javax.swing.JFrame {
     public static void main(String args[]) {
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new AddSemester().setVisible(true);
+                new AddSemesterView().setVisible(true);
             }
         });
     }

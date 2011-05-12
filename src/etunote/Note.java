@@ -19,47 +19,18 @@ import javax.swing.text.html.HTMLEditorKit;
  */
 public class Note{
 	static int current_id = 0;
-	
-	public static int getCurrent_id() {
-		return current_id;
-	}
-
-	public static void setCurrent_id(int current_id) {
-		Note.current_id = current_id;
-	}
-
-	public ArrayList<Tag> getTags() {
-		return tags;
-	}
-
-	public void setTags(ArrayList<Tag> tags) {
-		this.tags = tags;
-	}
-
-	public void setId(int id) {
-		this.id = id;
-	}
-
-	public void setCreated_at(Date created_at) {
-		this.created_at = created_at;
-	}
-
-	public void setUvs(ArrayList<Uv> uvs) {
-		this.uvs = uvs;
-	}
-
-	public void setContents(ArrayList<Content> contents) {
-		this.contents = contents;
-	}
 
 	private String name;
 	private int id;
+	private int lastPosition;
 	private Date created_at;
 	private Date modified_at;
 	
 	private ArrayList<Uv> uvs;
 	private ArrayList<Tag> tags;
 	private ArrayList<Content> contents;
+
+	private int lastTitleLevel;
 	
 	/**
 	 * @param uv
@@ -83,6 +54,8 @@ public class Note{
 		this.uvs.add(uv);
 		this.created_at = new Date();
 		this.modified_at = new Date();
+		this.lastPosition = 1;
+		this.setLastTitleLevel(2);
 		this.id = Note.current_id;
 		Note.current_id++;
 		
@@ -141,6 +114,38 @@ public class Note{
 	public void addUv(Uv uv) {
 		this.uvs.add(uv);
 	}
+	
+	public static int getCurrent_id() {
+		return current_id;
+	}
+
+	public static void setCurrent_id(int current_id) {
+		Note.current_id = current_id;
+	}
+
+	public ArrayList<Tag> getTags() {
+		return tags;
+	}
+
+	public void setTags(ArrayList<Tag> tags) {
+		this.tags = tags;
+	}
+
+	public void setId(int id) {
+		this.id = id;
+	}
+
+	public void setCreated_at(Date created_at) {
+		this.created_at = created_at;
+	}
+
+	public void setUvs(ArrayList<Uv> uvs) {
+		this.uvs = uvs;
+	}
+
+	public void setContents(ArrayList<Content> contents) {
+		this.contents = contents;
+	}
 
 	public int save(){
 		this.modified_at = new Date();
@@ -158,10 +163,11 @@ public class Note{
 			for (Content content : contents){
 				int position = content.getPosition();
 				if(position <= c.getPosition())
-					content.setPosition(position += 1);
+					content.setPosition(position++);
 			}
 		}
 		contents.add(c);
+		this.lastPosition++;
 		
 		Collections.sort(contents, new Comparator<Content>(){
 			 
@@ -172,6 +178,14 @@ public class Note{
         });
 	}
 	
+	public int getLastPosition() {
+		return lastPosition;
+	}
+
+	public void setLastPosition(int lastPosition) {
+		this.lastPosition = lastPosition;
+	}
+
 	public String getHTML(){
 		
 		String s = "<html>\n<head>\n<title>" + this.name + "</title>\n";
@@ -190,6 +204,22 @@ public class Note{
 		s+="</div>";
 		s += "\n\t</body>\n</html>";
 		return s;
+	}
+
+	public void setLastTitleLevel(int lastTitleLevel) {
+		this.lastTitleLevel = lastTitleLevel;
+	}
+
+	public int getLastTitleLevel() {
+		return lastTitleLevel;
+	}
+	
+	public void upLastTitleLevel() {
+		this.lastTitleLevel++;
+	}
+	
+	public void downLastTitleLevel() {
+		this.lastTitleLevel--;
 	}
 
 }

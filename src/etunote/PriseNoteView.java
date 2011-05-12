@@ -12,13 +12,18 @@ package etunote;
 
 
 import java.awt.Color;
+import java.awt.Event;
 import java.awt.LayoutManager;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.io.File;
+import java.util.ArrayList;
 
+import javax.swing.GroupLayout.Group;
 import javax.swing.JButton;
 import javax.swing.JFileChooser;
 import javax.swing.JLabel;
@@ -26,6 +31,8 @@ import javax.swing.JMenuItem;
 import javax.swing.JPanel;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
+import javax.swing.LayoutStyle;
+import javax.swing.LayoutStyle.ComponentPlacement;
 import javax.swing.TransferHandler;
 import javax.swing.tree.DefaultTreeModel;
 import javax.swing.tree.TreeModel;
@@ -37,10 +44,15 @@ import javax.swing.JOptionPane;
 public class PriseNoteView extends javax.swing.JFrame implements ActionListener {
 	//TitleSpecificButton Title;
     /** Creates new form PriseNote */
-	javax.swing.GroupLayout jPanel1Layout;
+	
+	Note noteModel;
+	javax.swing.GroupLayout notePanelLayout;
 	JFileChooser fc = new JFileChooser();
 	String file;
-    public PriseNoteView() {
+	
+	
+    public PriseNoteView(Note model) {
+    	this.noteModel = model;
         initComponents();
     }
 
@@ -59,9 +71,8 @@ public class PriseNoteView extends javax.swing.JFrame implements ActionListener 
         jTree1 = new javax.swing.JTree();
         jTabbedPane1 = new javax.swing.JTabbedPane();
         jScrollPane2 = new javax.swing.JScrollPane();
-        jPanel1 = new javax.swing.JPanel();
-        jTextField1 = new javax.swing.JTextField();
-        jTextField2 = new javax.swing.JTextField();
+        notePanel = new javax.swing.JPanel();
+        fields = new ArrayList<JTextField>();
         BlocButton = new javax.swing.JButton();
         ParagraphButton = new javax.swing.JButton();
         TitleButton = new javax.swing.JButton();
@@ -96,54 +107,11 @@ public class PriseNoteView extends javax.swing.JFrame implements ActionListener 
         jScrollPane1.setBackground(new java.awt.Color(0, 102, 102));
         jScrollPane1.setViewportView(jTree1);
 
-        jTextField1.setText("Chapitre");
-        jTextField1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
-        jTextField1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField1ActionPerformed(evt);
-            }
-        });
-
-        jTextField2.setText("Cours");
-        jTextField2.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
-        jTextField2.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField2ActionPerformed(evt);
-            }
-        });
-        jPanel1Layout=new javax.swing.GroupLayout(jPanel1);
-        JTextField jT=new JTextField();
-        //javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(68, 68, 68)
-                        .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 459, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(28, 28, 28)
-                        .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, 459, javax.swing.GroupLayout.PREFERRED_SIZE)))
-   
-                  .addContainerGap(476, Short.MAX_VALUE))
-           
-                
-        );
         
+        //SHOW THE CONTENT OF THE NOTE
+        notePanel = updateNoteContent();
         
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(17, 17, 17)
-                .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(448, 448, 448))
-               
-        );
-
-        jScrollPane2.setViewportView(jPanel1);
+        jScrollPane2.setViewportView(notePanel);
 
         jTabbedPane1.addTab("Note de Cours", jScrollPane2);
         
@@ -403,7 +371,7 @@ public class PriseNoteView extends javax.swing.JFrame implements ActionListener 
                 .addContainerGap())
         );
 
-        //this.jPanel1.add(jtextfield);
+        //this.notePanel.add(jtextfield);
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
@@ -442,29 +410,23 @@ public class PriseNoteView extends javax.swing.JFrame implements ActionListener 
 
     private void TitleButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_TitleButtonActionPerformed
         // TODO add your handling code here:
-    	System.out.print("ca marche ");
-    	jPanel1.add(new JTextField(50));
-    	jPanel1.revalidate();
-    	jPanel1.repaint();
-    	System.out.print(jPanel1.countComponents());
+    	System.out.println("Ajout d'un titre");
+    	Title title = new Title(this.noteModel.getLastPosition() + 1, this.noteModel.getLastTitleLevel());
+    	this.noteModel.addContent(title);
+    	notePanel = updateNoteContent();
     	
     }//GEN-LAST:event_TitleButtonActionPerformed
 
     private void ParagraphButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ParagraphButtonActionPerformed
-        // TODO add your handling code here:
+    	System.out.println("Ajout d'un paragraph");
+    	Paragraph p = new Paragraph(this.noteModel.getLastPosition() + 1);
+    	this.noteModel.addContent(p);
+    	notePanel = updateNoteContent();
     }//GEN-LAST:event_ParagraphButtonActionPerformed
 
     private void BlocButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BlocButtonActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_BlocButtonActionPerformed
-
-    private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField1ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField1ActionPerformed
-
-    private void jTextField2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField2ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField2ActionPerformed
 
     private void OpenItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField2ActionPerformed
         // TODO add your handling code here:
@@ -523,17 +485,6 @@ public class PriseNoteView extends javax.swing.JFrame implements ActionListener 
      * @param args the command line arguments
      */
     
-    public static void main(String args[]) {
-        java.awt.EventQueue.invokeLater(new Runnable() {
-
-            public void run() {
-                //new PriseNoteView().setVisible(true);
-            	new DisplayNoteView().setVisible(true);
-
-            }
-        });
-    }
-    
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton BlocButton;
     private javax.swing.JButton CodeButton;
@@ -558,18 +509,168 @@ public class PriseNoteView extends javax.swing.JFrame implements ActionListener 
     private javax.swing.JMenuItem jMenuItem7;
     private javax.swing.JMenuItem jMenuItem8;
     private javax.swing.JMenuItem jMenuItem9;
-    private javax.swing.JPanel jPanel1;
+    private javax.swing.JPanel notePanel;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JTabbedPane jTabbedPane1;
-    private javax.swing.JTextField jTextField1;
-    private javax.swing.JTextField jTextField2;
     private javax.swing.JTree jTree1;
     // End of variables declaration//GEN-END:variables
+    
+    private ArrayList<JTextField> fields;
+    
+    
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		// TODO Auto-generated method stub
+		
+	}
+	
+	public JPanel updateNoteContent(){
+		notePanel.removeAll();
+        notePanelLayout=new javax.swing.GroupLayout(notePanel);
+        //javax.swing.GroupLayout notePanelLayout = new javax.swing.GroupLayout(notePanel);
+        notePanel.setLayout(notePanelLayout);
+        notePanelLayout.setAutoCreateGaps(true);
+
+        Group parallelGroup = notePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING);
+        Group verticalGroup = notePanelLayout.createSequentialGroup();
+        
+        
+        
+        for (final Content c : this.noteModel.getContents()){
+        	if(c instanceof Title){
+        		final JTextField f = new JTextField();
+        		f.setText(((Title) c).getName());
+        		f.addKeyListener(new KeyListener() {
+					
+					@Override
+					public void keyTyped(KeyEvent arg0) {
+						// TODO Auto-generated method stub
+						
+					}
+					
+					@Override
+					public void keyReleased(KeyEvent arg0) {
+						saveTitle(f, (Title) c);
+						
+					}
+					
+					@Override
+					public void keyPressed(KeyEvent arg0) {
+						// TODO Auto-generated method stub
+						
+					}
+				});
+        		if(((Title) c).getLevel() == 1){
+                    parallelGroup.addGroup(notePanelLayout.createSequentialGroup()
+                    	.addGap(5, 5, 5)
+                    	.addComponent(f, javax.swing.GroupLayout.PREFERRED_SIZE, 600, javax.swing.GroupLayout.PREFERRED_SIZE));
+                    	
+              	
+                    verticalGroup.addGroup(notePanelLayout.createParallelGroup()
+                    	.addGap(20, 20, 20)
+                    	.addComponent(f, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE));
+        		}
+        		else{
+        		JButton levelDown = new JButton("<");
+        		levelDown.addActionListener(new java.awt.event.ActionListener() {
+                    public void actionPerformed(java.awt.event.ActionEvent evt) {
+                    	downTitleLevel((Title) c);
+                        
+                    }
+                });
+        		
+        		JButton levelUp = new JButton(">");
+        		levelUp.addActionListener(new java.awt.event.ActionListener() {
+                    public void actionPerformed(java.awt.event.ActionEvent evt) {
+                        upTitleLevel((Title) c);
+                    }
+                });
+                f.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+                int indent = ((Title) c).getLevel() * 20;
+                parallelGroup.addGroup(notePanelLayout.createSequentialGroup()
+                	.addGap(indent, indent, indent)
+                	.addComponent(levelDown)
+                	.addComponent(f, javax.swing.GroupLayout.PREFERRED_SIZE, 400, javax.swing.GroupLayout.PREFERRED_SIZE)
+                	.addComponent(levelUp));
+                	
+          	
+                verticalGroup.addGroup(notePanelLayout.createParallelGroup()
+                	.addGap(20, 20, 20)
+                	.addComponent(levelDown)
+                	.addComponent(f, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
+                	.addComponent(levelUp));
+                
+        		}   	
+        	}
+        	
+        	else if(c instanceof Paragraph){
+        		final JTextArea textArea = new JTextArea();
+        		textArea.setText(((Paragraph) c).getText());
+        		textArea.addKeyListener(new KeyListener() {
+					
+					@Override
+					public void keyTyped(KeyEvent arg0) {
+						// TODO Auto-generated method stub
+						
+					}
+					
+					@Override
+					public void keyReleased(KeyEvent arg0) {
+						saveParagraph(textArea, (Paragraph) c);
+						
+					}
+					
+					@Override
+					public void keyPressed(KeyEvent arg0) {
+						// TODO Auto-generated method stub
+						
+					}
+				});
+//        		textArea.firePropertyChange(arg0, arg1, arg2);
+        		textArea.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+                parallelGroup.addGroup(notePanelLayout.createSequentialGroup()
+                	.addGap(10, 10, 10)
+                	.addComponent(textArea, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE)
+                	.addGap(10, 10, 10));
+                	
+          	
+                verticalGroup.addGroup(notePanelLayout.createSequentialGroup()
+                	.addGap(20, 20, 20)
+                	.addComponent(textArea, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE));
+                	
+        	}
+        }
+        
+        
+        notePanelLayout.setHorizontalGroup(parallelGroup);
+        notePanelLayout.setVerticalGroup(verticalGroup);
+        
+		return notePanel;
+
+	}
+
+	protected void saveParagraph(JTextArea textArea, Paragraph p) {
+		p.setText(textArea.getText());
+		
+	}
+
+	protected void saveTitle(JTextField f, Title t) {
+		t.setName(f.getText());
+	}
+
+	protected void downTitleLevel(Title c) {
+		c.levelDown();
+		this.noteModel.downLastTitleLevel();
+        notePanel = updateNoteContent();
+		
+	}
+	
+	protected void upTitleLevel(Title c) {
+		c.levelUp();
+		this.noteModel.upLastTitleLevel();
+        notePanel = updateNoteContent();
 		
 	}
 }

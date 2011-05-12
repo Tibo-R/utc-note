@@ -20,11 +20,21 @@ public class Title extends Content {
 	public Title(int position, int level) {
 		super(position);
 		this.level = level;
-		this.name = "Nouveau titre " + level;
+		this.name = "Nouveau titre " + (level - 1);
 	}
 	
 	public void setLevel(int level) {
 		this.level = level;
+	}
+	
+	public void levelUp(){
+		if (this.level < 6)
+			this.level++;
+	}
+	
+	public void levelDown(){
+		if (this.level > 2)
+			this.level--;
 	}
 
 	public void setName(String name) {

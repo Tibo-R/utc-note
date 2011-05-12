@@ -32,15 +32,6 @@ public class EtuNote {
 		ListNotes.add(note2);
 		
 		
-		//		
-		// try {
-		// System.out.println(note1.getHTML());
-		// } catch (BadLocationException e) {
-		// TODO Auto-generated catch block
-		// e.printStackTrace();
-		// }
-
-		// Title t = new Title(1);
 		Title t2 = new Title(2, 2);
 		Paragraph p = new Paragraph(2);
 		p.addClass("class1");
@@ -50,28 +41,15 @@ public class EtuNote {
 		note1.addContent(p);
 		note1.addContent(t2);
 		System.out.println(note1.getHTML());
-
-
-
-		/*Persistance per = new Persistance();
-		per.SaveNote(note1, "coucou");
-		Persistance per1 = new Persistance();
-		per1.SaveNote(note1);
-		Persistance per2 = new Persistance();
-		per2.LoadNote("titi");*/
 		
 		
-		
-		Persistance2 pe = new Persistance2();
+		Persistance pe = new Persistance();
 		pe.SerialisationNote(note1);
-		
-		Persistance2 pe1 = new Persistance2();
 		pe.SerialisationNotes(ListNotes);
 		
-		/*Persistance pe = new Persistance();
 		Note note = pe.DeserialisationNote();
 		ArrayList<Note> notes = pe.DeserialisationNotes();
-		pe.SerialisationNote(note, "tutu");
-		pe.SerialisationNotes(notes, "tutus");*/
+		pe.SerialisationNote(note, "savenote");
+		pe.SerialisationNotes(notes, "savenotes");
     }
 }

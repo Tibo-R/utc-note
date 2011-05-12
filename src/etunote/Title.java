@@ -23,6 +23,14 @@ public class Title extends Content {
 		this.name = "Nouveau titre " + level;
 	}
 	
+	public void setLevel(int level) {
+		this.level = level;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
 	public String getHTML(){
 		return "<h" + level + ">" + this.name + "</h" + level + ">";
 	}

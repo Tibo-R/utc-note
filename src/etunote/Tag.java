@@ -13,6 +13,22 @@ public class Tag {
 		this.name = name;
 		Tag.tags.add(this);
 	}
+
+	public static ArrayList<Tag> getTags() {
+		return tags;
+	}
+
+	public static void setTags(ArrayList<Tag> tags) {
+		Tag.tags = tags;
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
 	
 	
 	

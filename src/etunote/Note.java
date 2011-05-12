@@ -20,6 +20,38 @@ import javax.swing.text.html.HTMLEditorKit;
 public class Note{
 	static int current_id = 0;
 	
+	public static int getCurrent_id() {
+		return current_id;
+	}
+
+	public static void setCurrent_id(int current_id) {
+		Note.current_id = current_id;
+	}
+
+	public ArrayList<Tag> getTags() {
+		return tags;
+	}
+
+	public void setTags(ArrayList<Tag> tags) {
+		this.tags = tags;
+	}
+
+	public void setId(int id) {
+		this.id = id;
+	}
+
+	public void setCreated_at(Date created_at) {
+		this.created_at = created_at;
+	}
+
+	public void setUvs(ArrayList<Uv> uvs) {
+		this.uvs = uvs;
+	}
+
+	public void setContents(ArrayList<Content> contents) {
+		this.contents = contents;
+	}
+
 	private String name;
 	private int id;
 	private Date created_at;

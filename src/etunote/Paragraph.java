@@ -13,6 +13,10 @@ public class Paragraph extends Content {
 		this.text = "Votre texte ici...";
 	}
 
+	public void setClasses(ArrayList<String> classes) {
+		this.classes = classes;
+	}
+
 	public String getText() {
 		return text;
 	}

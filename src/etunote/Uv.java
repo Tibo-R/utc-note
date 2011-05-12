@@ -17,6 +17,38 @@ public class Uv {
 		this.color = "#FFF";
 	}
 	
+	public ArrayList<Semester> getSemesters() {
+		return semesters;
+	}
+
+	public void setSemesters(ArrayList<Semester> semesters) {
+		this.semesters = semesters;
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public String getColor() {
+		return color;
+	}
+
+	public void setColor(String color) {
+		this.color = color;
+	}
+
+	public String getType() {
+		return Type;
+	}
+
+	public void setType(String type) {
+		Type = type;
+	}
+
 	public Uv(String name, Semester sem, String color) {
 		super();
 		this.name = name;

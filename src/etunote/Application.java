@@ -18,4 +18,8 @@ public class Application {
 		this.semestres = semestres;
 	}
 	
+	public boolean isEmpty(){
+		return (semestres.isEmpty());
+	}
+	
 }

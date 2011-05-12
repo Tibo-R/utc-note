@@ -1,6 +1,7 @@
 package etunote;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 
 public class Application {
 	
@@ -16,6 +17,21 @@ public class Application {
 
 	public void setSemestres(ArrayList<Semester> semestres) {
 		this.semestres = semestres;
+	}
+	
+	public boolean addSemester(Semester s){
+		return(semestres.add(s));
+	}
+	
+	public Semester getSemester(String n){
+		Iterator it = semestres.iterator();
+		while(it.hasNext()) {
+		    Semester s = (Semester) it.next(); 
+		    if(n.equals(s.getName())){
+		    	return s;
+		    }
+		}
+		return null;
 	}
 	
 	public boolean isEmpty(){

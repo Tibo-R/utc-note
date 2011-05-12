@@ -92,13 +92,12 @@ public class AddSemesterView extends javax.swing.JFrame {
     }//GEN-LAST:event_NameSemesterTextFieldActionPerformed
 
     
-    private ArrayList<String> AddSemesterButtonActionPerformed(java.awt.event.ActionEvent evt)
+    private void AddSemesterButtonActionPerformed(java.awt.event.ActionEvent evt)
     {
-    	ArrayList<String> Al=new ArrayList<String>();
-    	Al.add(NameSemesterTextField.getText());
+    	Semester sem = new Semester(NameSemesterTextField.getText());
+    	System.out.println("Semestre " + sem + " ajouté.");
     	this.setVisible(false);
-    	//Model.addElelement("ArrayList<String>")
-		return Al;
+    	
     }
     
     private void CancelSemesterButtonActionPerformed(java.awt.event.ActionEvent evt)

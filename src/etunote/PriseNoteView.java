@@ -409,7 +409,7 @@ public class PriseNoteView extends javax.swing.JFrame implements ActionListener 
 
     private void ImageButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ImageButtonActionPerformed
         // TODO add your handling code here:
-    	new CreateImageView().setVisible(true);
+    	new AddImageView().setVisible(true);
     }//GEN-LAST:event_ImageButtonActionPerformed
 
     private void CodeButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CodeButtonActionPerformed
@@ -527,8 +527,8 @@ public class PriseNoteView extends javax.swing.JFrame implements ActionListener 
         java.awt.EventQueue.invokeLater(new Runnable() {
 
             public void run() {
-                new PriseNoteView().setVisible(true);
-            	//new DisplayNoteView().setVisible(true);
+                //new PriseNoteView().setVisible(true);
+            	new DisplayNoteView().setVisible(true);
 
             }
         });

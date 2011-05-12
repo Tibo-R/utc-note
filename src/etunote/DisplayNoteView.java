@@ -169,7 +169,7 @@ public class DisplayNoteView extends javax.swing.JFrame {
 
     private void AddUVActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AddUVActionPerformed
         // TODO add your handling code here:
-    	new CreateUvView().setVisible(true);
+    	new AddUvView().setVisible(true);
     }//GEN-LAST:event_AddUVActionPerformed
 
     private void ViewByDateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ViewByDateActionPerformed

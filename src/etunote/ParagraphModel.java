@@ -2,7 +2,7 @@ package etunote;
 
 import java.util.ArrayList;
 
-public class ParagraphModel extends ContentModel {
+public class ParagraphModel extends Content {
 
 	private String text;
 	private ArrayList<String> classes;

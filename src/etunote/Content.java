@@ -4,11 +4,11 @@
 package etunote;
 
 
-public abstract class ContentModel implements Comparable{
+public abstract class Content implements Comparable{
 
 	private int position;
 
-	public ContentModel(int position) {
+	public Content(int position) {
 		super();
 		this.position = position;
 	}
@@ -16,10 +16,10 @@ public abstract class ContentModel implements Comparable{
 	public final int compareTo(Object cont)
 	{
 		int result = 0;
-		if(cont instanceof ContentModel){
-			if (this.position > ((ContentModel)cont).position)
+		if(cont instanceof Content){
+			if (this.position > ((Content)cont).position)
 				result = 1;
-			if (this.position < ((ContentModel)cont).position)
+			if (this.position < ((Content)cont).position)
 				result = -1;
 		}
 

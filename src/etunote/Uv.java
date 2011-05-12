@@ -2,26 +2,26 @@ package etunote;
 
 import java.util.ArrayList;
 
-public class UvModel {
+public class Uv {
 	
-	private ArrayList<SemesterModel> semesters;
+	private ArrayList<Semester> semesters;
 	private String name;
 	private String color;
 	private String Type;
 	
-	public UvModel(String name, SemesterModel sem) {
+	public Uv(String name, Semester sem) {
 		super();
 		this.name = name;
-		this.semesters = new ArrayList<SemesterModel>();
+		this.semesters = new ArrayList<Semester>();
 		this.semesters.add(sem);
 		this.color = "#FFF";
 	}
 	
-	public ArrayList<SemesterModel> getSemesters() {
+	public ArrayList<Semester> getSemesters() {
 		return semesters;
 	}
 
-	public void setSemesters(ArrayList<SemesterModel> semesters) {
+	public void setSemesters(ArrayList<Semester> semesters) {
 		this.semesters = semesters;
 	}
 
@@ -49,10 +49,10 @@ public class UvModel {
 		Type = type;
 	}
 
-	public UvModel(String name, SemesterModel sem, String color) {
+	public Uv(String name, Semester sem, String color) {
 		super();
 		this.name = name;
-		this.semesters = new ArrayList<SemesterModel>();
+		this.semesters = new ArrayList<Semester>();
 		this.semesters.add(sem);
 		this.color = color;
 	}

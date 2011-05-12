@@ -13,6 +13,7 @@ public class Start {
 		}
 		public static void init() {
 			DisplayNoteView ds=new DisplayNoteView();
+			ds.setVisible(true);
 		}
 		
 

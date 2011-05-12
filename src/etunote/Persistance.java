@@ -26,11 +26,11 @@ public class Persistance {
 		documentSave = new Document(racine);
 	}
 
-	public void SaveNote(NoteModel n){
+	public void SaveNote(Note n){
 		SaveNote(n, "save");
 	}
 
-	public void SaveNote(NoteModel n, String f){
+	public void SaveNote(Note n, String f){
 		// Cr�ation d'un nouvel Element note que l'on ajoute en tant qu'Element de racine
 		Element note = new Element("note");
 		racine.addContent(note);		
@@ -58,14 +58,14 @@ public class Persistance {
 		// Parcours du contenu de la note
 		Element contenu = null;
 		while (iter.hasNext()){
-			ContentModel c = (ContentModel) iter.next();
-			if (c instanceof TitleModel){
+			Content c = (Content) iter.next();
+			if (c instanceof Title){
 				contenu = new Element("title");
-				Attribute level = new Attribute("level", String.valueOf(((TitleModel) c).getLevel()));
+				Attribute level = new Attribute("level", String.valueOf(((Title) c).getLevel()));
 				contenu.setAttribute(level);
-				Attribute position = new Attribute("position", String.valueOf(((TitleModel) c).getPosition()));
+				Attribute position = new Attribute("position", String.valueOf(((Title) c).getPosition()));
 				contenu.setAttribute(position);
-				contenu.setText(((TitleModel) c).getName());
+				contenu.setText(((Title) c).getName());
 				note.addContent(contenu);
 			}
 			else{
@@ -80,11 +80,11 @@ public class Persistance {
 		save(f+".xml");	
 	}
 
-	public void SaveListNote(ArrayList<NoteModel> an){
+	public void SaveListNote(ArrayList<Note> an){
 		SaveListNote(an, "save");
 	}
 
-	public void SaveListNote(ArrayList<NoteModel> an, String f){
+	public void SaveListNote(ArrayList<Note> an, String f){
 
 	}
 

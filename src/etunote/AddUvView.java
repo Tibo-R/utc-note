@@ -18,11 +18,11 @@ import java.util.ArrayList;
  *
  * @author mbayemoh
  */
-public class CreateUvView extends javax.swing.JFrame {
+public class AddUvView extends javax.swing.JFrame {
 	
 	
     /** Creates new form CreateUV */
-    public CreateUvView() {
+    public AddUvView() {
         initComponents();
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
     }
@@ -113,13 +113,11 @@ public class CreateUvView extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_jComboBox1ActionPerformed
     
-    private ArrayList<String> ValidateCreateUVActionPerformed(java.awt.event.ActionEvent evt)
+    private void ValidateCreateUVActionPerformed(java.awt.event.ActionEvent evt)
     {
-    	ArrayList<String> tabInformation=new ArrayList<String>();
-    	tabInformation.add(NameCourseField.getText());
-    	tabInformation.add((String) jComboBox1.getSelectedItem());
+    	Uv uv = new Uv(NameCourseField.getText(), new Semester("t"), (String)jComboBox1.getSelectedItem());
+    	System.out.println("Uv " + uv + " ajoutée.");
     	this.setVisible(false);
-		return tabInformation;
     }
     /**
      * @param args the command line arguments
@@ -128,7 +126,7 @@ public class CreateUvView extends javax.swing.JFrame {
         java.awt.EventQueue.invokeLater(new Runnable() {
 
             public void run() {
-                new CreateUvView().setVisible(true);
+                new AddUvView().setVisible(true);
             }
         });
     }

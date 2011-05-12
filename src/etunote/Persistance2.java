@@ -14,13 +14,13 @@ import com.thoughtworks.xstream.io.xml.DomDriver;
 
 public class Persistance2 {
 	
-	private ArrayList<NoteModel> notes;
+	private ArrayList<Note> notes;
 
-	public void SerialisationNote(NoteModel n) {
+	public void SerialisationNote(Note n) {
 		SerialisationNote(n, "note");		
 	}
 
-	public void SerialisationNote(NoteModel n, String f) {
+	public void SerialisationNote(Note n, String f) {
 
 		try {
 			// Instanciation de la classe XStream
@@ -44,11 +44,11 @@ public class Persistance2 {
 		}
 	}
 	
-	public void SerialisationNotes(ArrayList<NoteModel> ln) {
+	public void SerialisationNotes(ArrayList<Note> ln) {
 		SerialisationNotes(ln, "notes");
 	}
 
-	public void SerialisationNotes(ArrayList<NoteModel> ln, String f) {
+	public void SerialisationNotes(ArrayList<Note> ln, String f) {
 		try {
 			// Instanciation de la classe XStream
 			XStream xstream = new XStream(new DomDriver());
@@ -72,19 +72,19 @@ public class Persistance2 {
 
 	}
 	
-	public NoteModel DeserialisationNote(){
-		NoteModel note = DeserialisationNote("note");
+	public Note DeserialisationNote(){
+		Note note = DeserialisationNote("note");
 		return note;
 	}
 
-	public NoteModel DeserialisationNote(String f){
-		NoteModel note = null;
+	public Note DeserialisationNote(String f){
+		Note note = null;
 		try {
 			XStream xstream = new XStream(new DomDriver());
 			FileInputStream fis = new FileInputStream(new File(f+".xml"));
 			try {
 				// D�s�rialisation du fichier article.xml
-				note = (NoteModel) xstream.fromXML(fis);
+				note = (Note) xstream.fromXML(fis);
 
 				// Affichage sur la console du contenu de l'attribut note
 				System.out.println(note);
@@ -102,19 +102,19 @@ public class Persistance2 {
 		return note;
 	}
 	
-	public ArrayList<NoteModel> DeserialisationNotes(){
-		ArrayList<NoteModel> notes = DeserialisationNotes("notes");
+	public ArrayList<Note> DeserialisationNotes(){
+		ArrayList<Note> notes = DeserialisationNotes("notes");
 		return notes;
 	}
 	
-	public ArrayList<NoteModel> DeserialisationNotes(String f){
-		ArrayList<NoteModel> notes = null;
+	public ArrayList<Note> DeserialisationNotes(String f){
+		ArrayList<Note> notes = null;
 		try {
 			XStream xstream = new XStream(new DomDriver());
 			FileInputStream fis = new FileInputStream(new File(f+".xml"));
 			try {
 				// D�s�rialisation du fichier article.xml
-				notes = (ArrayList<NoteModel>) xstream.fromXML(fis);
+				notes = (ArrayList<Note>) xstream.fromXML(fis);
 
 				// Affichage sur la console du contenu de l'attribut note
 				//System.out.println(note);

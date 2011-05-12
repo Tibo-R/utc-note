@@ -13,8 +13,15 @@ import com.thoughtworks.xstream.io.xml.DomDriver;
 
 
 public class Persistance {
-	
+
+	@SuppressWarnings("unused")
 	private ArrayList<Note> notes;
+	@SuppressWarnings("unused")
+	private ArrayList<Semester> semesters;
+
+	/* DŽbut sŽrialisation et desŽrialisation de note(s) */
+
+	// SŽrialisation
 
 	public void SerialisationNote(Note n) {
 		SerialisationNote(n, "note");		
@@ -25,12 +32,12 @@ public class Persistance {
 		try {
 			// Instanciation de la classe XStream
 			XStream xstream = new XStream(new DomDriver());
-			// Instanciation d'un fichier c:/temp/article.xml
+			// Instanciation d'un fichier xml
 			File fichier = new File(f+".xml");
 			// Instanciation d'un flux de sortie fichier
 			FileOutputStream fos = new FileOutputStream(fichier);
 			try {
-				// Sï¿½rialisation de l'objet article dans article.xml
+				// Sï¿½rialisation de l'objet dans le fichier xml
 				xstream.toXML(n, fos);
 			} finally {
 				// On s'assure de fermer le flux quoi qu'il arrive
@@ -43,24 +50,19 @@ public class Persistance {
 			ioe.printStackTrace();
 		}
 	}
-	
+
 	public void SerialisationNotes(ArrayList<Note> ln) {
 		SerialisationNotes(ln, "notes");
 	}
 
 	public void SerialisationNotes(ArrayList<Note> ln, String f) {
 		try {
-			// Instanciation de la classe XStream
 			XStream xstream = new XStream(new DomDriver());
-			// Instanciation d'un fichier c:/temp/article.xml
 			File fichier = new File(f+".xml");
-			// Instanciation d'un flux de sortie fichier
 			FileOutputStream fos = new FileOutputStream(fichier);
 			try {
-				// Sï¿½rialisation de l'objet article dans article.xml
 				xstream.toXML(ln, fos);
 			} finally {
-				// On s'assure de fermer le flux quoi qu'il arrive
 				fos.close();
 			}
 
@@ -69,9 +71,10 @@ public class Persistance {
 		} catch (IOException ioe) {
 			ioe.printStackTrace();
 		}
-
 	}
-	
+
+	// DesŽrialisation	
+
 	public Note DeserialisationNote(){
 		Note note = DeserialisationNote("note");
 		return note;
@@ -83,11 +86,8 @@ public class Persistance {
 			XStream xstream = new XStream(new DomDriver());
 			FileInputStream fis = new FileInputStream(new File(f+".xml"));
 			try {
-				// Dï¿½sï¿½rialisation du fichier article.xml
+				// Dï¿½sï¿½rialisation du fichier xml
 				note = (Note) xstream.fromXML(fis);
-
-				// Affichage sur la console du contenu de l'attribut note
-				System.out.println(note);
 
 			} finally {
 				// On s'assure de fermer le flux quoi qu'il arrive
@@ -99,28 +99,24 @@ public class Persistance {
 		} catch (IOException ioe) {
 			ioe.printStackTrace();
 		}
+		// On renvoie l'objet rŽgŽnŽrŽ
 		return note;
 	}
-	
+
 	public ArrayList<Note> DeserialisationNotes(){
 		ArrayList<Note> notes = DeserialisationNotes("notes");
 		return notes;
 	}
-	
+
+	@SuppressWarnings("unchecked")
 	public ArrayList<Note> DeserialisationNotes(String f){
 		ArrayList<Note> notes = null;
 		try {
 			XStream xstream = new XStream(new DomDriver());
 			FileInputStream fis = new FileInputStream(new File(f+".xml"));
 			try {
-				// Dï¿½sï¿½rialisation du fichier article.xml
 				notes = (ArrayList<Note>) xstream.fromXML(fis);
-
-				// Affichage sur la console du contenu de l'attribut note
-				//System.out.println(note);
-
 			} finally {
-				// On s'assure de fermer le flux quoi qu'il arrive
 				fis.close();
 			}
 
@@ -129,9 +125,112 @@ public class Persistance {
 		} catch (IOException ioe) {
 			ioe.printStackTrace();
 		}
-		
 		return notes;
 	}
 
+	/* Fin sŽrialisation et desŽrialisation de note(s) */
 
+	/*************************************************************************/
+
+	/* DŽbut sŽrialisation et desŽrialisation de semestre(s) */
+
+	// SŽrialisation
+
+	public void SerialisationSemester(Semester s) {
+		SerialisationSemester(s, "smester");		
+	}
+
+	public void SerialisationSemester(Semester s, String f) {
+
+		try {
+			XStream xstream = new XStream(new DomDriver());
+			File fichier = new File(f+".xml");
+			FileOutputStream fos = new FileOutputStream(fichier);
+			try {
+				xstream.toXML(s, fos);
+			} finally {
+				fos.close();
+			}
+
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		} catch (IOException ioe) {
+			ioe.printStackTrace();
+		}
+	}
+
+	public void SerialisationSemesters(ArrayList<Note> ls) {
+		SerialisationSemesters(ls, "smester");		
+	}
+
+	public void SerialisationSemesters(ArrayList<Note> ls, String f) {
+
+		try {
+			XStream xstream = new XStream(new DomDriver());
+			File fichier = new File(f+".xml");
+			FileOutputStream fos = new FileOutputStream(fichier);
+			try {
+				xstream.toXML(ls, fos);
+			} finally {
+				fos.close();
+			}
+
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		} catch (IOException ioe) {
+			ioe.printStackTrace();
+		}
+	}
+
+	// DesŽrialisation
+
+	public Semester DeserialisationSemester(){
+		Semester semester = DeserialisationSemester("semester");
+		return semester;
+	}
+
+	public Semester DeserialisationSemester(String f){
+		Semester semester = null;
+		try {
+			XStream xstream = new XStream(new DomDriver());
+			FileInputStream fis = new FileInputStream(new File(f+".xml"));
+			try {
+				semester = (Semester) xstream.fromXML(fis);
+			} finally {
+				fis.close();
+			}
+
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		} catch (IOException ioe) {
+			ioe.printStackTrace();
+		}
+		return semester;
+	}
+
+	public ArrayList<Semester> DeserialisationSemesters(){
+		ArrayList<Semester> semesters = DeserialisationSemesters("semester");
+		return semesters;
+	}
+
+	@SuppressWarnings("unchecked")
+	public ArrayList<Semester> DeserialisationSemesters(String f){
+		ArrayList<Semester> semesters = null;
+		try {
+			XStream xstream = new XStream(new DomDriver());
+			FileInputStream fis = new FileInputStream(new File(f+".xml"));
+			try {
+				semesters = (ArrayList<Semester>) xstream.fromXML(fis);
+			} finally {
+				fis.close();
+			}
+
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		} catch (IOException ioe) {
+			ioe.printStackTrace();
+		}
+
+		return semesters;
+	}
 }

@@ -1,140 +1,137 @@
 package etunote;
 
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
+import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.List;
 
-import org.jdom.Attribute;
-import org.jdom.Document;
-import org.jdom.Element;
-import org.jdom.input.SAXBuilder;
-import org.jdom.output.Format;
-import org.jdom.output.XMLOutputter;
+import com.thoughtworks.xstream.XStream;
+import com.thoughtworks.xstream.io.xml.DomDriver;
+
+
 
 public class Persistance {
+	
+	private ArrayList<Note> notes;
 
-	// D�but de l'arborescence en cr�ant la racine XML "etunote"
-	private Element racine;
-	// Cr�ation d'un nouveau Document JDOM bas� sur la racine "etunote"
-	private static org.jdom.Document documentSave;
-	private static org.jdom.Document documentLoad;
-
-	public Persistance(){
-		racine = new Element("etunote");
-		documentSave = new Document(racine);
+	public void SerialisationNote(Note n) {
+		SerialisationNote(n, "note");		
 	}
 
-	public void SaveNote(Note n){
-		SaveNote(n, "save");
-	}
+	public void SerialisationNote(Note n, String f) {
 
-	public void SaveNote(Note n, String f){
-		// Cr�ation d'un nouvel Element note que l'on ajoute en tant qu'Element de racine
-		Element note = new Element("note");
-		racine.addContent(note);		
-
-		// Cr�ation d'un nouvel Attribut classe que l'on ajoute � note
-		// gr�ce � la m�thode setAttribute
-		Attribute name = new Attribute("name", n.getName());
-		note.setAttribute(name);
-
-		Attribute id = new Attribute("id", String.valueOf(n.getId()));
-		note.setAttribute(id);
-
-		Attribute created_at = new Attribute("created_at", String.valueOf(n.getCreated_at()));
-		note.setAttribute(created_at);
-
-		Attribute modified_at = new Attribute("modified_at", String.valueOf(n.getModified_at()));
-		note.setAttribute(modified_at);
-
-		// Cr�ation des contenus
-		// R�cup�ration de la listes contenus + it�rateur
-		ArrayList contenus = n.getContents() ;
-		System.out.println(contenus);
-		Iterator iter = contenus.iterator() ;
-
-		// Parcours du contenu de la note
-		Element contenu = null;
-		while (iter.hasNext()){
-			Content c = (Content) iter.next();
-			if (c instanceof Title){
-				contenu = new Element("title");
-				Attribute level = new Attribute("level", String.valueOf(((Title) c).getLevel()));
-				contenu.setAttribute(level);
-				Attribute position = new Attribute("position", String.valueOf(((Title) c).getPosition()));
-				contenu.setAttribute(position);
-				contenu.setText(((Title) c).getName());
-				note.addContent(contenu);
+		try {
+			// Instanciation de la classe XStream
+			XStream xstream = new XStream(new DomDriver());
+			// Instanciation d'un fichier c:/temp/article.xml
+			File fichier = new File(f+".xml");
+			// Instanciation d'un flux de sortie fichier
+			FileOutputStream fos = new FileOutputStream(fichier);
+			try {
+				// S�rialisation de l'objet article dans article.xml
+				xstream.toXML(n, fos);
+			} finally {
+				// On s'assure de fermer le flux quoi qu'il arrive
+				fos.close();
 			}
-			else{
-				contenu = new Element("paragraph");
-				Attribute position = new Attribute("position", String.valueOf(((ParagraphModel) c).getPosition()));
-				contenu.setAttribute(position);
-				contenu.setText(((ParagraphModel) c).getText());
-				note.addContent(contenu);
-			}
+
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		} catch (IOException ioe) {
+			ioe.printStackTrace();
 		}
-
-		save(f+".xml");	
-	}
-
-	public void SaveListNote(ArrayList<Note> an){
-		SaveListNote(an, "save");
-	}
-
-	public void SaveListNote(ArrayList<Note> an, String f){
-
-	}
-
-	public void LoadNote(){
-		LoadNote("titi");
 	}
 	
-	public void LoadNote(String f){
-		//On cr�e une instance de SAXBuilder
-	      SAXBuilder sxb = new SAXBuilder();
-	      try {
-	         //On cr�e un nouveau document JDOM avec en argument le fichier XML
-	         documentLoad = sxb.build(new File(f+".xml"));
-	      }
-	      catch(Exception e){}
-
-	      //On initialise un nouvel �l�ment racine avec l'�l�ment racine du document.
-	      racine = documentLoad.getRootElement();
-	      
-	      
-	      // On cr�e une Liste contenant tous les noeuds "note" de l'Element racine
-	      List listNotes = racine.getChildren("note");
-
-	      System.out.println("\n\n\nAffichage de");
-	      //On cr�e un Iterator sur notre liste
-	      Iterator it = listNotes.iterator();
-	      while(it.hasNext()) {
-	         //On recr�e l'Element courant � chaque tour de boucle afin de
-	         //pouvoir utiliser les m�thodes propres aux Element comme :
-	         //selectionner un noeud fils, modifier du texte, etc...
-	         Element courant = (Element)it.next();
-	         //On affiche le nom de l'element courant
-	         System.out.println(courant.getChild("title").getText());
-	      }
+	public void SerialisationNotes(ArrayList<Note> ln) {
+		SerialisationNotes(ln, "notes");
 	}
 
-	public void LoadListNote(String f){
-
-	}
-
-
-	static void save(String fichier) {
+	public void SerialisationNotes(ArrayList<Note> ln, String f) {
 		try {
-			//On utilise ici un affichage classique avec getPrettyFormat()
-			XMLOutputter sortie = new XMLOutputter(Format.getPrettyFormat());
-			//Remarquez qu'il suffit simplement de cr�er une instance de FileOutputStream
-			//avec en argument le nom du fichier pour effectuer la s�rialisation.
-			sortie.output(documentSave, new FileOutputStream(fichier));
+			// Instanciation de la classe XStream
+			XStream xstream = new XStream(new DomDriver());
+			// Instanciation d'un fichier c:/temp/article.xml
+			File fichier = new File(f+".xml");
+			// Instanciation d'un flux de sortie fichier
+			FileOutputStream fos = new FileOutputStream(fichier);
+			try {
+				// S�rialisation de l'objet article dans article.xml
+				xstream.toXML(ln, fos);
+			} finally {
+				// On s'assure de fermer le flux quoi qu'il arrive
+				fos.close();
+			}
+
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		} catch (IOException ioe) {
+			ioe.printStackTrace();
 		}
-		catch (java.io.IOException e){}
+
 	}
+	
+	public Note DeserialisationNote(){
+		Note note = DeserialisationNote("note");
+		return note;
+	}
+
+	public Note DeserialisationNote(String f){
+		Note note = null;
+		try {
+			XStream xstream = new XStream(new DomDriver());
+			FileInputStream fis = new FileInputStream(new File(f+".xml"));
+			try {
+				// D�s�rialisation du fichier article.xml
+				note = (Note) xstream.fromXML(fis);
+
+				// Affichage sur la console du contenu de l'attribut note
+				System.out.println(note);
+
+			} finally {
+				// On s'assure de fermer le flux quoi qu'il arrive
+				fis.close();
+			}
+
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		} catch (IOException ioe) {
+			ioe.printStackTrace();
+		}
+		return note;
+	}
+	
+	public ArrayList<Note> DeserialisationNotes(){
+		ArrayList<Note> notes = DeserialisationNotes("notes");
+		return notes;
+	}
+	
+	public ArrayList<Note> DeserialisationNotes(String f){
+		ArrayList<Note> notes = null;
+		try {
+			XStream xstream = new XStream(new DomDriver());
+			FileInputStream fis = new FileInputStream(new File(f+".xml"));
+			try {
+				// D�s�rialisation du fichier article.xml
+				notes = (ArrayList<Note>) xstream.fromXML(fis);
+
+				// Affichage sur la console du contenu de l'attribut note
+				//System.out.println(note);
+
+			} finally {
+				// On s'assure de fermer le flux quoi qu'il arrive
+				fis.close();
+			}
+
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		} catch (IOException ioe) {
+			ioe.printStackTrace();
+		}
+		
+		return notes;
+	}
+
 
 }

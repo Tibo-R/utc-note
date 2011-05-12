@@ -68,10 +68,10 @@ public class EtuNote {
 //		Persistance2 pe1 = new Persistance2();
 //		pe.SerialisationNotes(ListNotes);
 		
-		Persistance2 pe = new Persistance2();
+		/*Persistance pe = new Persistance();
 		Note note = pe.DeserialisationNote();
 		ArrayList<Note> notes = pe.DeserialisationNotes();
 		pe.SerialisationNote(note, "tutu");
-		pe.SerialisationNotes(notes, "tutus");
+		pe.SerialisationNotes(notes, "tutus");*/
     }
 }

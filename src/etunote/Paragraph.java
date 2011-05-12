@@ -2,12 +2,12 @@ package etunote;
 
 import java.util.ArrayList;
 
-public class ParagraphModel extends Content {
+public class Paragraph extends Content {
 
 	private String text;
 	private ArrayList<String> classes;
 	
-	public ParagraphModel(int position) {
+	public Paragraph(int position) {
 		super(position);
 		this.classes = new ArrayList<String>();
 		this.text = "Votre texte ici...";

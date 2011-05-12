@@ -70,9 +70,9 @@ public class OldPersistance {
 			}
 			else{
 				contenu = new Element("paragraph");
-				Attribute position = new Attribute("position", String.valueOf(((ParagraphModel) c).getPosition()));
+				Attribute position = new Attribute("position", String.valueOf(((Paragraph) c).getPosition()));
 				contenu.setAttribute(position);
-				contenu.setText(((ParagraphModel) c).getText());
+				contenu.setText(((Paragraph) c).getText());
 				note.addContent(contenu);
 			}
 		}

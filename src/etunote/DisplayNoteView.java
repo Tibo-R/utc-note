@@ -29,8 +29,6 @@ public class DisplayNoteView extends javax.swing.JFrame {
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
-        //bindingGroup = new org.jdesktop.beansbinding.BindingGroup();
-    	this.setTitle("Affichage des notes");
 
         SearchButton = new javax.swing.JButton();
         RechercheField = new javax.swing.JTextField();
@@ -38,7 +36,7 @@ public class DisplayNoteView extends javax.swing.JFrame {
         jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         AddSemesterButton = new javax.swing.JButton();
-        AddUV = new javax.swing.JButton();
+        PanScrollPaneUV = new javax.swing.JScrollPane();
         ViewByDate = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -54,7 +52,7 @@ public class DisplayNoteView extends javax.swing.JFrame {
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 1, 14));
         jLabel1.setForeground(new java.awt.Color(0, 0, 153));
-        jLabel1.setText("SEMESTRE");
+        jLabel1.setText("SEMESTRES");
 
         AddSemesterButton.setFont(new java.awt.Font("Tahoma", 1, 14));
         AddSemesterButton.setForeground(new java.awt.Color(0, 0, 204));
@@ -65,47 +63,32 @@ public class DisplayNoteView extends javax.swing.JFrame {
             }
         });
 
-        AddUV.setFont(new java.awt.Font("Tahoma", 1, 24));
-        AddUV.setForeground(new java.awt.Color(0, 102, 204));
-        AddUV.setText("+");
-
-        //org.jdesktop.beansbinding.Binding binding = org.jdesktop.beansbinding.Bindings.createAutoBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, AddUV, org.jdesktop.beansbinding.ELProperty.create("${background.green}"), AddUV, org.jdesktop.beansbinding.BeanProperty.create("background"));
-        //bindingGroup.addBinding(binding);
-
-        AddUV.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                AddUVActionPerformed(evt);
-            }
-        });
-
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(19, 19, 19)
-                .addComponent(jLabel1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 977, Short.MAX_VALUE)
-                .addComponent(AddSemesterButton, javax.swing.GroupLayout.PREFERRED_SIZE, 54, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(20, 20, 20))
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(AddUV, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(1010, Short.MAX_VALUE))
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(19, 19, 19)
+                        .addComponent(jLabel1)
+                        .addGap(18, 18, 18)
+                        .addComponent(AddSemesterButton, javax.swing.GroupLayout.PREFERRED_SIZE, 54, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(PanScrollPaneUV, javax.swing.GroupLayout.DEFAULT_SIZE, 883, Short.MAX_VALUE)))
+                .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(31, 31, 31)
-                        .addComponent(jLabel1)
-                        .addGap(18, 18, 18)
-                        .addComponent(AddUV, javax.swing.GroupLayout.PREFERRED_SIZE, 64, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(AddSemesterButton)))
-                .addContainerGap(756, Short.MAX_VALUE))
+                .addGap(31, 31, 31)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel1)
+                    .addComponent(AddSemesterButton))
+                .addGap(18, 18, 18)
+                .addComponent(PanScrollPaneUV, javax.swing.GroupLayout.DEFAULT_SIZE, 577, Short.MAX_VALUE)
+                .addContainerGap())
         );
 
         jTabbedPane1.addTab("NOTE", jPanel1);
@@ -126,7 +109,7 @@ public class DisplayNoteView extends javax.swing.JFrame {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jTabbedPane1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 1151, Short.MAX_VALUE)
+                    .addComponent(jTabbedPane1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 908, Short.MAX_VALUE)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(ViewByDate, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -144,14 +127,11 @@ public class DisplayNoteView extends javax.swing.JFrame {
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(RechercheField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(ViewByDate)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 911, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 690, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
         jTabbedPane1.getAccessibleContext().setAccessibleName("NOTE");
-
-       // bindingGroup.bind();
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -162,15 +142,9 @@ public class DisplayNoteView extends javax.swing.JFrame {
 
     private void AddSemesterButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AddSemesterButtonActionPerformed
         // TODO add your handling code here:
-    	AddSemesterView addse=new AddSemesterView();
-    	addse.setVisible(true);
-    	//new AddSemester().setVisible(true);
+    	new AddSemesterView().setVisible(true);
+    	
     }//GEN-LAST:event_AddSemesterButtonActionPerformed
-
-    private void AddUVActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AddUVActionPerformed
-        // TODO add your handling code here:
-    	new AddUvView().setVisible(true);
-    }//GEN-LAST:event_AddUVActionPerformed
 
     private void ViewByDateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ViewByDateActionPerformed
         // TODO add your handling code here:
@@ -189,13 +163,12 @@ public class DisplayNoteView extends javax.swing.JFrame {
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton AddSemesterButton;
-    private javax.swing.JButton AddUV;
+    private javax.swing.JScrollPane PanScrollPaneUV;
     private javax.swing.JTextField RechercheField;
     private javax.swing.JButton SearchButton;
     private javax.swing.JButton ViewByDate;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JTabbedPane jTabbedPane1;
-    //private org.jdesktop.beansbinding.BindingGroup bindingGroup;
     // End of variables declaration//GEN-END:variables
 }

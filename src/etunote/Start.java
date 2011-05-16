@@ -12,11 +12,13 @@ public class Start {
 			init();
 		}
 		public static void init() {
-//			DisplayNoteView ds=new DisplayNoteView();
-//			ds.setVisible(true);
+
+			
+			Application app = new Application();
 			
 			Semester sem1 = new Semester("P11");
-			Uv uv1 = new Uv("NF28", sem1);
+			app.addSemester(sem1);
+			Uv uv1 = new Uv("NF28", sem1, "Vert");
 			Note note = new Note("Cours 1", uv1);
 			
 			Title t2 = new Title(2, 2);
@@ -29,9 +31,10 @@ public class Start {
 //			System.out.println(note.getHTML());
 			
 			
-			
-			PriseNoteView ps=new PriseNoteView(note);
-			ps.setVisible(true);
+			DisplayNoteView ds=new DisplayNoteView(app);
+			ds.setVisible(true);
+//			PriseNoteView ps=new PriseNoteView(note);
+//			ps.setVisible(true);
 		}
 
 }

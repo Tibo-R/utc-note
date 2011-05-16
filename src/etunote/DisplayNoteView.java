@@ -10,14 +10,37 @@
  */
 package etunote;
 
+import java.awt.Color;
+import java.awt.Component;
+import java.awt.Graphics;
+import java.awt.Insets;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
+
+import javax.swing.BorderFactory;
+import javax.swing.GroupLayout;
+import javax.swing.JButton;
+import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.JTextArea;
+import javax.swing.JTextField;
+import javax.swing.GroupLayout.Group;
+import javax.swing.border.Border;
+import javax.swing.border.TitledBorder;
+
 /**
  *
  * @author mbayemoh
  */
 public class DisplayNoteView extends javax.swing.JFrame {
+	
+	
 
     /** Creates new form DisplayNote */
-    public DisplayNoteView() {
+    public DisplayNoteView(Application app) {
+    	this.appModel = app;
         initComponents();
     }
 
@@ -36,7 +59,7 @@ public class DisplayNoteView extends javax.swing.JFrame {
         jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         AddSemesterButton = new javax.swing.JButton();
-        PanScrollPaneUV = new javax.swing.JScrollPane();
+        uvPanel = new javax.swing.JPanel();
         ViewByDate = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -76,7 +99,7 @@ public class DisplayNoteView extends javax.swing.JFrame {
                         .addComponent(AddSemesterButton, javax.swing.GroupLayout.PREFERRED_SIZE, 54, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addContainerGap()
-                        .addComponent(PanScrollPaneUV, javax.swing.GroupLayout.DEFAULT_SIZE, 883, Short.MAX_VALUE)))
+                        .addComponent(uvPanel, javax.swing.GroupLayout.DEFAULT_SIZE, 883, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
@@ -87,11 +110,11 @@ public class DisplayNoteView extends javax.swing.JFrame {
                     .addComponent(jLabel1)
                     .addComponent(AddSemesterButton))
                 .addGap(18, 18, 18)
-                .addComponent(PanScrollPaneUV, javax.swing.GroupLayout.DEFAULT_SIZE, 577, Short.MAX_VALUE)
+                .addComponent(uvPanel, javax.swing.GroupLayout.DEFAULT_SIZE, 577, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
-        jTabbedPane1.addTab("NOTE", jPanel1);
+        jTabbedPane1.addTab("NOTES", jPanel1);
 
         ViewByDate.setForeground(new java.awt.Color(0, 0, 204));
         ViewByDate.setText("Vue par date");
@@ -132,7 +155,7 @@ public class DisplayNoteView extends javax.swing.JFrame {
         );
 
         jTabbedPane1.getAccessibleContext().setAccessibleName("NOTE");
-
+        uvPanel = updateAppContent();
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
@@ -142,28 +165,29 @@ public class DisplayNoteView extends javax.swing.JFrame {
 
     private void AddSemesterButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AddSemesterButtonActionPerformed
         // TODO add your handling code here:
-    	new AddSemesterView().setVisible(true);
+    	new AddSemesterView(this).setVisible(true);
+    	
+    }//GEN-LAST:event_AddSemesterButtonActionPerformed
+    
+    private void AddUvButtonActionPerformed(Semester s) {//GEN-FIRST:event_AddSemesterButtonActionPerformed
+        // TODO add your handling code here:
+    	new AddUvView(s, this).setVisible(true);
     	
     }//GEN-LAST:event_AddSemesterButtonActionPerformed
 
-    private void ViewByDateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ViewByDateActionPerformed
+    public Application getAppModel() {
+		return appModel;
+	}
+
+	private void ViewByDateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ViewByDateActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_ViewByDateActionPerformed
 
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        java.awt.EventQueue.invokeLater(new Runnable() {
-
-            public void run() {
-                new DisplayNoteView().setVisible(true);
-            }
-        });
-    }
+    
+    private Application appModel;
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton AddSemesterButton;
-    private javax.swing.JScrollPane PanScrollPaneUV;
+    private javax.swing.JPanel uvPanel;
     private javax.swing.JTextField RechercheField;
     private javax.swing.JButton SearchButton;
     private javax.swing.JButton ViewByDate;
@@ -171,4 +195,89 @@ public class DisplayNoteView extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JTabbedPane jTabbedPane1;
     // End of variables declaration//GEN-END:variables
+    
+    public JPanel updateAppContent(){
+    	uvPanel.removeAll();
+    	GroupLayout uvPanelLayout;
+    	uvPanelLayout=new javax.swing.GroupLayout(uvPanel);
+        //javax.swing.GroupLayout notePanelLayout = new javax.swing.GroupLayout(notePanel);
+    	uvPanel.setLayout(uvPanelLayout);
+    	uvPanelLayout.setAutoCreateGaps(true);
+
+        
+    	Group parallelGroup = uvPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING);
+        Group verticalGroup = uvPanelLayout.createSequentialGroup();
+        
+        
+        for (final Semester s : this.appModel.getSemesters()){
+        	
+        	JPanel semesterPan = new JPanel();
+        	semesterPan.setName(s.getName());
+        	TitledBorder title;
+        	title = BorderFactory.createTitledBorder(s.getName());
+        	semesterPan.setBorder(title);
+        	
+        	GroupLayout semPanelLayout;
+        	semPanelLayout = new javax.swing.GroupLayout(semesterPan);
+        	semesterPan.setLayout(semPanelLayout);
+        	semPanelLayout.setAutoCreateGaps(true);
+        	
+        	Group semParallelGroup = semPanelLayout.createSequentialGroup();
+            Group semVerticalGroup = semPanelLayout.createParallelGroup();
+            
+        	for (Uv uv : s.getUvs()){
+        		JButton uvButton = new JButton(uv.getName());
+        		uvButton.setBackground(uv.getColorCode());
+        		//uvButton.setBackground(Color.YELLOW);
+        		semParallelGroup.addGroup(semPanelLayout.createParallelGroup()
+                	.addGap(10, 10, 10)
+                	.addComponent(uvButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE)
+                	.addGap(10, 10, 10));
+                	
+          	
+        		semVerticalGroup.addGroup(semPanelLayout.createParallelGroup()
+                	.addGap(20, 20, 20)
+                	.addComponent(uvButton, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE));
+        	}
+        	
+        	JButton plusButton = new JButton(" + ");
+        	plusButton.addActionListener(new java.awt.event.ActionListener() {
+                public void actionPerformed(java.awt.event.ActionEvent evt) {
+                    AddUvButtonActionPerformed(s);
+                }
+            });
+    		semParallelGroup.addGroup(semPanelLayout.createParallelGroup()
+            	.addGap(10, 10, 10)
+            	.addComponent(plusButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE)
+            	.addGap(10, 10, 10));
+            	
+      	
+    		semVerticalGroup.addGroup(semPanelLayout.createParallelGroup()
+            	.addGap(20, 20, 20)
+            	.addComponent(plusButton, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE));
+        	
+        	
+        	semPanelLayout.setHorizontalGroup(semParallelGroup);
+        	semPanelLayout.setVerticalGroup(semVerticalGroup);
+        	
+            parallelGroup.addGroup(uvPanelLayout.createSequentialGroup()
+                	.addGap(10, 10, 10)
+                	.addComponent(semesterPan, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE)
+                	.addGap(10, 10, 10));
+                	
+          	
+            verticalGroup.addGroup(uvPanelLayout.createSequentialGroup()
+                	.addGap(20, 20, 20)
+                	.addComponent(semesterPan, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE));
+            	
+            uvPanel.add(semesterPan);
+        }
+        
+        uvPanelLayout.setHorizontalGroup(parallelGroup);
+        uvPanelLayout.setVerticalGroup(verticalGroup);
+        
+    	
+		return uvPanel;
+    	
+    }
 }

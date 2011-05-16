@@ -5,26 +5,26 @@ import java.util.Iterator;
 
 public class Application {
 	
-	private ArrayList<Semester> semestres;
+	private ArrayList<Semester> semesters;
 	
 	public Application(){
-		semestres = new ArrayList<Semester>();
+		semesters = new ArrayList<Semester>();
 	}
 
-	public ArrayList<Semester> getSemestres() {
-		return semestres;
+	public ArrayList<Semester> getSemesters() {
+		return semesters;
 	}
 
-	public void setSemestres(ArrayList<Semester> semestres) {
-		this.semestres = semestres;
+	public void setSemesters(ArrayList<Semester> semesters) {
+		this.semesters = semesters;
 	}
 	
 	public boolean addSemester(Semester s){
-		return(semestres.add(s));
+		return(semesters.add(s));
 	}
 	
 	public Semester getSemester(String n){
-		Iterator it = semestres.iterator();
+		Iterator it = semesters.iterator();
 		while(it.hasNext()) {
 		    Semester s = (Semester) it.next(); 
 		    if(n.equals(s.getName())){
@@ -35,7 +35,7 @@ public class Application {
 	}
 	
 	public boolean isEmpty(){
-		return (semestres.isEmpty());
+		return (semesters.isEmpty());
 	}
 	
 }

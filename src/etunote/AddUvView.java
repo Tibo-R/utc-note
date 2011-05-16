@@ -1,5 +1,6 @@
 package etunote;
 
+import java.awt.Color;
 import java.util.ArrayList;
 
 /*
@@ -20,9 +21,13 @@ import java.util.ArrayList;
  */
 public class AddUvView extends javax.swing.JFrame {
 	
-	
-    /** Creates new form CreateUV */
-    public AddUvView() {
+	private DisplayNoteView  parent;
+	private Semester  semester;
+    /** Creates new form CreateUV 
+     * @param displayNoteView */
+    public AddUvView(Semester semester, DisplayNoteView displayNoteView) {
+    	this.semester = semester;
+    	this.parent = displayNoteView;
         initComponents();
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
     }
@@ -56,7 +61,7 @@ public class AddUvView extends javax.swing.JFrame {
             }
         });
 
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Bleu", "Rouge", "Vert", "Rose", "Jaune", "Violet", "Orange", "Gris" }));
+        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Noir", "Bleu", "Cyan", "Gris foncé", "Gris", "Vert", "Gris clair", "Magenta", "Orange", "Rose", "Rouge", "Blanc", "Jaune" } ));
         jComboBox1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jComboBox1ActionPerformed(evt);
@@ -115,21 +120,12 @@ public class AddUvView extends javax.swing.JFrame {
     
     private void ValidateCreateUVActionPerformed(java.awt.event.ActionEvent evt)
     {
-    	Uv uv = new Uv(NameCourseField.getText(), new Semester("t"), (String)jComboBox1.getSelectedItem());
+    	Uv uv = new Uv(NameCourseField.getText(), this.semester, (String)jComboBox1.getSelectedItem());
     	System.out.println("Uv " + uv + " ajoutée.");
+    	this.parent.updateAppContent();
     	this.setVisible(false);
     }
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        java.awt.EventQueue.invokeLater(new Runnable() {
 
-            public void run() {
-                new AddUvView().setVisible(true);
-            }
-        });
-    }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTextField NameCourseField;
     private javax.swing.JButton ValidateCreateUV;

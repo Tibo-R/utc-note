@@ -19,8 +19,11 @@ import java.util.ArrayList;
  */
 public class AddSemesterView extends javax.swing.JFrame {
 
-    /** Creates new form AddSemester */
-    public AddSemesterView() {
+	private DisplayNoteView  parent;
+    /** Creates new form AddSemester 
+     * @param displayNoteView */
+    public AddSemesterView(DisplayNoteView displayNoteView) {
+    	this.parent = displayNoteView;
         initComponents();
     }
 
@@ -95,8 +98,11 @@ public class AddSemesterView extends javax.swing.JFrame {
     private void AddSemesterButtonActionPerformed(java.awt.event.ActionEvent evt)
     {
     	Semester sem = new Semester(NameSemesterTextField.getText());
+    	this.parent.getAppModel().addSemester(sem);
     	System.out.println("Semestre " + sem + " ajouté.");
+    	this.parent.updateAppContent();
     	this.setVisible(false);
+    	
     	
     }
     
@@ -104,16 +110,7 @@ public class AddSemesterView extends javax.swing.JFrame {
     {
     	this.setVisible(false);
     }
-    /**
-    * @param args the command line arguments
-    */
-    public static void main(String args[]) {
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new AddSemesterView().setVisible(true);
-            }
-        });
-    }
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton AddSemesterButton;

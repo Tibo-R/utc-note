@@ -3,5 +3,5 @@ package etunote;
 import etunote.DisplayNoteView;
 
 public class Main {
-	DisplayNoteView ds=new DisplayNoteView();
+//	DisplayNoteView ds=new DisplayNoteView();
 }

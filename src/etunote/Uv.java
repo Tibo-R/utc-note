@@ -1,6 +1,8 @@
 package etunote;
 
+import java.awt.Color;
 import java.util.ArrayList;
+import java.util.Hashtable;
 
 public class Uv {
 	
@@ -15,6 +17,17 @@ public class Uv {
 		this.semesters = new ArrayList<Semester>();
 		this.semesters.add(sem);
 		this.color = "#FFF";
+		
+		sem.getUvs().add(this);
+	}
+	
+	public Uv(String name, Semester sem, String color) {
+		super();
+		this.name = name;
+		this.semesters = new ArrayList<Semester>();
+		this.semesters.add(sem);
+		this.color = color;
+		sem.getUvs().add(this);
 	}
 	
 	public ArrayList<Semester> getSemesters() {
@@ -49,17 +62,13 @@ public class Uv {
 		Type = type;
 	}
 
-	public Uv(String name, Semester sem, String color) {
-		super();
-		this.name = name;
-		this.semesters = new ArrayList<Semester>();
-		this.semesters.add(sem);
-		this.color = color;
-	}
-	
 	@Override
 	public String toString() {
 		return name;
+	}
+	
+	public Color getColorCode() {
+		return Tools.getColor(color);
 	}
 
 }

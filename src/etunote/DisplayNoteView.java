@@ -225,10 +225,15 @@ public class DisplayNoteView extends javax.swing.JFrame {
         	Group semParallelGroup = semPanelLayout.createSequentialGroup();
             Group semVerticalGroup = semPanelLayout.createParallelGroup();
             
-        	for (Uv uv : s.getUvs()){
+        	for (final Uv uv : s.getUvs()){
         		JButton uvButton = new JButton(uv.getName());
         		uvButton.setBackground(uv.getColorCode());
-        		//uvButton.setBackground(Color.YELLOW);
+        		uvButton.addActionListener(new java.awt.event.ActionListener() {
+                    public void actionPerformed(java.awt.event.ActionEvent evt) {
+                        showUv(uv);
+                    }
+                });
+        		
         		semParallelGroup.addGroup(semPanelLayout.createParallelGroup()
                 	.addGap(10, 10, 10)
                 	.addComponent(uvButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE)
@@ -280,4 +285,11 @@ public class DisplayNoteView extends javax.swing.JFrame {
 		return uvPanel;
     	
     }
+
+	protected void showUv(Uv uv) {
+		this.setVisible(false);
+		UvView uvv = new UvView(uv);
+		uvv.setVisible(true);
+		
+	}
 }

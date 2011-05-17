@@ -7,24 +7,26 @@ import java.util.Hashtable;
 public class Uv {
 	
 	private ArrayList<Semester> semesters;
+	private ArrayList<Note> notes;
+
 	private String name;
 	private String color;
 	private String Type;
 	
 	public Uv(String name, Semester sem) {
 		super();
-		this.name = name;
-		this.semesters = new ArrayList<Semester>();
-		this.semesters.add(sem);
-		this.color = "#FFF";
-		
-		sem.getUvs().add(this);
+		init(name, sem, "");
 	}
 	
 	public Uv(String name, Semester sem, String color) {
 		super();
+		init(name, sem, color);
+	}
+	
+	private void init(String name, Semester sem, String color){
 		this.name = name;
 		this.semesters = new ArrayList<Semester>();
+		this.notes = new ArrayList<Note>();
 		this.semesters.add(sem);
 		this.color = color;
 		sem.getUvs().add(this);
@@ -69,6 +71,14 @@ public class Uv {
 	
 	public Color getColorCode() {
 		return Tools.getColor(color);
+	}
+	
+	public ArrayList<Note> getNotes() {
+		return notes;
+	}
+
+	public void setNotes(ArrayList<Note> notes) {
+		this.notes = notes;
 	}
 
 }

@@ -1,5 +1,6 @@
 package etunote;
 
+import java.awt.Color;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
@@ -25,6 +26,7 @@ public class Note{
 	private int lastPosition;
 	private Date created_at;
 	private Date modified_at;
+	private String color;
 	
 	private ArrayList<Uv> uvs;
 	private ArrayList<Tag> tags;
@@ -36,7 +38,7 @@ public class Note{
 	 * @param uv
 	 */
 	public Note(Uv uv){
-		this.init("Nouvelle Note", uv);
+		this.init("Nouvelle Note", uv, "");
 	}
 	
 	/**
@@ -44,11 +46,16 @@ public class Note{
 	 * @param uv
 	 */
 	public Note(String name, Uv uv){
-		this.init(name, uv);
+		this.init(name, uv, "");
 	}
 	
-	public void init(String name, Uv uv){
+	public Note(String name, Uv uv, String color){
+		this.init(name, uv, color);
+	}
+	
+	public void init(String name, Uv uv, String color){
 		this.name = name;
+		this.color = color;
 		this.uvs = new ArrayList<Uv>();
 		this.contents = new ArrayList<Content>();
 		this.uvs.add(uv);
@@ -62,9 +69,19 @@ public class Note{
 		Title t = new Title(0, name);
 		this.contents.add(t);
 		
+		uv.getNotes().add(this);
+		
 		
 	}
 	
+
+	public String getColor() {
+		return color;
+	}
+
+	public void setColor(String color) {
+		this.color = color;
+	}
 
 	@Override
 	public String toString() {
@@ -220,6 +237,10 @@ public class Note{
 	
 	public void downLastTitleLevel() {
 		this.lastTitleLevel--;
+	}
+	
+	public Color getColorCode() {
+		return Tools.getColor(color);
 	}
 
 }

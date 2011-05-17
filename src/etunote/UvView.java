@@ -4,20 +4,28 @@
  */
 
 /*
- * NoteView.java
+ * UvView.java
  *
  * Created on 17 mai 2011, 16:48:28
  */
 package etunote;
 
+import javax.swing.BorderFactory;
+import javax.swing.GroupLayout;
+import javax.swing.JButton;
+import javax.swing.JPanel;
+import javax.swing.GroupLayout.Group;
+import javax.swing.border.TitledBorder;
+
 /**
  *
  * @author mbayemoh
  */
-public class NoteView extends javax.swing.JFrame {
+public class UvView extends javax.swing.JFrame {
 
-    /** Creates new form NoteView */
-    public NoteView() {
+    /** Creates new form UvView */
+    public UvView(Uv uvModel) {
+    	this.uvModel = uvModel;
         initComponents();
     }
 
@@ -44,6 +52,7 @@ public class NoteView extends javax.swing.JFrame {
         CutItem = new javax.swing.JMenuItem();
         CopyItem = new javax.swing.JMenuItem();
         DeleteItem = new javax.swing.JMenuItem();
+        uvPanel =  new javax.swing.JPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -137,19 +146,21 @@ public class NoteView extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jTabbedPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 568, Short.MAX_VALUE)
+                .addComponent(uvPanel, javax.swing.GroupLayout.DEFAULT_SIZE, 568, Short.MAX_VALUE)
                 .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jTabbedPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 295, Short.MAX_VALUE)
+                .addComponent(uvPanel, javax.swing.GroupLayout.DEFAULT_SIZE, 295, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
-        jTabbedPane1.getAccessibleContext().setAccessibleName("NOTES");
-
+        //jTabbedPane1.getAccessibleContext().setAccessibleName("NOTES");
+        
+        //jTabbedPane1.add(uvPanel);
+        uvPanel = updateAppContent();
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
@@ -188,18 +199,22 @@ public class NoteView extends javax.swing.JFrame {
     private void DeleteItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_DeleteItemActionPerformed
         // TODO add your handling code here:
 }//GEN-LAST:event_DeleteItemActionPerformed
+    
+    private void AddNoteButtonActionPerformed() {//GEN-FIRST:event_AddSemesterButtonActionPerformed
+        // TODO add your handling code here:
+    	new AddNoteView(this).setVisible(true);
+    	
+    }//GEN-LAST:event_AddSemesterButtonActionPerformed
 
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        java.awt.EventQueue.invokeLater(new Runnable() {
+    public Uv getUvModel() {
+		return uvModel;
+	}
 
-            public void run() {
-                new NoteView().setVisible(true);
-            }
-        });
-    }
+	public void setUvModel(Uv uvModel) {
+		this.uvModel = uvModel;
+	}
+
+	private Uv uvModel;
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenuItem CopyItem;
     private javax.swing.JMenuItem CutItem;
@@ -215,5 +230,71 @@ public class NoteView extends javax.swing.JFrame {
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTabbedPane jTabbedPane1;
+    private javax.swing.JPanel uvPanel;
     // End of variables declaration//GEN-END:variables
+    
+    public JPanel updateAppContent(){
+    	uvPanel.removeAll();
+    	GroupLayout uvPanelLayout;
+    	uvPanelLayout=new javax.swing.GroupLayout(uvPanel);
+        //javax.swing.GroupLayout notePanelLayout = new javax.swing.GroupLayout(notePanel);
+    	uvPanel.setLayout(uvPanelLayout);
+    	uvPanelLayout.setAutoCreateGaps(true);
+
+        
+    	Group parallelGroup = uvPanelLayout.createSequentialGroup();
+        Group verticalGroup = uvPanelLayout.createParallelGroup();
+        
+        
+        for (final Note note : this.uvModel.getNotes()){
+            
+    		JButton uvButton = new JButton(note.getName());
+    		uvButton.setBackground(note.getColorCode());
+    		uvButton.addActionListener(new java.awt.event.ActionListener() {
+                public void actionPerformed(java.awt.event.ActionEvent evt) {
+                    showNote(note);
+                }
+            });
+    		parallelGroup.addGroup(uvPanelLayout.createParallelGroup()
+            	.addGap(10, 10, 10)
+            	.addComponent(uvButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE)
+            	.addGap(10, 10, 10));
+            	
+      	
+    		verticalGroup.addGroup(uvPanelLayout.createParallelGroup()
+            	.addGap(20, 20, 20)
+            	.addComponent(uvButton, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE));
+        }
+        	
+        	JButton plusButton = new JButton(" + ");
+        	plusButton.addActionListener(new java.awt.event.ActionListener() {
+                public void actionPerformed(java.awt.event.ActionEvent evt) {
+                    AddNoteButtonActionPerformed();
+                }
+            });
+        	parallelGroup.addGroup(uvPanelLayout.createParallelGroup()
+            	.addGap(10, 10, 10)
+            	.addComponent(plusButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE)
+            	.addGap(10, 10, 10));
+            	
+      	
+        	verticalGroup.addGroup(uvPanelLayout.createParallelGroup()
+            	.addGap(20, 20, 20)
+            	.addComponent(plusButton, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE));
+        	
+        	
+        uvPanelLayout.setHorizontalGroup(parallelGroup);
+        uvPanelLayout.setVerticalGroup(verticalGroup);
+        
+    	
+		return uvPanel;
+    	
+    }
+
+	protected void showNote(Note note) {
+		this.setVisible(false);
+		PriseNoteView pn = new PriseNoteView(note);
+		pn.setVisible(true);
+		
+	}
 }

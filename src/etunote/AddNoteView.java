@@ -16,8 +16,12 @@ package etunote;
  */
 public class AddNoteView extends javax.swing.JFrame {
 
-    /** Creates new form AddNoteView */
-    public AddNoteView() {
+	private UvView  parent;
+	
+    /** Creates new form AddNoteView 
+     * @param uvView */
+    public AddNoteView(UvView uvView) {
+    	this.parent = uvView;
         initComponents();
     }
 
@@ -34,6 +38,9 @@ public class AddNoteView extends javax.swing.JFrame {
         NoteNameTextfield = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
         NoteColorComboBox = new javax.swing.JComboBox();
+        
+        AddNoteButton = new javax.swing.JButton();
+        CancelNoteButton = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -43,10 +50,25 @@ public class AddNoteView extends javax.swing.JFrame {
         jLabel2.setForeground(new java.awt.Color(0, 0, 153));
         jLabel2.setText("Couleur de la note");
 
-        NoteColorComboBox.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Bleu", "Rouge", "Vert", "Rose", "Jaune", "Violet", "Orange", "Gris" }));
+        NoteColorComboBox.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Noir", "Bleu", "Cyan", "Gris foncé", "Gris", "Vert", "Gris clair", "Magenta", "Orange", "Rose", "Rouge", "Blanc", "Jaune" }));
         NoteColorComboBox.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 NoteColorComboBoxActionPerformed(evt);
+            }
+        });
+        
+        AddNoteButton.setForeground(new java.awt.Color(0, 51, 204));
+        AddNoteButton.setText("Ajouter");
+        AddNoteButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+            	AddNoteButtonActionPerformed(evt);
+            }
+        });
+        CancelNoteButton.setForeground(new java.awt.Color(0, 51, 204));
+        CancelNoteButton.setText("Annuler");
+        CancelNoteButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+            	CancelNoteButtonActionPerformed(evt);
             }
         });
 
@@ -87,18 +109,25 @@ public class AddNoteView extends javax.swing.JFrame {
         // TODO add your handling code here:
 }//GEN-LAST:event_NoteColorComboBoxActionPerformed
 
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        java.awt.EventQueue.invokeLater(new Runnable() {
-
-            public void run() {
-                new AddNoteView().setVisible(true);
-            }
-        });
+    
+    private void AddNoteButtonActionPerformed(java.awt.event.ActionEvent evt)
+    {
+    	Note note = new Note(NoteNameTextfield.getText(), this.parent.getUvModel(), (String)NoteColorComboBox.getSelectedItem());
+    	System.out.println("Semestre " + note + " ajouté.");
+    	this.parent.updateAppContent();
+    	this.setVisible(false);
+    	
+    	
     }
+    
+    private void CancelNoteButtonActionPerformed(java.awt.event.ActionEvent evt)
+    {
+    	this.setVisible(false);
+    }
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton AddNoteButton;
+    private javax.swing.JButton CancelNoteButton;
     private javax.swing.JComboBox NoteColorComboBox;
     private javax.swing.JTextField NoteNameTextfield;
     private javax.swing.JLabel jLabel1;

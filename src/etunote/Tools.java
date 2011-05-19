@@ -4,6 +4,9 @@ import java.awt.Color;
 import java.util.ArrayList;
 import java.util.Hashtable;
 
+import javax.swing.ImageIcon;
+import javax.swing.JButton;
+
 public class Tools {
 	
 	private static Hashtable<String,Color> colors = new Hashtable<String,Color>();
@@ -34,6 +37,19 @@ public class Tools {
 		}
 		return colors.get(color);
 			
+	}
+	
+	public static void addIcon(JButton button, String icon){
+		button.setIcon(new ImageIcon(Tools.getPathToIcons(icon)));
+		button.setOpaque(false);
+		button.setFocusPainted(false);
+		button.setBorderPainted(false);
+		button.setContentAreaFilled(false);
+		button.setBorder(null);
+	}
+	
+	public static String getPathToIcons(String icon){
+		return  "data/icon/" + icon;
 	}
 
 

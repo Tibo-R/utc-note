@@ -12,10 +12,14 @@ package etunote;
 
 
 import java.awt.Color;
+import java.awt.Component;
 import java.awt.Event;
+import java.awt.Graphics;
 import java.awt.LayoutManager;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.FocusEvent;
+import java.awt.event.FocusListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.event.MouseAdapter;
@@ -24,16 +28,25 @@ import java.io.File;
 import java.util.ArrayList;
 
 import javax.swing.GroupLayout.Group;
+import javax.swing.Action;
+import javax.swing.Icon;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
+import javax.swing.JComponent;
+import javax.swing.JEditorPane;
 import javax.swing.JFileChooser;
 import javax.swing.JLabel;
 import javax.swing.JMenuItem;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
+import javax.swing.JTextPane;
 import javax.swing.LayoutStyle;
 import javax.swing.LayoutStyle.ComponentPlacement;
+import javax.swing.SwingUtilities;
 import javax.swing.TransferHandler;
+import javax.swing.text.html.HTMLEditorKit;
 import javax.swing.tree.DefaultTreeModel;
 import javax.swing.tree.TreeModel;
 import javax.swing.JOptionPane;
@@ -96,6 +109,7 @@ public class PriseNoteView extends javax.swing.JFrame implements ActionListener 
         JMenuItem CutItem = new javax.swing.JMenuItem();
         JMenuItem CopyItem = new javax.swing.JMenuItem();
         JMenuItem DeleteItem = new javax.swing.JMenuItem();
+        
         
 
 
@@ -174,8 +188,7 @@ public class PriseNoteView extends javax.swing.JFrame implements ActionListener 
         });
 
         GrasButton.setFont(new java.awt.Font("Times New Roman", 0, 14));
-        GrasButton.setText("G");
-        GrasButton.setBackground(Color.yellow);
+		GrasButton.setIcon(new ImageIcon(Tools.getPathToIcons("format-text-bold.png")));
         GrasButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 GrasButtonActionPerformed(evt);
@@ -183,8 +196,7 @@ public class PriseNoteView extends javax.swing.JFrame implements ActionListener 
         });
 
         SoulignButton.setFont(new java.awt.Font("Times New Roman", 0, 14));
-        SoulignButton.setText("S");
-        SoulignButton.setBackground(Color.yellow);
+		SoulignButton.setIcon(new ImageIcon(Tools.getPathToIcons("format-text-underline.png")));
         SoulignButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 SoulignButtonActionPerformed(evt);
@@ -192,8 +204,7 @@ public class PriseNoteView extends javax.swing.JFrame implements ActionListener 
         });
 
         ItalicButton.setFont(new java.awt.Font("Times New Roman", 0, 14));
-        ItalicButton.setText("I");
-        ItalicButton.setBackground(Color.yellow);
+        ItalicButton.setIcon(new ImageIcon(Tools.getPathToIcons("format-text-italic.png")));
         ItalicButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 ItalicButtonActionPerformed(evt);
@@ -515,6 +526,7 @@ public class PriseNoteView extends javax.swing.JFrame implements ActionListener 
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JTabbedPane jTabbedPane1;
     private javax.swing.JTree jTree1;
+    private JComponent lastComponentAdded;
     // End of variables declaration//GEN-END:variables
     
     private ArrayList<JTextField> fields;
@@ -541,7 +553,9 @@ public class PriseNoteView extends javax.swing.JFrame implements ActionListener 
         for (final Content c : this.noteModel.getContents()){
         	if(c instanceof Title){
         		final JTextField f = new JTextField();
+        		lastComponentAdded = f;
         		f.setText(((Title) c).getName());
+        		
         		f.addKeyListener(new KeyListener() {
 					
 					@Override
@@ -573,7 +587,9 @@ public class PriseNoteView extends javax.swing.JFrame implements ActionListener 
                     	.addComponent(f, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE));
         		}
         		else{
-        		JButton levelDown = new JButton("<");
+        		JButton levelDown = new JButton();
+        		
+        		Tools.addIcon(levelDown, "go-previous.png");
         		levelDown.addActionListener(new java.awt.event.ActionListener() {
                     public void actionPerformed(java.awt.event.ActionEvent evt) {
                     	downTitleLevel((Title) c);
@@ -581,7 +597,8 @@ public class PriseNoteView extends javax.swing.JFrame implements ActionListener 
                     }
                 });
         		
-        		JButton levelUp = new JButton(">");
+        		JButton levelUp = new JButton();
+        		Tools.addIcon(levelUp, "go-next.png");
         		levelUp.addActionListener(new java.awt.event.ActionListener() {
                     public void actionPerformed(java.awt.event.ActionEvent evt) {
                         upTitleLevel((Title) c);
@@ -606,8 +623,28 @@ public class PriseNoteView extends javax.swing.JFrame implements ActionListener 
         	}
         	
         	else if(c instanceof Paragraph){
-        		final JTextArea textArea = new JTextArea();
+        		HTMLEditorKit editorkit = new HTMLEditorKit();
+        		final JTextPane textArea = new JTextPane();
+        		lastComponentAdded = textArea;
+        		textArea.setContentType("text/html");
+        		textArea.setEditable (true);
+        		textArea.setEditorKit(editorkit);
+        		JScrollPane scrollPane = new JScrollPane( textArea );
         		textArea.setText(((Paragraph) c).getText());
+        		textArea.addFocusListener(new FocusListener() {
+					
+					@Override
+					public void focusLost(FocusEvent e) {
+						// TODO Auto-generated method stub
+						
+					}
+					
+					@Override
+					public void focusGained(FocusEvent e) {
+						setActiveEditor(textArea);
+						
+					}
+				});
         		textArea.addKeyListener(new KeyListener() {
 					
 					@Override
@@ -632,13 +669,13 @@ public class PriseNoteView extends javax.swing.JFrame implements ActionListener 
         		textArea.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
                 parallelGroup.addGroup(notePanelLayout.createSequentialGroup()
                 	.addGap(10, 10, 10)
-                	.addComponent(textArea, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE)
+                	.addComponent(scrollPane, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE)
                 	.addGap(10, 10, 10));
                 	
           	
                 verticalGroup.addGroup(notePanelLayout.createSequentialGroup()
                 	.addGap(20, 20, 20)
-                	.addComponent(textArea, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE));
+                	.addComponent(scrollPane, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE));
                 	
         	}
         }
@@ -647,11 +684,40 @@ public class PriseNoteView extends javax.swing.JFrame implements ActionListener 
         notePanelLayout.setHorizontalGroup(parallelGroup);
         notePanelLayout.setVerticalGroup(verticalGroup);
         
+        SwingUtilities.invokeLater(new Runnable() {
+  		  public void run() {
+  			  lastComponentAdded.requestFocus();
+  		  }
+  		});
 		return notePanel;
 
 	}
 
-	protected void saveParagraph(JTextArea textArea, Paragraph p) {
+	private void setActiveEditor(JTextPane textArea) {
+		Action a = textArea.getActionMap().get("font-bold");
+		if (a != null)
+			this.GrasButton.setAction(a);
+			
+		a = textArea.getActionMap().get("font-italic");
+		if (a != null)
+			this.ItalicButton.setAction(a);
+		
+		a = textArea.getActionMap().get("font-underline");
+		if (a != null)
+			this.SoulignButton.setAction(a);
+			
+		
+	}
+
+	public Note getNoteModel() {
+		return noteModel;
+	}
+
+	public void setNoteModel(Note noteModel) {
+		this.noteModel = noteModel;
+	}
+
+	protected void saveParagraph(JTextPane textArea, Paragraph p) {
 		p.setText(textArea.getText());
 		
 	}
@@ -673,4 +739,5 @@ public class PriseNoteView extends javax.swing.JFrame implements ActionListener 
         notePanel = updateNoteContent();
 		
 	}
+	
 }

@@ -10,7 +10,7 @@ public class Paragraph extends Content {
 	public Paragraph(int position) {
 		super(position);
 		this.classes = new ArrayList<String>();
-		this.text = "Votre texte ici...";
+		this.text = "";
 	}
 
 	public void setClasses(ArrayList<String> classes) {

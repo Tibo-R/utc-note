@@ -8,7 +8,7 @@ public class Title extends Content {
 	public Title(int position) {
 		super(position);
 		this.level = 2;
-		this.name = "Nouveau titre " + level;
+		this.name = "";
 	}
 	
 	public Title(int position, String name) {
@@ -20,7 +20,7 @@ public class Title extends Content {
 	public Title(int position, int level) {
 		super(position);
 		this.level = level;
-		this.name = "Nouveau titre " + (level - 1);
+		this.name = "";
 	}
 	
 	public void setLevel(int level) {

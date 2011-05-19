@@ -1,5 +1,7 @@
 package etunote;
 
+import javax.swing.UIManager;
+import javax.swing.UnsupportedLookAndFeelException;
 import javax.swing.text.BadLocationException;
 
 public class Start {
@@ -9,6 +11,23 @@ public class Start {
 	 */
 
 		public static void main(String[] args) {
+//			try {
+//			    // Set System L&F
+//		        UIManager.setLookAndFeel(
+//		            UIManager.getSystemLookAndFeelClassName());
+//		    } 
+//		    catch (UnsupportedLookAndFeelException e) {
+//		       // handle exception
+//		    }
+//		    catch (ClassNotFoundException e) {
+//		       // handle exception
+//		    }
+//		    catch (InstantiationException e) {
+//		       // handle exception
+//		    }
+//		    catch (IllegalAccessException e) {
+//		       // handle exception
+//		    }
 			init();
 		}
 		public static void init() {

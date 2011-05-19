@@ -4,8 +4,10 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Iterator;
 
 import com.thoughtworks.xstream.XStream;
 import com.thoughtworks.xstream.io.xml.DomDriver;
@@ -232,5 +234,52 @@ public class Persistance {
 		}
 
 		return semesters;
+	}
+
+	public void export(Application a) throws IOException{
+		System.out.println("Export");
+		File fa = new File("Application"); 
+		fa.mkdirs();
+
+		if(!a.isEmpty()){
+			// Export des semestres
+			ArrayList<Semester> listSemester = a.getSemesters();
+			Iterator itSemester = listSemester.iterator();
+			while (itSemester.hasNext()){
+				Semester s = (Semester) itSemester.next();
+				File fs = new File("Application/"+s.getName()); 
+				fs.mkdirs();
+				// Export des Uv
+				ArrayList<Uv> listUv = s.getUvs();
+				Iterator itUv = listUv.iterator();
+				while (itUv.hasNext()){
+					Uv u = (Uv) itUv.next();
+					File fu = new File("Application/"+s.getName()+"/"+u.getName()); 
+					fu.mkdirs();
+					// Export des notes
+					ArrayList<Note> listNotes = u.getNotes();
+					Iterator itNote = listNotes.iterator();
+					while (itNote.hasNext()){
+						Note n = (Note) itNote.next();
+						FileWriter writer = null;
+						try{
+							writer = new FileWriter("Application/"+s.getName()+"/"+u.getName()+"/"+n.getName()+".html", true);
+							writer.write(n.getHTML());
+							System.out.println("Application/"+s.getName()+"/"+u.getName()+"/"+n.getName()+".html");
+						}catch(IOException ex){
+							ex.printStackTrace();
+						}finally{
+							if(writer != null){
+								writer.close();
+							}
+						}
+					}
+				}
+			}
+		}
+		else{
+			System.out.println("Else");
+			return;
+		}
 	}
 }

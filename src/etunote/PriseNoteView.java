@@ -143,8 +143,7 @@ public class PriseNoteView extends javax.swing.JFrame implements ActionListener 
         //	});
         
         BlocButton.setFont(new java.awt.Font("Times New Roman", 0, 14));
-        BlocButton.setText("+B");
-        BlocButton.setBackground(Color.red);
+        BlocButton.setIcon(new ImageIcon(Tools.getPathToIcons("bloc.png")));
         BlocButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 BlocButtonActionPerformed(evt);
@@ -152,8 +151,7 @@ public class PriseNoteView extends javax.swing.JFrame implements ActionListener 
         });
 
         ParagraphButton.setFont(new java.awt.Font("Times New Roman", 0, 14));
-        ParagraphButton.setText("+P");
-        ParagraphButton.setBackground(Color.red);
+        ParagraphButton.setIcon(new ImageIcon(Tools.getPathToIcons("paragraph.png")));
         ParagraphButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 ParagraphButtonActionPerformed(evt);
@@ -161,8 +159,7 @@ public class PriseNoteView extends javax.swing.JFrame implements ActionListener 
         });
 
         TitleButton.setFont(new java.awt.Font("Times New Roman", 0, 14));
-        TitleButton.setText("+T");
-        TitleButton.setBackground(Color.red);
+        TitleButton.setIcon(new ImageIcon(Tools.getPathToIcons("title.png")));
         TitleButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 TitleButtonActionPerformed(evt);
@@ -230,8 +227,7 @@ public class PriseNoteView extends javax.swing.JFrame implements ActionListener 
         });
 
         ImageButton.setFont(new java.awt.Font("Times New Roman", 0, 14));
-        ImageButton.setText("+I");
-        ImageButton.setBackground(Color.red);
+        ImageButton.setIcon(new ImageIcon(Tools.getPathToIcons("image.png")));
         ImageButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 ImageButtonActionPerformed(evt);
@@ -388,7 +384,27 @@ public class PriseNoteView extends javax.swing.JFrame implements ActionListener 
 
     private void ImageButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ImageButtonActionPerformed
         // TODO add your handling code here:
-    	new AddImageView().setVisible(true);
+    	fc.setCurrentDirectory(new File("."));
+		int returnVal = fc.showOpenDialog(this);
+		if (returnVal == JFileChooser.APPROVE_OPTION) {
+			try{
+				file = fc.getSelectedFile().getAbsolutePath();
+				System.out.println("Ajout d'une image");
+		    	Image img = new Image(this.noteModel.getLastPosition() + 1, file);
+		    	this.noteModel.addContent(img);
+		    	notePanel = updateNoteContent();
+				
+			}
+			catch(Exception e)
+			{
+				JOptionPane.showMessageDialog(this, 
+						"Probleme fichier",
+						"Erreur",
+						JOptionPane.ERROR_MESSAGE);
+			}
+			
+		}
+    	//new AddImageView().setVisible(true);
     }//GEN-LAST:event_ImageButtonActionPerformed
 
     private void CodeButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CodeButtonActionPerformed
@@ -678,6 +694,21 @@ public class PriseNoteView extends javax.swing.JFrame implements ActionListener 
                 	.addComponent(scrollPane, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE));
                 	
         	}
+        	
+        	else if(c instanceof Image){
+        		
+        		JLabel img = new JLabel(((Image) c).getImage());
+        		parallelGroup.addGroup(notePanelLayout.createSequentialGroup()
+                    	.addGap(10, 10, 10)
+                    	.addComponent(img, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE)
+                    	.addGap(10, 10, 10));
+                    	
+              	
+                verticalGroup.addGroup(notePanelLayout.createSequentialGroup()
+                	.addGap(20, 20, 20)
+                	.addComponent(img, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE));
+                	
+        	}
         }
         
         
@@ -695,17 +726,25 @@ public class PriseNoteView extends javax.swing.JFrame implements ActionListener 
 
 	private void setActiveEditor(JTextPane textArea) {
 		Action a = textArea.getActionMap().get("font-bold");
-		if (a != null)
+		if (a != null){
 			this.GrasButton.setAction(a);
+			GrasButton.setText("");
+			GrasButton.setIcon(new ImageIcon(Tools.getPathToIcons("format-text-bold.png")));
+		}
 			
 		a = textArea.getActionMap().get("font-italic");
-		if (a != null)
+		if (a != null){
 			this.ItalicButton.setAction(a);
+			ItalicButton.setText("");
+			ItalicButton.setIcon(new ImageIcon(Tools.getPathToIcons("format-text-italic.png")));
+		}
 		
 		a = textArea.getActionMap().get("font-underline");
-		if (a != null)
+		if (a != null){
 			this.SoulignButton.setAction(a);
-			
+			SoulignButton.setText("");
+			SoulignButton.setIcon(new ImageIcon(Tools.getPathToIcons("format-text-underline.png")));
+		}
 		
 	}
 

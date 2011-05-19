@@ -20,6 +20,74 @@ public class Persistance {
 	private ArrayList<Note> notes;
 	@SuppressWarnings("unused")
 	private ArrayList<Semester> semesters;
+	
+	/* Début sérialisation et desérialisation d'application */
+
+	// Sérialisation
+
+	public void SerialisationApplication(Application a) {
+		SerialisationApplication(a, "application");		
+	}
+
+	public void SerialisationApplication(Application a, String f) {
+
+		try {
+			// Instanciation de la classe XStream
+			XStream xstream = new XStream(new DomDriver());
+			// Instanciation d'un fichier xml
+			File fichier = new File(f+".xml");
+			// Instanciation d'un flux de sortie fichier
+			FileOutputStream fos = new FileOutputStream(fichier);
+			try {
+				// SÔøΩrialisation de l'objet dans le fichier xml
+				xstream.toXML(a, fos);
+			} finally {
+				// On s'assure de fermer le flux quoi qu'il arrive
+				fos.close();
+			}
+
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		} catch (IOException ioe) {
+			ioe.printStackTrace();
+		}
+	}
+	
+	// Desérialisation	
+
+	public Application DeserialisationApplication(){
+		Application app = DeserialisationApplication("application");
+		return app;
+	}
+
+	public Application DeserialisationApplication(String f){
+		Application app = null;
+		try {
+			XStream xstream = new XStream(new DomDriver());
+			FileInputStream fis = new FileInputStream(new File(f+".xml"));
+			try {
+				// DÔøΩsÔøΩrialisation du fichier xml
+				app = (Application) xstream.fromXML(fis);
+
+			} finally {
+				// On s'assure de fermer le flux quoi qu'il arrive
+				fis.close();
+			}
+
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		} catch (IOException ioe) {
+			ioe.printStackTrace();
+		}
+		// On renvoie l'objet régénéré
+		return app;
+	}
+	
+	
+	/* Fin sérialisation et desérialisation d'application */
+
+	/*************************************************************************/
+	
 
 	/* Début sérialisation et desérialisation de note(s) */
 

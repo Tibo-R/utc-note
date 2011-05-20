@@ -50,10 +50,10 @@ public class Start {
 //			System.out.println(note.getHTML());
 			
 			
-//			DisplayNoteView ds=new DisplayNoteView(app);
-//			ds.setVisible(true);
-			PriseNoteView ps=new PriseNoteView(note);
-			ps.setVisible(true);
+			DisplayNoteView ds=new DisplayNoteView(app);
+			ds.setVisible(true);
+//			PriseNoteView ps=new PriseNoteView(note);
+//			ps.setVisible(true);
 		}
 
 }

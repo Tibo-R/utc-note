@@ -1,0 +1,141 @@
+*{
+    font-family: helvetica, arial, verdana, sans-serif;
+}
+
+body{
+    background-color : #F5F5F5;
+}
+
+#content{
+    width: 900px;
+    background-color : #FFF;
+    margin : auto;
+    padding : 30px;
+    background: none repeat scroll 0 0 #FFFFFF;
+    border: 1px solid #EFEFEF;
+    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.2), 0 0 30px rgba(0, 0, 0, 0.05) inset;
+}
+
+h1
+{
+	color: #000;
+	font-size: 2em;
+	text-align: center;
+	font-weight: bold;
+
+}
+
+h2
+{
+	color: #CE0000;
+	font-size: 1.8em;
+	font-weight: bold;
+	counter-increment: titre2;
+	counter-reset: titre3; 
+}
+
+h2:before{
+    content: counter(titre2, upper-roman) ". ";
+	
+}
+
+h3
+{
+	color: #0029CE;
+	font-size: 1.6em;
+	text-indent: 20px;
+	counter-increment: titre3;
+	counter-reset: titre4; 
+}
+
+h3:before
+{
+    content: counter(titre3, upper-latin) ". ";
+	
+}
+
+h4
+{
+	color: #00CE75;
+	font-size: 1.4em;
+	text-indent: 40px;
+	counter-increment: titre4;
+	counter-reset: titre5; 
+}
+
+h4:before
+{
+    content: counter(titre4, decimal) ". ";
+	
+}
+
+h5
+{
+	color: #000;
+	font-size: 1.2em;
+	text-indent: 60px;
+	counter-increment: titre5;
+	counter-reset: titre6; 
+}
+
+h5:before
+{
+    content: counter(titre5, lower-latin) ". ";
+	
+}
+
+h6
+{
+	color: #000;
+	font-size: 1.0em;
+	text-indent: 80px;
+	counter-increment: titre6;
+	counter-reset: titre5; 
+}
+
+h6:before
+{
+    content: counter(titre6, lower-roman) ". ";
+	
+}
+
+p.info{
+    margin: 10px auto 10px auto;
+    border: 1px solid #468553;
+    background: #C6F9D0 url('images/info.png') no-repeat;
+    padding: 10px;
+    width : 80%;
+    padding-left : 50px;
+    -moz-border-radius: 20px;
+    -webkit-border-radius: 20px;
+    border-radius: 20px;
+}
+
+p.theoreme{
+    margin: 10px auto 10px auto;
+    border: 1px solid #C7222C;
+    background: #F9C6C9;
+    padding: 10px;
+    width : 80%;
+    -moz-border-radius: 20px;
+    -webkit-border-radius: 20px;
+    border-radius: 20px;
+}
+p.theoreme:before
+{
+    content: url(images/theoreme.png);
+	
+}
+
+p.attention{
+    margin: 10px auto 10px auto;
+    border: 1px solid #DF7609;
+    background: #FFDDB1 url('images/attention.png') no-repeat;
+    padding: 10px;
+    width : 80%;
+    padding-left : 50px;
+    -moz-border-radius: 20px;
+    -webkit-border-radius: 20px;
+    border-radius: 20px;
+}
+

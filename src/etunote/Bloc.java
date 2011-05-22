@@ -1,11 +1,15 @@
 package etunote;
 
+import java.awt.Color;
 import java.util.ArrayList;
+import java.util.Hashtable;
 
 public class Bloc extends Paragraph {
 
+	private static Hashtable<String,Color> colors = new Hashtable<String,Color>();
+	private static String[] types = {"info", "important", "question", "theoreme"};
+	private static Color colorsCode[] = { new Color(198, 249, 208), new Color(255, 221, 177), new Color(208, 219, 253), new Color(249, 198, 201) }; 
 	
-	private static String[] types = {"info", "theoreme", "lemme", "formule", "code", "important"};
 	
 	
 	private String type;
@@ -37,6 +41,14 @@ public class Bloc extends Paragraph {
 		String s = "<p class=\"" + this.type + "\" ";
 		s += ">" + this.getText() + "</p>";
 		return s;
+	}
+	
+	public Color getColor(){
+		for(int i=0; i< types.length; i++){
+			colors.put(types[i],colorsCode[i]);
+		}
+		return colors.get(this.type);
+			
 	}
 	
 	

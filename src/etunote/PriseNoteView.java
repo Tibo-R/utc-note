@@ -58,7 +58,7 @@ import javax.swing.JOptionPane;
 public class PriseNoteView extends javax.swing.JFrame implements ActionListener {
 	//TitleSpecificButton Title;
     /** Creates new form PriseNote */
-	
+	int numerotationTitle[] = {0,0,0,0,0,0};
 	Note noteModel;
 	javax.swing.GroupLayout notePanelLayout;
 	JFileChooser fc = new JFileChooser();
@@ -78,13 +78,12 @@ public class PriseNoteView extends javax.swing.JFrame implements ActionListener 
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
-    	
     	DefaultTreeModel Model=new DefaultTreeModel(null);
         jScrollPane3 = new javax.swing.JScrollPane();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTree1 = new javax.swing.JTree();
         jTabbedPane1 = new javax.swing.JTabbedPane();
-        jScrollPane2 = new javax.swing.JScrollPane();
+        noteScrollPane = new javax.swing.JScrollPane();
         notePanel = new javax.swing.JPanel();
         fields = new ArrayList<JTextField>();
         BlocButton = new javax.swing.JButton();
@@ -126,9 +125,9 @@ public class PriseNoteView extends javax.swing.JFrame implements ActionListener 
         //SHOW THE CONTENT OF THE NOTE
         notePanel = updateNoteContent();
         
-        jScrollPane2.setViewportView(notePanel);
+        noteScrollPane.setViewportView(notePanel);
 
-        jTabbedPane1.addTab("Note de Cours", jScrollPane2);
+        jTabbedPane1.addTab("Note de Cours", noteScrollPane);
         
         
         
@@ -542,7 +541,7 @@ public class PriseNoteView extends javax.swing.JFrame implements ActionListener 
     private javax.swing.JMenuItem jMenuItem9;
     private javax.swing.JPanel notePanel;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JScrollPane noteScrollPane;
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JTabbedPane jTabbedPane1;
     private javax.swing.JTree jTree1;
@@ -559,6 +558,9 @@ public class PriseNoteView extends javax.swing.JFrame implements ActionListener 
 	}
 	
 	public JPanel updateNoteContent(){
+		for(int i=0; i<6;i++){
+        	numerotationTitle[i] = 0;
+        }
 		notePanel.removeAll();
         notePanelLayout=new javax.swing.GroupLayout(notePanel);
         //javax.swing.GroupLayout notePanelLayout = new javax.swing.GroupLayout(notePanel);
@@ -625,10 +627,21 @@ public class PriseNoteView extends javax.swing.JFrame implements ActionListener 
                     }
                 });
                 f.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
-                int indent = ((Title) c).getLevel() * 20;
+                int level = ((Title) c).getLevel() -1;
+                int indent = level * 20;
+                for(int i=level+1; i<6;i++){
+                	numerotationTitle[i] = 0;
+                }
+                numerotationTitle[level]++;
+                String num = "";
+                for(int i=1; i<=level;i++){
+                	num += numerotationTitle[i] + ".";
+                }
+                JLabel number = new JLabel(num);
                 parallelGroup.addGroup(notePanelLayout.createSequentialGroup()
                 	.addGap(indent, indent, indent)
                 	.addComponent(levelDown)
+                	.addComponent(number)
                 	.addComponent(f, javax.swing.GroupLayout.PREFERRED_SIZE, 400, javax.swing.GroupLayout.PREFERRED_SIZE)
                 	.addComponent(levelUp));
                 	
@@ -636,6 +649,7 @@ public class PriseNoteView extends javax.swing.JFrame implements ActionListener 
                 verticalGroup.addGroup(notePanelLayout.createParallelGroup()
                 	.addGap(20, 20, 20)
                 	.addComponent(levelDown)
+                	.addComponent(number)
                 	.addComponent(f, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
                 	.addComponent(levelUp));
                 
@@ -688,11 +702,13 @@ public class PriseNoteView extends javax.swing.JFrame implements ActionListener 
         		
         		
         		if(c instanceof Bloc){
+        			textArea.setBackground(((Bloc) c).getColor());
         			 final JComboBox typeComboBox = new JComboBox();
         			 typeComboBox.setModel(new javax.swing.DefaultComboBoxModel(Bloc.getTypes()));
         			 typeComboBox.addActionListener(new java.awt.event.ActionListener() {
         		            public void actionPerformed(java.awt.event.ActionEvent evt) {
         		            	((Bloc) c).setType((String) typeComboBox.getSelectedItem());
+        		            	textArea.setBackground(((Bloc) c).getColor());
         		            }
         		        });
         			 parallelGroup.addGroup(notePanelLayout.createSequentialGroup()
@@ -743,6 +759,7 @@ public class PriseNoteView extends javax.swing.JFrame implements ActionListener 
   			  lastComponentAdded.requestFocus();
   		  }
   		});
+        noteScrollPane.getVerticalScrollBar().setUnitIncrement(16);
 		return notePanel;
 
 	}

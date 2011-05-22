@@ -2,19 +2,17 @@ package etunote;
 
 import java.util.ArrayList;
 
-public class Bloc extends Content {
+public class Bloc extends Paragraph {
 
 	
 	private static String[] types = {"info", "theoreme", "lemme", "formule", "code", "important"};
 	
 	
-	private String text;
 	private String type;
 	
 	public Bloc(int position, String type) {
 		super(position);
 		this.type = type;
-		this.text = "";
 	}
 
 	public static String[] getTypes() {
@@ -30,21 +28,14 @@ public class Bloc extends Content {
 	}
 
 	public void setType(String type) {
+		System.out.println("Bloc type set to : " + type);
 		this.type = type;
-	}
-
-	public String getText() {
-		return text;
-	}
-
-	public void setText(String text) {
-		this.text = text;
 	}
 
 	
 	public String getHTML(){
 		String s = "<p class=\"" + this.type + "\" ";
-		s += ">" + this.text + "</p>";
+		s += ">" + this.getText() + "</p>";
 		return s;
 	}
 	

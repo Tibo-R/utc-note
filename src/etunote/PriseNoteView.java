@@ -32,6 +32,7 @@ import javax.swing.Action;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
+import javax.swing.JComboBox;
 import javax.swing.JComponent;
 import javax.swing.JEditorPane;
 import javax.swing.JFileChooser;
@@ -452,7 +453,10 @@ public class PriseNoteView extends javax.swing.JFrame implements ActionListener 
     }//GEN-LAST:event_ParagraphButtonActionPerformed
 
     private void BlocButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BlocButtonActionPerformed
-        // TODO add your handling code here:
+    	System.out.println("Ajout d'un bloc");
+    	Bloc b = new Bloc(this.noteModel.getLastPosition() + 1, "info");
+    	this.noteModel.addContent(b);
+    	notePanel = updateNoteContent();
     }//GEN-LAST:event_BlocButtonActionPerformed
 
     private void OpenItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField2ActionPerformed
@@ -681,6 +685,25 @@ public class PriseNoteView extends javax.swing.JFrame implements ActionListener 
 						
 					}
 				});
+        		
+        		
+        		if(c instanceof Bloc){
+        			 final JComboBox typeComboBox = new JComboBox();
+        			 typeComboBox.setModel(new javax.swing.DefaultComboBoxModel(Bloc.getTypes()));
+        			 typeComboBox.addActionListener(new java.awt.event.ActionListener() {
+        		            public void actionPerformed(java.awt.event.ActionEvent evt) {
+        		            	((Bloc) c).setType((String) typeComboBox.getSelectedItem());
+        		            }
+        		        });
+        			 parallelGroup.addGroup(notePanelLayout.createSequentialGroup()
+        	                	.addComponent(typeComboBox, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE));
+        	                	
+        	          	
+        	                verticalGroup.addGroup(notePanelLayout.createSequentialGroup()
+        	                	.addComponent(typeComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE));
+        	                	
+        			 
+        		}
 //        		textArea.firePropertyChange(arg0, arg1, arg2);
         		textArea.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
                 parallelGroup.addGroup(notePanelLayout.createSequentialGroup()

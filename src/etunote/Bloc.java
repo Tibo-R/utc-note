@@ -38,8 +38,8 @@ public class Bloc extends Paragraph {
 
 	
 	public String getHTML(){
-		String s = "<p class=\"" + this.type + "\" ";
-		s += ">" + this.getText() + "</p>";
+		String s = "<div class=\"" + this.type + "\" ";
+		s += ">" + this.getText() + "</div>";
 		return s;
 	}
 	

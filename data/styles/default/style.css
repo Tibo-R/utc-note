@@ -99,43 +99,65 @@ h6:before
 	
 }
 
-p.info{
+div.info{
     margin: 10px auto 10px auto;
     border: 1px solid #468553;
     background: #C6F9D0 url('images/info.png') no-repeat;
+    background-position: left center;
     padding: 10px;
     width : 80%;
-    padding-left : 50px;
-    -moz-border-radius: 20px;
-    -webkit-border-radius: 20px;
-    border-radius: 20px;
+    padding-left : 55px;
+    -moz-border-radius: 10px;
+    -webkit-border-radius: 10px;
+    border-radius: 10px;
 }
 
-p.theoreme{
+div.theoreme{
     margin: 10px auto 10px auto;
     border: 1px solid #C7222C;
     background: #F9C6C9;
     padding: 10px;
     width : 80%;
-    -moz-border-radius: 20px;
-    -webkit-border-radius: 20px;
-    border-radius: 20px;
+    -moz-border-radius: 10px;
+    -webkit-border-radius: 10px;
+    border-radius: 10px;
 }
-p.theoreme:before
+div.theoreme:before
 {
     content: url(images/theoreme.png);
 	
 }
 
-p.attention{
+div.important{
     margin: 10px auto 10px auto;
     border: 1px solid #DF7609;
-    background: #FFDDB1 url('images/attention.png') no-repeat;
+    background: #FFDDB1 url('images/warning.png') no-repeat;
+    background-position: left center;
     padding: 10px;
     width : 80%;
-    padding-left : 50px;
-    -moz-border-radius: 20px;
-    -webkit-border-radius: 20px;
-    border-radius: 20px;
+    padding-left : 55px;
+    -moz-border-radius: 10px;
+    -webkit-border-radius: 10px;
+    border-radius: 10px;
 }
+
+div.question{
+    margin: 10px auto 10px auto;
+    border: 1px solid #486ACD;
+    background: #D0DBFD url('images/question.png') no-repeat;
+    background-position: left center;
+    padding: 10px;
+    width : 80%;
+    padding-left : 55px;
+    -moz-border-radius: 10px;
+    -webkit-border-radius: 10px;
+    border-radius: 10px;
+}
+
+img{
+    max-width: 80%;
+    margin-left: 10%;
+}
+
+
 

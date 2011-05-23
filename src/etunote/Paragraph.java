@@ -34,10 +34,10 @@ public class Paragraph extends Content {
 	}
 	
 	public String getHTML(){
-		String s = "<p";
+		String s = "<div";
 		if(this.classes.size() > 0)
 			s += " class=\"" + Tools.explode(this.classes, " ") + "\" ";
-		s += ">" + this.text + "</p>";
+		s += ">" + this.text + "</div>";
 		return s;
 	}
 	

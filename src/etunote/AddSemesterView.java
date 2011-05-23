@@ -97,7 +97,7 @@ public class AddSemesterView extends javax.swing.JFrame {
     
     private void AddSemesterButtonActionPerformed(java.awt.event.ActionEvent evt)
     {
-    	Semester sem = new Semester(NameSemesterTextField.getText());
+    	Semester sem = new Semester(NameSemesterTextField.getText(), this.parent.getAppModel());
     	this.parent.getAppModel().addSemester(sem);
     	System.out.println("Semestre " + sem + " ajouté.");
     	this.parent.updateAppContent();

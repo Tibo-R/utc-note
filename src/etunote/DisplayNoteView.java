@@ -45,6 +45,7 @@ import javax.swing.GroupLayout.Group;
 import javax.swing.JToolBar;
 import javax.swing.border.Border;
 import javax.swing.border.TitledBorder;
+import javax.tools.Tool;
 
 /**
  *
@@ -178,11 +179,7 @@ public class DisplayNoteView extends javax.swing.JFrame {
         OpenButton.setFocusable(false);
         OpenButton.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         OpenButton.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        OpenButton.setIcon(new ImageIcon("Open.png"));
-        OpenButton.setOpaque(false);
-        OpenButton.setFocusPainted(false);
-        OpenButton.setBorderPainted(false);
-        OpenButton.setBorder(null);
+        Tools.addIcon(OpenButton, "Open.png");
         OpenButton.setToolTipText("Open File");
         toolBar.add(OpenButton);
         
@@ -191,11 +188,7 @@ public class DisplayNoteView extends javax.swing.JFrame {
         SaveButton.setFocusable(false);
         SaveButton.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         SaveButton.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        SaveButton.setIcon(new ImageIcon("Save.png"));
-        SaveButton.setOpaque(false);
-        SaveButton.setFocusPainted(false);
-        SaveButton.setBorderPainted(false);
-        SaveButton.setBorder(null);
+        Tools.addIcon(SaveButton, "Save.png");
         SaveButton.setToolTipText("Save File");
         toolBar.add(SaveButton);
 
@@ -203,11 +196,7 @@ public class DisplayNoteView extends javax.swing.JFrame {
         SaveAsButton.setFocusable(false);
         SaveAsButton.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         SaveAsButton.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        SaveAsButton.setIcon(new ImageIcon("SaveAs.png"));
-        SaveAsButton.setOpaque(false);
-        SaveAsButton.setFocusPainted(false);
-        SaveAsButton.setBorderPainted(false);
-        SaveAsButton.setBorder(null);
+        Tools.addIcon(SaveAsButton, "SaveAs.png");
         SaveAsButton.setToolTipText("Save As File");
         toolBar.add(SaveAsButton);
 
@@ -215,22 +204,14 @@ public class DisplayNoteView extends javax.swing.JFrame {
         ExportButton.setFocusable(false);
         ExportButton.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         ExportButton.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        ExportButton.setIcon(new ImageIcon("HTML.png"));
-        ExportButton.setOpaque(false);
-        ExportButton.setFocusPainted(false);
-        ExportButton.setBorderPainted(false);
-        ExportButton.setBorder(null);
+        Tools.addIcon(ExportButton, "HTML.png");
         ExportButton.setToolTipText("Export to HTML");
         toolBar.add(ExportButton);
 
         UndoButton.setFocusable(false);
         UndoButton.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         UndoButton.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        UndoButton.setIcon(new ImageIcon("Undo.png"));
-        UndoButton.setOpaque(false);
-        UndoButton.setFocusPainted(false);
-        UndoButton.setBorderPainted(false);
-        UndoButton.setBorder(null);
+        Tools.addIcon(UndoButton, "Undo.png");
         UndoButton.setToolTipText("Undo");
         UndoButton.setEnabled(false);
         toolBar.add(UndoButton);
@@ -238,11 +219,7 @@ public class DisplayNoteView extends javax.swing.JFrame {
         RedoButton.setFocusable(false);
         RedoButton.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         RedoButton.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        RedoButton.setIcon(new ImageIcon("Redo.png"));
-        RedoButton.setOpaque(false);
-        RedoButton.setFocusPainted(false);
-        RedoButton.setBorderPainted(false);
-        RedoButton.setBorder(null);
+        Tools.addIcon(RedoButton, "Redo.png");
         RedoButton.setToolTipText("Redo");
         RedoButton.setEnabled(false);
         toolBar.add(RedoButton);
@@ -250,22 +227,14 @@ public class DisplayNoteView extends javax.swing.JFrame {
         CopyButton.setFocusable(false);
         CopyButton.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         CopyButton.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        CopyButton.setIcon(new ImageIcon("Copy.png"));
-        CopyButton.setOpaque(false);
-        CopyButton.setFocusPainted(false);
-        CopyButton.setBorderPainted(false);
-        CopyButton.setBorder(null);
+        Tools.addIcon(CopyButton, "Copy.png");
         CopyButton.setToolTipText("Copy");
         toolBar.add(CopyButton);
         
         PasteButton.setFocusable(false);
         PasteButton.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         PasteButton.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        PasteButton.setIcon(new ImageIcon("Paste.png"));
-        PasteButton.setOpaque(false);
-        PasteButton.setFocusPainted(false);
-        PasteButton.setBorderPainted(false);
-        PasteButton.setBorder(null);
+        Tools.addIcon(PasteButton, "Paste.png");
         PasteButton.setToolTipText("Paste");
         toolBar.add(PasteButton);
 
@@ -273,11 +242,7 @@ public class DisplayNoteView extends javax.swing.JFrame {
         CutButton.setFocusable(false);
         CutButton.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         CutButton.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        CutButton.setIcon(new ImageIcon("Cut.png"));
-        CutButton.setOpaque(false);
-        CutButton.setFocusPainted(false);
-        CutButton.setBorderPainted(false);
-        CutButton.setBorder(null);
+        Tools.addIcon(CutButton, "Cut.png");
         CutButton.setToolTipText("Cut");
         toolBar.add(CutButton);
 
@@ -286,11 +251,7 @@ public class DisplayNoteView extends javax.swing.JFrame {
         DeleteButton.setFocusable(false);
         DeleteButton.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         DeleteButton.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        DeleteButton.setIcon(new ImageIcon("Delete.png"));
-        DeleteButton.setOpaque(false);
-        DeleteButton.setFocusPainted(false);
-        DeleteButton.setBorderPainted(false);
-        DeleteButton.setBorder(null);
+        Tools.addIcon(DeleteButton, "Delete.png");
         DeleteButton.setToolTipText("Trash");
         toolBar.add(DeleteButton);
         

@@ -35,7 +35,7 @@ public class Start {
 			
 			Application app = new Application();
 			
-			Semester sem1 = new Semester("P11");
+			Semester sem1 = new Semester("P11", app);
 			app.addSemester(sem1);
 			Uv uv1 = new Uv("NF28", sem1, "Vert");
 			Note note = new Note("Cours 1", uv1);
@@ -49,7 +49,7 @@ public class Start {
 			note.addContent(t2);
 //			System.out.println(note.getHTML());
 			
-			
+//			
 //			DisplayNoteView ds=new DisplayNoteView(app);
 //			ds.setVisible(true);
 			PriseNoteView ps=new PriseNoteView(note);

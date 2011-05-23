@@ -207,7 +207,7 @@ public class Note{
 		
 		String s = "<html>\n<head>\n<title>" + this.name + "</title>\n";
 		s += "<meta http-equiv=\"Content-Type\" content=\"text/html; charset=UTF-8\" />\n";
-		s += "<link rel=\"stylesheet\" media=\"screen\" type=\"text/css\" title=\"Design\" href=\"style.css\" />\n";
+		s += "<link rel=\"stylesheet\" media=\"screen\" type=\"text/css\" title=\"Design\" href=\"../../../data/styles/default/style.css\" />\n";
 		
 		
 		s+="</head>\n\t<body>\n";

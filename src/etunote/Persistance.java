@@ -21,9 +21,9 @@ public class Persistance {
 	@SuppressWarnings("unused")
 	private ArrayList<Semester> semesters;
 	
-	/* DŽbut sŽrialisation et desŽrialisation d'application */
+	/* Dï¿½but sï¿½rialisation et desï¿½rialisation d'application */
 
-	// SŽrialisation
+	// Sï¿½rialisation
 
 	public void SerialisationApplication(Application a) {
 		SerialisationApplication(a, "application");		
@@ -53,7 +53,7 @@ public class Persistance {
 		}
 	}
 	
-	// DesŽrialisation	
+	// Desï¿½rialisation	
 
 	public Application DeserialisationApplication(){
 		Application app = DeserialisationApplication("application");
@@ -79,19 +79,19 @@ public class Persistance {
 		} catch (IOException ioe) {
 			ioe.printStackTrace();
 		}
-		// On renvoie l'objet rŽgŽnŽrŽ
+		// On renvoie l'objet rï¿½gï¿½nï¿½rï¿½
 		return app;
 	}
 	
 	
-	/* Fin sŽrialisation et desŽrialisation d'application */
+	/* Fin sï¿½rialisation et desï¿½rialisation d'application */
 
 	/*************************************************************************/
 	
 
-	/* DŽbut sŽrialisation et desŽrialisation de note(s) */
+	/* Dï¿½but sï¿½rialisation et desï¿½rialisation de note(s) */
 
-	// SŽrialisation
+	// Sï¿½rialisation
 
 	public void SerialisationNote(Note n) {
 		SerialisationNote(n, "note");		
@@ -143,7 +143,7 @@ public class Persistance {
 		}
 	}
 
-	// DesŽrialisation	
+	// Desï¿½rialisation	
 
 	public Note DeserialisationNote(){
 		Note note = DeserialisationNote("note");
@@ -169,7 +169,7 @@ public class Persistance {
 		} catch (IOException ioe) {
 			ioe.printStackTrace();
 		}
-		// On renvoie l'objet rŽgŽnŽrŽ
+		// On renvoie l'objet rï¿½gï¿½nï¿½rï¿½
 		return note;
 	}
 
@@ -198,13 +198,13 @@ public class Persistance {
 		return notes;
 	}
 
-	/* Fin sŽrialisation et desŽrialisation de note(s) */
+	/* Fin sï¿½rialisation et desï¿½rialisation de note(s) */
 
 	/*************************************************************************/
 
-	/* DŽbut sŽrialisation et desŽrialisation de semestre(s) */
+	/* Dï¿½but sï¿½rialisation et desï¿½rialisation de semestre(s) */
 
-	// SŽrialisation
+	// Sï¿½rialisation
 
 	public void SerialisationSemester(Semester s) {
 		SerialisationSemester(s, "smester");		
@@ -252,7 +252,7 @@ public class Persistance {
 		}
 	}
 
-	// DesŽrialisation
+	// Desï¿½rialisation
 
 	public Semester DeserialisationSemester(){
 		Semester semester = DeserialisationSemester("semester");
@@ -331,6 +331,7 @@ public class Persistance {
 						Note n = (Note) itNote.next();
 						FileWriter writer = null;
 						try{
+							
 							writer = new FileWriter("Application/"+s.getName()+"/"+u.getName()+"/"+n.getName()+".html", true);
 							writer.write(n.getHTML());
 							System.out.println("Application/"+s.getName()+"/"+u.getName()+"/"+n.getName()+".html");

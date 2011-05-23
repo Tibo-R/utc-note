@@ -5,11 +5,13 @@ import java.util.ArrayList;
 public class Semester {
 	private String name;
 	private ArrayList<Uv> uvs;
+	private Application application;
 
-	public Semester(String name) {
+	public Semester(String name, Application app) {
 		super();
 		this.name = name;
 		this.uvs = new ArrayList<Uv>();
+		this.application = app;
 	}
 
 	@Override
@@ -31,6 +33,14 @@ public class Semester {
 
 	public void setUvs(ArrayList<Uv> uvs) {
 		this.uvs = uvs;
+	}
+
+	public Application getApplication() {
+		return application;
+	}
+
+	public void setApplication(Application application) {
+		this.application = application;
 	}
 
 	

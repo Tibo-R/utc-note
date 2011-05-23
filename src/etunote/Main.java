@@ -9,7 +9,7 @@ public class Main {
 		Application a = new Application();
 		
 		
-		Semester s1 = new Semester("P10");
+		Semester s1 = new Semester("P10", a);
 
 		
 		Uv u1 = new Uv("NF17", s1);
@@ -48,7 +48,7 @@ public class Main {
 		s1.setUvs(uvp10);
 		
 		
-		Semester s2 = new Semester("A10");
+		Semester s2 = new Semester("A10", a);
 		
 		Uv u4 = new Uv("NF26", s2);
 		Note n9 = new Note("Note 1", u4);
@@ -87,7 +87,7 @@ public class Main {
 		s2.setUvs(uva10);
 		
 
-		Semester s3 = new Semester("P11");
+		Semester s3 = new Semester("P11", a);
 		
 		Uv u7 = new Uv("MP03", s3);
 		Note n18 = new Note("Note 1", u7);

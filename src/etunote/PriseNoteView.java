@@ -14,6 +14,7 @@ package etunote;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.Event;
+import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.LayoutManager;
 import java.awt.event.ActionEvent;
@@ -25,6 +26,7 @@ import java.awt.event.KeyListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 
 import javax.swing.GroupLayout.Group;
@@ -60,6 +62,8 @@ public class PriseNoteView extends javax.swing.JFrame implements ActionListener 
     /** Creates new form PriseNote */
 	int numerotationTitle[] = {0,0,0,0,0,0};
 	Note noteModel;
+	Application app;
+	Persistance pe;
 	javax.swing.GroupLayout notePanelLayout;
 	JFileChooser fc = new JFileChooser();
 	String file;
@@ -79,6 +83,10 @@ public class PriseNoteView extends javax.swing.JFrame implements ActionListener 
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
     	DefaultTreeModel Model=new DefaultTreeModel(null);
+    	app = noteModel.getUvs().get(0).getSemesters().get(0).getApplication();
+		pe = new Persistance();
+    	
+    	
         jScrollPane3 = new javax.swing.JScrollPane();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTree1 = new javax.swing.JTree();
@@ -558,6 +566,12 @@ public class PriseNoteView extends javax.swing.JFrame implements ActionListener 
 	}
 	
 	public JPanel updateNoteContent(){
+		try {
+			pe.export(app);
+		} catch (IOException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
 		for(int i=0; i<6;i++){
         	numerotationTitle[i] = 0;
         }
@@ -638,6 +652,7 @@ public class PriseNoteView extends javax.swing.JFrame implements ActionListener 
                 	num += numerotationTitle[i] + ".";
                 }
                 JLabel number = new JLabel(num);
+                number.setFont(new Font("arial", Font.BOLD, 18));
                 parallelGroup.addGroup(notePanelLayout.createSequentialGroup()
                 	.addGap(indent, indent, indent)
                 	.addComponent(levelDown)
@@ -653,6 +668,13 @@ public class PriseNoteView extends javax.swing.JFrame implements ActionListener 
                 	.addComponent(f, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
                 	.addComponent(levelUp));
                 
+                if(level == 1){
+                	levelDown.setVisible(false);
+                }
+                
+                if(level == 5){
+                	levelUp.setVisible(false);
+                }
         		}   	
         	}
         	
@@ -705,6 +727,7 @@ public class PriseNoteView extends javax.swing.JFrame implements ActionListener 
         			textArea.setBackground(((Bloc) c).getColor());
         			 final JComboBox typeComboBox = new JComboBox();
         			 typeComboBox.setModel(new javax.swing.DefaultComboBoxModel(Bloc.getTypes()));
+        			 typeComboBox.setSelectedItem(((Bloc) c).getType());
         			 typeComboBox.addActionListener(new java.awt.event.ActionListener() {
         		            public void actionPerformed(java.awt.event.ActionEvent evt) {
         		            	((Bloc) c).setType((String) typeComboBox.getSelectedItem());
@@ -797,7 +820,12 @@ public class PriseNoteView extends javax.swing.JFrame implements ActionListener 
 	}
 
 	protected void saveParagraph(JTextPane textArea, Paragraph p) {
-		p.setText(textArea.getText());
+		String text = textArea.getText()
+						.replaceAll("\\<.*head?>","")
+						.replaceAll("\\<.*html?>","")
+						.replaceAll("\\<.*body?>","");
+		
+		p.setText(text);
 		
 	}
 

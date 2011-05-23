@@ -17,8 +17,9 @@ public class EtuNote {
      */
     public static void main(String[] args) {
 		// TextEditor etunote = new TextEditor();
-		Semester sem1 = new Semester("P11");
-		Semester sem2 = new Semester("P10");
+    	Application app = new Application();
+		Semester sem1 = new Semester("P11", app);
+		Semester sem2 = new Semester("P10", app);
 		
 		Uv uv1 = new Uv("NF28", sem1);
 		Uv uv2 = new Uv("NF26", sem1);

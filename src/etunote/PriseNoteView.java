@@ -17,6 +17,7 @@ import java.awt.Event;
 import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.LayoutManager;
+import java.awt.Rectangle;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.FocusEvent;
@@ -580,7 +581,7 @@ public class PriseNoteView extends javax.swing.JFrame implements ActionListener 
         //javax.swing.GroupLayout notePanelLayout = new javax.swing.GroupLayout(notePanel);
         notePanel.setLayout(notePanelLayout);
         notePanelLayout.setAutoCreateGaps(true);
-
+        
         Group parallelGroup = notePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING);
         Group verticalGroup = notePanelLayout.createSequentialGroup();
         
@@ -685,7 +686,7 @@ public class PriseNoteView extends javax.swing.JFrame implements ActionListener 
         		textArea.setContentType("text/html");
         		textArea.setEditable (true);
         		textArea.setEditorKit(editorkit);
-        		JScrollPane scrollPane = new JScrollPane( textArea );
+//        		JScrollPane scrollPane = new JScrollPane( textArea );
         		textArea.setText(((Paragraph) c).getText());
         		textArea.addFocusListener(new FocusListener() {
 					
@@ -747,13 +748,13 @@ public class PriseNoteView extends javax.swing.JFrame implements ActionListener 
         		textArea.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
                 parallelGroup.addGroup(notePanelLayout.createSequentialGroup()
                 	.addGap(10, 10, 10)
-                	.addComponent(scrollPane, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE)
+                	.addComponent(textArea, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE)
                 	.addGap(10, 10, 10));
                 	
           	
                 verticalGroup.addGroup(notePanelLayout.createSequentialGroup()
                 	.addGap(20, 20, 20)
-                	.addComponent(scrollPane, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE));
+                	.addComponent(textArea, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE));
                 	
         	}
         	
@@ -782,6 +783,15 @@ public class PriseNoteView extends javax.swing.JFrame implements ActionListener 
   			  lastComponentAdded.requestFocus();
   		  }
   		});
+        
+        
+        //Scroll to the end of the panel to see the new component
+        Rectangle visible = notePanel.getVisibleRect();
+        Rectangle bounds = notePanel.getBounds();
+        visible.y = bounds.height;
+        notePanel.scrollRectToVisible(visible);
+        
+        
         noteScrollPane.getVerticalScrollBar().setUnitIncrement(16);
 		return notePanel;
 

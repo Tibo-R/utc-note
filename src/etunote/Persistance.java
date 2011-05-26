@@ -331,8 +331,7 @@ public class Persistance {
 						Note n = (Note) itNote.next();
 						FileWriter writer = null;
 						try{
-							
-							writer = new FileWriter("Application/"+s.getName()+"/"+u.getName()+"/"+n.getName()+".html", true);
+							writer = new FileWriter("Application/"+s.getName()+"/"+u.getName()+"/"+n.getName()+".html");
 							writer.write(n.getHTML());
 							System.out.println("Application/"+s.getName()+"/"+u.getName()+"/"+n.getName()+".html");
 						}catch(IOException ex){

@@ -186,6 +186,7 @@ public class Start {
 			a.addSemester(s3);
 			
 			Persistance pe = new Persistance();
+			pe.SerialisationApplication(a);
 			pe.export(a);
 		}
 

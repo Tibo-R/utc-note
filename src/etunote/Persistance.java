@@ -9,6 +9,9 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Iterator;
 
+import javax.swing.JFileChooser;
+import javax.swing.filechooser.FileSystemView;
+
 import com.thoughtworks.xstream.XStream;
 import com.thoughtworks.xstream.io.xml.DomDriver;
 
@@ -26,7 +29,7 @@ public class Persistance {
 	// S�rialisation
 
 	public void SerialisationApplication(Application a) {
-		SerialisationApplication(a, "application");		
+		SerialisationApplication(a, "sauvegarde");		
 	}
 
 	public void SerialisationApplication(Application a, String f) {
@@ -56,7 +59,7 @@ public class Persistance {
 	// Des�rialisation	
 
 	public Application DeserialisationApplication(){
-		Application app = DeserialisationApplication("application");
+		Application app = DeserialisationApplication("sauvegarde");
 		return app;
 	}
 
@@ -305,8 +308,14 @@ public class Persistance {
 	}
 
 	public void export(Application a) throws IOException{
-		System.out.println("Export");
-		File fa = new File("Application"); 
+		
+		JFileChooser fr = new javax.swing.JFileChooser(); 
+		FileSystemView fw = fr.getFileSystemView(); 
+		File userDirectory = fw.getDefaultDirectory();
+		String path = userDirectory.getAbsolutePath();
+		
+		
+		File fa = new File(path+"/EtuNote"); 
 		fa.mkdirs();
 
 		if(!a.isEmpty()){
@@ -315,14 +324,14 @@ public class Persistance {
 			Iterator itSemester = listSemester.iterator();
 			while (itSemester.hasNext()){
 				Semester s = (Semester) itSemester.next();
-				File fs = new File("Application/"+s.getName()); 
+				File fs = new File(path+"/EtuNote/"+s.getName()); 
 				fs.mkdirs();
 				// Export des Uv
 				ArrayList<Uv> listUv = s.getUvs();
 				Iterator itUv = listUv.iterator();
 				while (itUv.hasNext()){
 					Uv u = (Uv) itUv.next();
-					File fu = new File("Application/"+s.getName()+"/"+u.getName()); 
+					File fu = new File(path+"/EtuNote/"+s.getName()+"/"+u.getName()); 
 					fu.mkdirs();
 					// Export des notes
 					ArrayList<Note> listNotes = u.getNotes();
@@ -331,9 +340,55 @@ public class Persistance {
 						Note n = (Note) itNote.next();
 						FileWriter writer = null;
 						try{
-							writer = new FileWriter("Application/"+s.getName()+"/"+u.getName()+"/"+n.getName()+".html");
+							writer = new FileWriter(path+"/EtuNote/"+s.getName()+"/"+u.getName()+"/"+n.getName()+".html");
 							writer.write(n.getHTML());
-							System.out.println("Application/"+s.getName()+"/"+u.getName()+"/"+n.getName()+".html");
+							System.out.println(path+"/EtuNote/"+s.getName()+"/"+u.getName()+"/"+n.getName()+".html");
+						}catch(IOException ex){
+							ex.printStackTrace();
+						}finally{
+							if(writer != null){
+								writer.close();
+							}
+						}
+					}
+				}
+			}
+		}
+		else{
+			System.out.println("Else");
+			return;
+		}
+	}
+	
+	public void export(Application a, String path) throws IOException{
+		File fa = new File(path+"/EtuNote"); 
+		fa.mkdirs();
+
+		if(!a.isEmpty()){
+			// Export des semestres
+			ArrayList<Semester> listSemester = a.getSemesters();
+			Iterator itSemester = listSemester.iterator();
+			while (itSemester.hasNext()){
+				Semester s = (Semester) itSemester.next();
+				File fs = new File(path+"/EtuNote/"+s.getName()); 
+				fs.mkdirs();
+				// Export des Uv
+				ArrayList<Uv> listUv = s.getUvs();
+				Iterator itUv = listUv.iterator();
+				while (itUv.hasNext()){
+					Uv u = (Uv) itUv.next();
+					File fu = new File(path+"/EtuNote/"+s.getName()+"/"+u.getName()); 
+					fu.mkdirs();
+					// Export des notes
+					ArrayList<Note> listNotes = u.getNotes();
+					Iterator itNote = listNotes.iterator();
+					while (itNote.hasNext()){
+						Note n = (Note) itNote.next();
+						FileWriter writer = null;
+						try{
+							writer = new FileWriter(path+"/EtuNote/"+s.getName()+"/"+u.getName()+"/"+n.getName()+".html");
+							writer.write(n.getHTML());
+							System.out.println(path+"/EtuNote/"+s.getName()+"/"+u.getName()+"/"+n.getName()+".html");
 						}catch(IOException ex){
 							ex.printStackTrace();
 						}finally{

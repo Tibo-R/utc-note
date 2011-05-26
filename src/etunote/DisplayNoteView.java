@@ -67,6 +67,7 @@ public class DisplayNoteView extends javax.swing.JFrame {
 	JButton DeleteButton=new JButton();
 	JButton UndoButton=new JButton();
 	JButton RedoButton=new JButton();
+	JPanel GeneralPanel = new javax.swing.JPanel();
 	
 	JButton Save=new JButton();
     /** Creates new form DisplayNote */
@@ -157,7 +158,7 @@ public class DisplayNoteView extends javax.swing.JFrame {
                 .addContainerGap())
         );
 
-        jTabbedPane1.addTab("NOTES", jPanel1);
+        //jTabbedPane1.addTab("NOTES", jPanel1);
 
         ViewByDate.setForeground(new java.awt.Color(0, 0, 204));
         //ViewByDate.setText("Vue par date");
@@ -257,7 +258,19 @@ public class DisplayNoteView extends javax.swing.JFrame {
         
         scrollpane.setViewportView(jPanel1);
 
-        jTabbedPane1.addTab("Liste des UV", scrollpane);
+        //jTabbedPane1.addTab("Liste des UV", scrollpane);
+        
+        javax.swing.GroupLayout GeneralPanelLayout = new javax.swing.GroupLayout(GeneralPanel);
+        GeneralPanel.setLayout(GeneralPanelLayout);
+        GeneralPanelLayout.setHorizontalGroup(
+            GeneralPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 652, Short.MAX_VALUE)
+        );
+        GeneralPanelLayout.setVerticalGroup(
+            GeneralPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 258, Short.MAX_VALUE)
+        );
+        
         
         jMenu1.setText("File");
 
@@ -358,8 +371,8 @@ public class DisplayNoteView extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addGap(10, 10, 10)
-                        .addComponent(jTabbedPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 1014, Short.MAX_VALUE))
+                        .addGap(10, 10, 10))
+                        //.addComponent(jTabbedPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 1014, Short.MAX_VALUE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addComponent(ViewByDate, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
@@ -380,11 +393,11 @@ public class DisplayNoteView extends javax.swing.JFrame {
                             .addComponent(RechercheField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(ViewByDate)))
                     .addComponent(toolBar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(30, 30, 30)
-                .addComponent(jTabbedPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 745, Short.MAX_VALUE))
+                .addGap(30, 30, 30))
+                //.addComponent(jTabbedPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 745, Short.MAX_VALUE))
         );
 
-        jTabbedPane1.getAccessibleContext().setAccessibleName("NOTE");
+        //jTabbedPane1.getAccessibleContext().setAccessibleName("NOTE");
         uvPanel = updateAppContent();
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -596,10 +609,8 @@ public class DisplayNoteView extends javax.swing.JFrame {
 		return uvPanel;
     }
 	protected void showUv(Uv uv) {
-		this.setVisible(false);
 		UvView uvv = new UvView(uv);
 		uvv.setVisible(true);
-		
 	}
     
 }

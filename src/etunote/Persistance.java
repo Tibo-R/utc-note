@@ -309,10 +309,19 @@ public class Persistance {
 
 	public void export(Application a) throws IOException{
 		
+		String path;
 		JFileChooser fr = new javax.swing.JFileChooser(); 
 		FileSystemView fw = fr.getFileSystemView(); 
-		File userDirectory = fw.getDefaultDirectory();
-		String path = userDirectory.getAbsolutePath();
+		File userDirectory = fw.getDefaultDirectory(); 
+
+		System.out.println(userDirectory);
+		String osName = System.getProperty("os.name").toLowerCase();
+		if(osName.startsWith("mac") || osName.startsWith("lin") || osName.startsWith("un")){
+			path = userDirectory.getAbsolutePath() + "/Documents";
+		}
+		else{
+			path = userDirectory.getAbsolutePath();
+		}
 		
 		
 		File fa = new File(path+"/EtuNote"); 

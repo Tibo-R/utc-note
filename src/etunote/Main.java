@@ -11,20 +11,28 @@ public class Main {
 	public static void main(String[] args) throws IOException {
 		//UvView uv = new UvView();
 		
+		
+
+		String path;
 		JFileChooser fr = new javax.swing.JFileChooser(); 
 		FileSystemView fw = fr.getFileSystemView(); 
 		File userDirectory = fw.getDefaultDirectory(); 
 
 		System.out.println(userDirectory);
-		
-		/*Application a = new Application();
-		
-		File f = new File("sauvegarde.xml");
-		if ( f.exists() ) {
-			Persistance pe = new Persistance();
-			a = pe.DeserialisationApplication();
+		String osName = System.getProperty("os.name").toLowerCase();
+		if(osName.startsWith("mac") || osName.startsWith("lin") || osName.startsWith("un")){
+			path = userDirectory.getAbsolutePath() + "/Documents";
 		}
-		DisplayNoteView ds=new DisplayNoteView(a);
-		ds.setVisible(true);*/
+		else{
+			path = userDirectory.getAbsolutePath();
+		}
+		System.out.println(osName);
+		System.out.println(path);
+
+		
+		
+
+
+		
 	}
 }

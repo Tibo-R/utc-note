@@ -21,7 +21,7 @@ import javax.swing.border.TitledBorder;
  *
  * @author mbayemoh
  */
-public class UvView extends javax.swing.JFrame {
+public class UvView extends javax.swing.JPanel {
 
     /** Creates new form UvView */
     public UvView(Uv uvModel) {
@@ -53,9 +53,10 @@ public class UvView extends javax.swing.JFrame {
         CopyItem = new javax.swing.JMenuItem();
         DeleteItem = new javax.swing.JMenuItem();
         uvPanel =  new javax.swing.JPanel();
-
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-
+         
+        
+        //setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+       
         jTabbedPane1.addTab("NOTES", jScrollPane1);
 
         jMenu1.setText("File");
@@ -138,10 +139,10 @@ public class UvView extends javax.swing.JFrame {
 
         jMenuBar1.add(jMenu2);
 
-        setJMenuBar(jMenuBar1);
-
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
+        //setJMenuBar(jMenuBar1);
+        
+        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
+        //getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
@@ -161,7 +162,7 @@ public class UvView extends javax.swing.JFrame {
         
         //jTabbedPane1.add(uvPanel);
         uvPanel = updateAppContent();
-        pack();
+//        pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void OpenItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_OpenItemActionPerformed
@@ -252,7 +253,8 @@ public class UvView extends javax.swing.JFrame {
     		uvButton.setBackground(note.getColorCode());
     		uvButton.addActionListener(new java.awt.event.ActionListener() {
                 public void actionPerformed(java.awt.event.ActionEvent evt) {
-                    showNote(note);
+                    
+                	showNote(note);
                 }
             });
     		parallelGroup.addGroup(uvPanelLayout.createParallelGroup()
@@ -292,9 +294,33 @@ public class UvView extends javax.swing.JFrame {
     }
 
 	protected void showNote(Note note) {
-		this.setVisible(false);
+		System.out.print("\n Pour Note \n");
+
 		PriseNoteView pn = new PriseNoteView(note);
 		pn.setVisible(true);
+		uvPanel.removeAll();
+		GroupLayout panLayout=new javax.swing.GroupLayout(uvPanel);
+		uvPanel.setLayout(panLayout);
+		panLayout.setAutoCreateGaps(true);
 		
+		Group parallelGroup = panLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING);
+        Group verticalGroup = panLayout.createSequentialGroup();
+        
+        parallelGroup.addGroup(panLayout.createSequentialGroup()
+
+            	.addComponent(pn, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE));
+        
+        verticalGroup.addGroup(panLayout.createParallelGroup()
+
+            	.addComponent(pn, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE));            	      
+        
+        panLayout.setHorizontalGroup(parallelGroup);
+        panLayout.setVerticalGroup(verticalGroup);
+        System.out.print(uvPanel.countComponents());
+		
+		
+		//uvv.setVisible(true);
+		
+	
 	}
 }

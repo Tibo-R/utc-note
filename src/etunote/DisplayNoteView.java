@@ -68,6 +68,9 @@ public class DisplayNoteView extends javax.swing.JFrame {
 	JButton UndoButton=new JButton();
 	JButton RedoButton=new JButton();
 	JPanel GeneralPanel = new javax.swing.JPanel();
+	UvView uvv;
+	javax.swing.GroupLayout GeneralPanelLayout = new javax.swing.GroupLayout(GeneralPanel);
+	javax.swing.GroupLayout GeneralPanelLayout2 = new javax.swing.GroupLayout(GeneralPanel);
 	
 	JButton Save=new JButton();
     /** Creates new form DisplayNote */
@@ -260,15 +263,27 @@ public class DisplayNoteView extends javax.swing.JFrame {
 
         //jTabbedPane1.addTab("Liste des UV", scrollpane);
         
-        javax.swing.GroupLayout GeneralPanelLayout = new javax.swing.GroupLayout(GeneralPanel);
+        jTabbedPane1.addTab("NOTE", jPanel1);
+
+        //javax.swing.GroupLayout GeneralPanelLayout = new javax.swing.GroupLayout(GeneralPanel);
         GeneralPanel.setLayout(GeneralPanelLayout);
         GeneralPanelLayout.setHorizontalGroup(
             GeneralPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGap(0, 652, Short.MAX_VALUE)
+            .addGroup(GeneralPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(GeneralPanelLayout.createSequentialGroup()
+                    .addContainerGap()
+                    .addComponent(jTabbedPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 632, Short.MAX_VALUE)
+                    .addContainerGap()))
         );
         GeneralPanelLayout.setVerticalGroup(
             GeneralPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 258, Short.MAX_VALUE)
+            .addGap(0, 767, Short.MAX_VALUE)
+            .addGroup(GeneralPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(GeneralPanelLayout.createSequentialGroup()
+                    .addContainerGap()
+                    .addComponent(jTabbedPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 745, Short.MAX_VALUE)
+                    .addContainerGap()))
         );
         
         
@@ -352,15 +367,14 @@ public class DisplayNoteView extends javax.swing.JFrame {
                 DeleteItemActionPerformed(evt);
             }
         });
+        
         jMenu2.add(DeleteItem);
 
         jMenuBar1.add(jMenu2);
 
         
         
-        
-       
-        
+
        
         
         setJMenuBar(jMenuBar1);
@@ -368,40 +382,40 @@ public class DisplayNoteView extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addGap(10, 10, 10))
-                        //.addComponent(jTabbedPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 1014, Short.MAX_VALUE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(ViewByDate, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(10, 10, 10)
+                        .addComponent(GeneralPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(toolBar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 158, Short.MAX_VALUE)
+                        .addComponent(ViewByDate, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
                         .addComponent(RechercheField, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(SearchButton))
-                    .addComponent(toolBar, javax.swing.GroupLayout.PREFERRED_SIZE, 260, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(SearchButton)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(toolBar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(layout.createSequentialGroup()
                         .addContainerGap()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(SearchButton)
                             .addComponent(RechercheField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(ViewByDate)))
-                    .addComponent(toolBar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(30, 30, 30))
-                //.addComponent(jTabbedPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 745, Short.MAX_VALUE))
+                            .addComponent(ViewByDate))))
+                .addGap(18, 18, 18)
+                .addComponent(GeneralPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(26, Short.MAX_VALUE))
         );
 
-        //jTabbedPane1.getAccessibleContext().setAccessibleName("NOTE");
-        uvPanel = updateAppContent();
         pack();
-    }// </editor-fold>//GEN-END:initComponents
-
+    }
+        
     private void SearchButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SearchButtonActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_SearchButtonActionPerformed
@@ -609,8 +623,31 @@ public class DisplayNoteView extends javax.swing.JFrame {
 		return uvPanel;
     }
 	protected void showUv(Uv uv) {
-		UvView uvv = new UvView(uv);
-		uvv.setVisible(true);
+		uvv = new UvView(uv);
+
+		GeneralPanel.removeAll();
+		GeneralPanelLayout=new javax.swing.GroupLayout(GeneralPanel);
+		GeneralPanel.setLayout(GeneralPanelLayout);
+		GeneralPanelLayout.setAutoCreateGaps(true);
+		
+		Group parallelGroup = GeneralPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING);
+        Group verticalGroup = GeneralPanelLayout.createSequentialGroup();
+        
+        parallelGroup.addGroup(GeneralPanelLayout.createSequentialGroup()
+
+            	.addComponent(uvv, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE));
+        
+        verticalGroup.addGroup(GeneralPanelLayout.createParallelGroup()
+
+            	.addComponent(uvv, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE));            	      
+        
+		GeneralPanelLayout.setHorizontalGroup(parallelGroup);
+		GeneralPanelLayout.setVerticalGroup(verticalGroup);
+        System.out.print(GeneralPanel.countComponents());
+		
+		
+		//uvv.setVisible(true);
+		
 	}
     
 }

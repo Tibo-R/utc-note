@@ -4,11 +4,15 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 public class Main {
-	public void main(String args[]) throws IOException{
-		//PriseNoteView ds=new PriseNoteView();
+	public static void main(String[] args) throws IOException {
+		//UvView uv = new UvView();
+		
+		
+		
 		Application a = new Application();
 		
-		
+		/*Semester s1 = new Semester("P10");
+=======
 		Semester s1 = new Semester("P10", a);
 
 		
@@ -104,8 +108,8 @@ public class Main {
 		Note n22 = new Note("Note 2", u8);
 		Note n23 = new Note("Note 3", u8);
 		ArrayList<Note> notes8 = new ArrayList<Note>();
+		notes8.add(n21);
 		notes8.add(n22);
-		notes8.add(n2);
 		notes8.add(n23);
 		u8.setNotes(notes8);
 		
@@ -130,9 +134,13 @@ public class Main {
 		a.addSemester(s3);
 		
 		Persistance pe = new Persistance();
-		pe.export(a);
+		/*pe.export(a);*/
 		
 		
-		
+		/*pe.SerialisationApplication(a, "sauvegarde");*/
+		Persistance pe = new Persistance();
+		a = pe.DeserialisationApplication("sauvegarde");
+		DisplayNoteView ds=new DisplayNoteView(a);
+		ds.setVisible(true);
 	}
 }

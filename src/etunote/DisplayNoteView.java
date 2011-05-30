@@ -109,6 +109,7 @@ public class DisplayNoteView extends javax.swing.JFrame {
         CopyItem = new javax.swing.JMenuItem();
         DeleteItem = new javax.swing.JMenuItem();
         
+        
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         SearchButton.setText("OK");
@@ -569,7 +570,9 @@ public class DisplayNoteView extends javax.swing.JFrame {
         		uvButton.setBackground(uv.getColorCode());
         		uvButton.addActionListener(new java.awt.event.ActionListener() {
                 public void actionPerformed(java.awt.event.ActionEvent evt) {
-                    showUv(uv);
+                    //showUv(uv);
+                	Note np=new Note(uv);
+                	showNote(uv,np);
                 }
             });
         		semParallelGroup.addGroup(semPanelLayout.createParallelGroup()
@@ -649,5 +652,34 @@ public class DisplayNoteView extends javax.swing.JFrame {
 		//uvv.setVisible(true);
 		
 	}
-    
+	protected void showNote(Uv uv,Note n)
+	{
+		//UvView uvvi=new UvView(uv);
+		Note no= new Note(uv);
+		PriseNoteView pn=new PriseNoteView(no);
+		
+		GeneralPanel.removeAll();
+		GeneralPanelLayout=new javax.swing.GroupLayout(GeneralPanel);
+		GeneralPanel.setLayout(GeneralPanelLayout);
+		GeneralPanelLayout.setAutoCreateGaps(true);
+		
+		Group parallelGroup = GeneralPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING);
+        Group verticalGroup = GeneralPanelLayout.createSequentialGroup();
+        
+        parallelGroup.addGroup(GeneralPanelLayout.createSequentialGroup()
+
+            	.addComponent(pn, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE));
+        
+        verticalGroup.addGroup(GeneralPanelLayout.createParallelGroup()
+
+            	.addComponent(pn, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE));            	      
+        
+		GeneralPanelLayout.setHorizontalGroup(parallelGroup);
+		GeneralPanelLayout.setVerticalGroup(verticalGroup);
+        
+		System.out.print(GeneralPanel.countComponents());
+		
+		
+		//uvv.setVisible(true);
+	}
 }

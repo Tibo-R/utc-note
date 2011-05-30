@@ -37,7 +37,7 @@ public class Start {
 		public static void init() throws IOException {
 
 			
-/*			Application app = new Application();
+			Application app = new Application();
 			
 			Semester sem1 = new Semester("P11", app);
 			app.addSemester(sem1);
@@ -56,14 +56,14 @@ public class Start {
 //			
 //			DisplayNoteView ds=new DisplayNoteView(app);
 //			ds.setVisible(true);
-			PriseNoteView ps=new PriseNoteView(note);
-			ps.setVisible(true);
-*/			
+//			PriseNoteView ps=new PriseNoteView(note);
+//			ps.setVisible(true);
+		
 			
 			
-			//PriseNoteView ds=new PriseNoteView();
+//			PriseNoteView ds=new PriseNoteView(note);
 			Application a = new Application();
-			
+//			
 			
 			Semester s1 = new Semester("P10", a);
 
@@ -188,6 +188,12 @@ public class Start {
 			Persistance pe = new Persistance();
 			pe.SerialisationApplication(a);
 			pe.export(a);
+			
+			
+//			PriseNoteView Notev=new PriseNoteView(note);
+//			Notev.setVisible(true);
+			DisplayNoteView fr=new DisplayNoteView(app);
+			fr.setVisible(true);
 		}
 
 }

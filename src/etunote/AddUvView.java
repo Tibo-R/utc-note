@@ -30,6 +30,7 @@ public class AddUvView extends javax.swing.JFrame {
     	this.parent = displayNoteView;
         initComponents();
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        
     }
 
     /** This method is called from within the constructor to

@@ -164,16 +164,9 @@ public class DisplayNoteView extends javax.swing.JFrame {
 
         //jTabbedPane1.addTab("NOTES", jPanel1);
 
-        ViewByDate.setForeground(new java.awt.Color(0, 0, 204));
-        //ViewByDate.setText("Vue par date");
-        ViewByDate.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
-        //Tools.addIcon(ViewByDate, "Calendar.png");
-        ViewByDate.setIcon(new ImageIcon("Date.png"));
-        ViewByDate.setOpaque(false);
-        ViewByDate.setFocusPainted(false);
-        ViewByDate.setBorderPainted(false);
-        ViewByDate.setBorder(null);
+
         ViewByDate.setToolTipText("Vue par date");
+        Tools.addIcon(ViewByDate, "Date.png");
         ViewByDate.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 ViewByDateActionPerformed(evt);
@@ -437,7 +430,7 @@ public class DisplayNoteView extends javax.swing.JFrame {
 	}
 
 	private void ViewByDateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ViewByDateActionPerformed
-        // TODO add your handling code here:
+		showViewDate(this.appModel);
     }//GEN-LAST:event_ViewByDateActionPerformed
 
 
@@ -625,6 +618,36 @@ public class DisplayNoteView extends javax.swing.JFrame {
     	
 		return uvPanel;
     }
+    
+    
+    protected void showViewDate(Application app) {
+		dateView dv = new dateView(app);
+
+		GeneralPanel.removeAll();
+		GeneralPanelLayout=new javax.swing.GroupLayout(GeneralPanel);
+		GeneralPanel.setLayout(GeneralPanelLayout);
+		GeneralPanelLayout.setAutoCreateGaps(true);
+		
+		Group parallelGroup = GeneralPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING);
+        Group verticalGroup = GeneralPanelLayout.createSequentialGroup();
+        
+        parallelGroup.addGroup(GeneralPanelLayout.createSequentialGroup()
+
+            	.addComponent(dv, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE));
+        
+        verticalGroup.addGroup(GeneralPanelLayout.createParallelGroup()
+
+            	.addComponent(dv, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE));            	      
+        
+		GeneralPanelLayout.setHorizontalGroup(parallelGroup);
+		GeneralPanelLayout.setVerticalGroup(verticalGroup);
+		
+		
+		//uvv.setVisible(true);
+		
+	}
+    
+    
 	protected void showUv(Uv uv) {
 		uvv = new UvView(uv);
 

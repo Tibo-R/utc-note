@@ -6,13 +6,16 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
+import java.nio.channels.FileChannel;
 import java.util.ArrayList;
 import java.util.Iterator;
-
 import javax.swing.JFileChooser;
 import javax.swing.filechooser.FileSystemView;
 
 import com.thoughtworks.xstream.XStream;
+import com.thoughtworks.xstream.io.path.Path;
 import com.thoughtworks.xstream.io.xml.DomDriver;
 
 
@@ -23,7 +26,7 @@ public class Persistance {
 	private ArrayList<Note> notes;
 	@SuppressWarnings("unused")
 	private ArrayList<Semester> semesters;
-	
+
 	/* D�but s�rialisation et des�rialisation d'application */
 
 	// S�rialisation
@@ -55,7 +58,7 @@ public class Persistance {
 			ioe.printStackTrace();
 		}
 	}
-	
+
 	// Des�rialisation	
 
 	public Application DeserialisationApplication(){
@@ -85,12 +88,12 @@ public class Persistance {
 		// On renvoie l'objet r�g�n�r�
 		return app;
 	}
-	
-	
+
+
 	/* Fin s�rialisation et des�rialisation d'application */
 
 	/*************************************************************************/
-	
+
 
 	/* D�but s�rialisation et des�rialisation de note(s) */
 
@@ -311,7 +314,7 @@ public class Persistance {
 	
 
 	public void export(Application a) throws IOException{
-		
+
 		String path;
 		JFileChooser fr = new javax.swing.JFileChooser(); 
 		FileSystemView fw = fr.getFileSystemView(); 
@@ -325,10 +328,17 @@ public class Persistance {
 		else{
 			path = userDirectory.getAbsolutePath();
 		}
+
+		File sourceCSS = new File("data/styles/default");
+		File destCSS = new File(path+"/EtuNote/styles/default");
+		destCSS.mkdirs();
 		
-		
+		copyDirectory(sourceCSS, destCSS);
+
+
 		File fa = new File(path+"/EtuNote"); 
 		fa.mkdirs();
+
 
 		if(!a.isEmpty()){
 			// Export des semestres
@@ -418,7 +428,7 @@ public class Persistance {
 			return;
 		}
 	}
-	
+
 	
 	
 	
@@ -470,4 +480,33 @@ public class Persistance {
 			return;
 		}
 	}
+
+
+	public static void copyDirectory(File sourceLocation , File targetLocation) throws IOException {
+		 
+	    if (sourceLocation.isDirectory()) {
+	        if (!targetLocation.exists()) {
+	            targetLocation.mkdir();
+	        }
+	 
+	        String[] children = sourceLocation.list();
+	        for (int i=0; i<children.length; i++) {
+	            copyDirectory(new File(sourceLocation, children[i]),
+	                    new File(targetLocation, children[i]));
+	        }
+	    } else {
+	        InputStream in = new FileInputStream(sourceLocation);
+	        OutputStream out = new FileOutputStream(targetLocation);
+	 
+	        // Copy the bits from instream to outstream
+	        byte[] buf = new byte[1024];
+	        int len;
+	        while ((len = in.read(buf)) > 0) {
+	            out.write(buf, 0, len);
+	        }
+	        in.close();
+	        out.close();
+	    }
+	}
+
 }

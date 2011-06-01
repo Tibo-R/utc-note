@@ -306,6 +306,9 @@ public class Persistance {
 
 		return semesters;
 	}
+	
+	
+	
 
 	public void export(Application a) throws IOException{
 		
@@ -331,8 +334,11 @@ public class Persistance {
 			// Export des semestres
 			ArrayList<Semester> listSemester = a.getSemesters();
 			Iterator itSemester = listSemester.iterator();
+			String listeUv = "Liste des UV";			
+			
 			while (itSemester.hasNext()){
 				Semester s = (Semester) itSemester.next();
+				listeUv = listeUv + "<BR><BR>" + s.getName();
 				File fs = new File(path+"/EtuNote/"+s.getName()); 
 				fs.mkdirs();
 				// Export des Uv
@@ -341,17 +347,22 @@ public class Persistance {
 				while (itUv.hasNext()){
 					Uv u = (Uv) itUv.next();
 					File fu = new File(path+"/EtuNote/"+s.getName()+"/"+u.getName()); 
-					fu.mkdirs();
+					fu.mkdirs();	
+					listeUv.concat("<BR> <A HREF=\"");
+					listeUv = listeUv + "<BR> <A HREF=\"" + s.getName()+"/"+u.getName()+"/"+ u.getName()+".html\" target=\"gauche_bas\">"+ u.getName()+"</A>";
+					String listeNote = "Liste des notes de " + u.getName() + "<BR>";
+					
 					// Export des notes
 					ArrayList<Note> listNotes = u.getNotes();
 					Iterator itNote = listNotes.iterator();
 					while (itNote.hasNext()){
 						Note n = (Note) itNote.next();
+						listeNote = listeNote + "<BR> <A HREF=\"" + n.getName()+".html\" target=\"droite\">"+ n.getName()+"</A>";
 						FileWriter writer = null;
 						try{
-							writer = new FileWriter(path+"/EtuNote/"+s.getName()+"/"+u.getName()+"/"+n.getName()+".html");
+							writer = new FileWriter(path+"/EtuNote/"+s.getName()+"/"+u.getName()+"/"+n.getName()+".html");														
 							writer.write(n.getHTML());
-							System.out.println(path+"/EtuNote/"+s.getName()+"/"+u.getName()+"/"+n.getName()+".html");
+							//System.out.println(path+"/EtuNote/"+s.getName()+"/"+u.getName()+"/"+n.getName()+".html");
 						}catch(IOException ex){
 							ex.printStackTrace();
 						}finally{
@@ -360,14 +371,59 @@ public class Persistance {
 							}
 						}
 					}
+					
+					FileWriter writerListeNote = null;
+					try{
+						writerListeNote = new FileWriter(path+"/EtuNote/"+s.getName()+"/"+u.getName()+"/"+u.getName()+".html");
+						writerListeNote.write(listeNote);
+					}catch(IOException ex){
+						ex.printStackTrace();
+					}finally{
+						if(writerListeNote != null){
+							writerListeNote.close();
+						}
+					}
+					
+					
 				}
 			}
+			
+			FileWriter writerListeUv = null;
+			try{
+				writerListeUv = new FileWriter(path+"/EtuNote/uv.html");
+				writerListeUv.write(listeUv);
+			}catch(IOException ex){
+				ex.printStackTrace();
+			}finally{
+				if(writerListeUv != null){
+					writerListeUv.close();
+				}
+			}
+			
+			FileWriter writerIndex = null;
+			try{
+				writerIndex = new FileWriter(path+"/EtuNote/index.html");
+				writerIndex.write("<FRAMESET COLS=\"12%,88%\"> <FRAMESET ROWS=\"30%, 70%\"> <FRAME SRC=\"uv.html\" NAME=\"gauche_haut\"> <FRAME NAME=\"gauche_bas\"> </FRAMESET> <FRAME NAME=\"droite\"> </FRAMESET> ");
+			}catch(IOException ex){
+				ex.printStackTrace();
+			}finally{
+				if(writerIndex != null){
+					writerIndex.close();
+				}
+			}
+			
 		}
 		else{
 			System.out.println("Else");
 			return;
 		}
 	}
+	
+	
+	
+	
+	
+	
 	
 	public void export(Application a, String path) throws IOException{
 		File fa = new File(path+"/EtuNote"); 

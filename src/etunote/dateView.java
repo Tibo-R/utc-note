@@ -10,50 +10,39 @@
  */
 package etunote;
 
+import java.awt.Dimension;
+import java.awt.GridLayout;
+import java.util.Calendar;
+import java.util.Date;
+
+import javax.swing.BorderFactory;
+import javax.swing.Box;
+import javax.swing.BoxLayout;
 import javax.swing.GroupLayout;
 import javax.swing.JButton;
 import javax.swing.JPanel;
 import javax.swing.GroupLayout.Group;
+import javax.swing.border.TitledBorder;
 
-public class dateView extends javax.swing.JPanel {
+public class dateView extends PanelView {
 	
 	// Variables declaration
 	private Application app;
-    private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTabbedPane jTabbedPane1;
-    private javax.swing.JPanel notesPanel;
+    private javax.swing.JScrollPane notesScrollPane;
     // End of variables declaration
 
     public dateView(Application app) {
+    	super();
     	this.app = app;
         initComponents();
     }
     
     private void initComponents() {
 
-        jTabbedPane1 = new javax.swing.JTabbedPane();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        notesPanel =  new javax.swing.JPanel();
-        jTabbedPane1.addTab("NOTES", jScrollPane1);
-
+        notesScrollPane = new javax.swing.JScrollPane();
+        notesScrollPane.setViewportView(this);
         
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(notesPanel, javax.swing.GroupLayout.DEFAULT_SIZE, 568, Short.MAX_VALUE)
-                .addContainerGap())
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(notesPanel, javax.swing.GroupLayout.DEFAULT_SIZE, 295, Short.MAX_VALUE)
-                .addContainerGap())
-        );
-
-        notesPanel = updateAppContent();
+        this.updateContent();
     }
 
     public Application getApp() {
@@ -64,46 +53,133 @@ public class dateView extends javax.swing.JPanel {
 		this.app = app;
 	}
 
-    public JPanel updateAppContent(){
-    	notesPanel.removeAll();
-    	GroupLayout notesPanelLayout;
-    	notesPanelLayout=new javax.swing.GroupLayout(notesPanel);
+    public void updateContent(){
+    	this.removeAll();
+    	BoxLayout notesPanelLayout;
+    	notesPanelLayout = new BoxLayout(this, BoxLayout.PAGE_AXIS);
         //javax.swing.GroupLayout notePanelLayout = new javax.swing.GroupLayout(notePanel);
-    	notesPanel.setLayout(notesPanelLayout);
-    	notesPanelLayout.setAutoCreateGaps(true);
+    	this.setLayout(notesPanelLayout);
+//    	notesPanelLayout.setAutoCreateGaps(true);
 
-        
-    	Group parallelGroup = notesPanelLayout.createSequentialGroup();
-        Group verticalGroup = notesPanelLayout.createParallelGroup();
+    	GridLayout gridLayout = new GridLayout(0,5,5,5);
+    	gridLayout.setHgap(15);
+    	gridLayout.setVgap(15);
+    	
+    	
+        JPanel todayPanel = new JPanel();
+    	TitledBorder title;
+    	title = BorderFactory.createTitledBorder("Aujourd'hui");
+    	title.setTitleFont(new java.awt.Font("Tahoma", 1, 18));
+    	todayPanel.setBorder(title);
+    	todayPanel.setLayout(gridLayout);
+    	this.add(todayPanel);
+    	this.add(Box.createVerticalGlue());
+    	
+    	JPanel weekPanel = new JPanel();
+    	title = BorderFactory.createTitledBorder("Cette semaine");
+    	title.setTitleFont(new java.awt.Font("Tahoma", 1, 18));
+    	weekPanel.setBorder(title);
+    	weekPanel.setLayout(gridLayout);
+    	this.add(weekPanel);
+    	this.add(Box.createVerticalGlue());
+    	
+    	JPanel lastWeekPanel = new JPanel();
+    	title = BorderFactory.createTitledBorder("La semaine dernière");
+    	title.setTitleFont(new java.awt.Font("Tahoma", 1, 18));
+    	lastWeekPanel.setBorder(title);
+    	lastWeekPanel.setLayout(gridLayout);
+    	this.add(lastWeekPanel);
+    	this.add(Box.createVerticalGlue());
+    	
+    	JPanel monthPanel = new JPanel();
+    	title = BorderFactory.createTitledBorder("Ce mois");
+    	title.setTitleFont(new java.awt.Font("Tahoma", 1, 18));
+    	monthPanel.setBorder(title);
+    	monthPanel.setLayout(gridLayout);
+    	this.add(monthPanel);
+    	this.add(Box.createVerticalGlue());
+    	
+    	JPanel oldPanel = new JPanel();
+    	title = BorderFactory.createTitledBorder("Plus ancien");
+    	title.setTitleFont(new java.awt.Font("Tahoma", 1, 18));
+    	oldPanel.setBorder(title);
+    	oldPanel.setLayout(gridLayout);
+    	this.add(oldPanel);
+    	this.add(Box.createVerticalGlue());
+    	
+    	
+//    	Group parallelGroup = notesPanelLayout.createSequentialGroup();
+//        Group verticalGroup = notesPanelLayout.createParallelGroup();
         
         for (final Note note : this.app.getAllNotesByDate()){
             
-    		JButton noteButton = new JButton(note.getName());
+    		JButton noteButton = new JButton("<html><body style='text-align:center'>" + note.getName() + "<br><div style='font-size:8px;'>" + "(" + note.getUvs().get(0).getName() + ")</div></body></html>");
     		noteButton.setBackground(note.getUvs().get(0).getColorCode());
+    		noteButton.setMinimumSize(new Dimension(80, 80));
+    		noteButton.setPreferredSize(new Dimension(80, 80));
     		noteButton.addActionListener(new java.awt.event.ActionListener() {
                 public void actionPerformed(java.awt.event.ActionEvent evt) {
-                    
                 	showNote(note);
                 }
             });
-    		parallelGroup.addGroup(notesPanelLayout.createParallelGroup()
-            	.addGap(10, 10, 10)
-            	.addComponent(noteButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE)
-            	.addGap(10, 10, 10));
-            	
-      	
-    		verticalGroup.addGroup(notesPanelLayout.createParallelGroup()
-            	.addGap(20, 20, 20)
-            	.addComponent(noteButton, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE));
+    		
+    		Calendar cal = Calendar.getInstance();
+    		int week = cal.get(Calendar.WEEK_OF_YEAR);
+    		int month = cal.get(Calendar.MONTH);
+    		int year = cal.get(Calendar.YEAR);
+    		
+    		
+    		cal.set(Calendar.HOUR_OF_DAY, 0);
+    		cal.set(Calendar.MINUTE, 0);
+    		cal.set(Calendar.SECOND, 0);
+    		Date today = cal.getTime();
+    		
+    		cal.clear();
+    		cal.setFirstDayOfWeek(Calendar.MONDAY);
+    		cal.set(Calendar.WEEK_OF_YEAR, week);
+    		cal.set(Calendar.YEAR, year);
+//    		cal.add(Calendar.WEEK_OF_MONTH, -1);
+    		Date thisWeek = cal.getTime();
+    		
+    		cal.add(Calendar.WEEK_OF_YEAR, -1);
+    		Date lastWeek = cal.getTime();
+    		
+    		cal = Calendar.getInstance();
+    		cal.add(Calendar.MONTH, -1);
+    		cal.set(Calendar.HOUR_OF_DAY, 0);
+    		cal.set(Calendar.MINUTE, 0);
+    		cal.set(Calendar.SECOND, 0);
+
+//    		cal.add(Calendar.WEEK_OF_MONTH, -1);
+    		Date thisMonth = cal.getTime();
+    		
+//    		System.out.println("aujourd'hui " + today);
+//    		System.out.println("Début de semaine " + thisWeek);
+//    		System.out.println("Début de semaine dernière " + lastWeek);
+//    		System.out.println("Début du mois " + thisMonth);
+    		
+    		if(note.getModified_at().after(today)){
+    			todayPanel.add(noteButton);
+    		}
+    		else if(note.getModified_at().after(thisWeek)){
+    			weekPanel.add(noteButton);
+    		}
+    		else if(note.getModified_at().after(lastWeek)){
+    			lastWeekPanel.add(noteButton);
+    		}
+    		else if(note.getModified_at().after(thisMonth)){
+    			monthPanel.add(noteButton);
+    		}
+    		else{
+    			oldPanel.add(noteButton);
+    		}
+    		
+    		
         }
         	
         	
-        notesPanelLayout.setHorizontalGroup(parallelGroup);
-        notesPanelLayout.setVerticalGroup(verticalGroup);
-        
-    	
-		return notesPanel;
-    	
+//        notesPanelLayout.setHorizontalGroup(parallelGroup);
+//        notesPanelLayout.setVerticalGroup(verticalGroup);
     }
 
 	protected void showNote(Note note) {
@@ -111,9 +187,9 @@ public class dateView extends javax.swing.JPanel {
 
 		PriseNoteView pn = new PriseNoteView(note);
 		pn.setVisible(true);
-		notesPanel.removeAll();
-		GroupLayout panLayout=new javax.swing.GroupLayout(notesPanel);
-		notesPanel.setLayout(panLayout);
+		this.removeAll();
+		GroupLayout panLayout=new javax.swing.GroupLayout(this);
+		this.setLayout(panLayout);
 		panLayout.setAutoCreateGaps(true);
 		
 		Group parallelGroup = panLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING);

@@ -13,6 +13,7 @@ package etunote;
 import javax.swing.BorderFactory;
 import javax.swing.GroupLayout;
 import javax.swing.JButton;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.GroupLayout.Group;
 import javax.swing.border.TitledBorder;
@@ -21,10 +22,13 @@ import javax.swing.border.TitledBorder;
  *
  * @author mbayemoh
  */
-public class UvView extends javax.swing.JPanel {
+public class UvView extends PanelView {
 
+	private MainView mainView;
+	
     /** Creates new form UvView */
-    public UvView(Uv uvModel) {
+    public UvView(MainView mainView, Uv uvModel) {
+    	this.mainView = mainView;
     	this.uvModel = uvModel;
         initComponents();
     }
@@ -158,13 +162,9 @@ public class UvView extends javax.swing.JPanel {
                 .addContainerGap())
         );
 
-        //jTabbedPane1.getAccessibleContext().setAccessibleName("NOTES");
-        
-        //jTabbedPane1.add(uvPanel);
-        uvPanel = updateAppContent();
-//        pack();
-    }// </editor-fold>//GEN-END:initComponents
-
+        this.updateContent();
+    }
+    
     private void OpenItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_OpenItemActionPerformed
         // TODO add your handling code here:
 }//GEN-LAST:event_OpenItemActionPerformed
@@ -201,11 +201,20 @@ public class UvView extends javax.swing.JPanel {
         // TODO add your handling code here:
 }//GEN-LAST:event_DeleteItemActionPerformed
     
-    private void AddNoteButtonActionPerformed() {//GEN-FIRST:event_AddSemesterButtonActionPerformed
-        // TODO add your handling code here:
-    	new AddNoteView(this).setVisible(true);
-    	
-    }//GEN-LAST:event_AddSemesterButtonActionPerformed
+    private void showAddNoteDialog() {
+    		String s = (String)JOptionPane.showInputDialog(
+    		                    this.mainView,
+    		                    "Entrez le nom de la note",
+    		                    "Ajouter une note",
+    		                    JOptionPane.PLAIN_MESSAGE);
+
+    		//If a string was returned, add the semester
+    		if ((s != null) && (s.length() > 0)) {
+    			Note note = new Note(s, uvModel);
+    	    	updateContent();
+    		}
+
+    }
 
     public Uv getUvModel() {
 		return uvModel;
@@ -234,7 +243,7 @@ public class UvView extends javax.swing.JPanel {
     private javax.swing.JPanel uvPanel;
     // End of variables declaration//GEN-END:variables
     
-    public JPanel updateAppContent(){
+    public void updateContent(){
     	uvPanel.removeAll();
     	GroupLayout uvPanelLayout;
     	uvPanelLayout=new javax.swing.GroupLayout(uvPanel);
@@ -253,8 +262,7 @@ public class UvView extends javax.swing.JPanel {
     		uvButton.setBackground(note.getColorCode());
     		uvButton.addActionListener(new java.awt.event.ActionListener() {
                 public void actionPerformed(java.awt.event.ActionEvent evt) {
-                    
-                	showNote(note);
+                	mainView.showNote(note);
                 }
             });
     		parallelGroup.addGroup(uvPanelLayout.createParallelGroup()
@@ -271,7 +279,7 @@ public class UvView extends javax.swing.JPanel {
         	JButton plusButton = new JButton(" + ");
         	plusButton.addActionListener(new java.awt.event.ActionListener() {
                 public void actionPerformed(java.awt.event.ActionEvent evt) {
-                    AddNoteButtonActionPerformed();
+                    showAddNoteDialog();
                 }
             });
         	parallelGroup.addGroup(uvPanelLayout.createParallelGroup()
@@ -287,40 +295,6 @@ public class UvView extends javax.swing.JPanel {
         	
         uvPanelLayout.setHorizontalGroup(parallelGroup);
         uvPanelLayout.setVerticalGroup(verticalGroup);
-        
-    	
-		return uvPanel;
     	
     }
-
-	protected void showNote(Note note) {
-		System.out.print("\n Pour Note \n");
-
-		PriseNoteView pn = new PriseNoteView(note);
-		pn.setVisible(true);
-		uvPanel.removeAll();
-		GroupLayout panLayout=new javax.swing.GroupLayout(uvPanel);
-		uvPanel.setLayout(panLayout);
-		panLayout.setAutoCreateGaps(true);
-		
-		Group parallelGroup = panLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING);
-        Group verticalGroup = panLayout.createSequentialGroup();
-        
-        parallelGroup.addGroup(panLayout.createSequentialGroup()
-
-            	.addComponent(pn, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE));
-        
-        verticalGroup.addGroup(panLayout.createParallelGroup()
-
-            	.addComponent(pn, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE));            	      
-        
-        panLayout.setHorizontalGroup(parallelGroup);
-        panLayout.setVerticalGroup(verticalGroup);
-        System.out.print(uvPanel.countComponents());
-		
-		
-		//uvv.setVisible(true);
-		
-	
-	}
 }

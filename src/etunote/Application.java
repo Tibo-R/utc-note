@@ -61,7 +61,7 @@ public class Application {
 			public int compare(Note arg0, Note arg1) {
 				int result = 0;
 				if (arg0.getModified_at().before(arg1.getModified_at()))
-					result = -1;
+					result = 1;
 				if (arg0.getModified_at().after(arg1.getModified_at()))
 					result = -1;
 				return result;

@@ -10,8 +10,12 @@ import javax.swing.JButton;
 public class Tools {
 	
 	private static Hashtable<String,Color> colors = new Hashtable<String,Color>();
-	private static String nomsCouleurs[] = { "Noir", "Bleu", "Cyan", "Gris foncé", "Gris", "Vert", "Gris clair", "Magenta", "Orange", "Rose", "Rouge",	"Blanc", "Jaune" }; 
-	private static Color colorsCode[] = { Color.black, Color.blue, Color.cyan, Color.darkGray, Color.gray, Color.green, Color.lightGray, Color.magenta, Color.orange, Color.pink, Color.red, Color.white, Color.yellow }; 
+	private static String nomsCouleurs[] = { "Bleu", "Cyan", "Gris foncé", "Gris", "Vert", "Gris clair", "Magenta", "Orange", "Rose", "Rouge",	"Blanc", "Jaune" }; 
+	public static String[] getCouleurs() {
+		return nomsCouleurs;
+	}
+
+	private static Color colorsCode[] = { Color.blue, Color.cyan, Color.darkGray, Color.gray, Color.green, Color.lightGray, Color.magenta, Color.orange, Color.pink, Color.red, Color.white, Color.yellow }; 
 	
 	
 
@@ -40,6 +44,15 @@ public class Tools {
 	}
 	
 	public static void addIcon(JButton button, String icon){
+		button.setIcon(new ImageIcon(Tools.getPathToIcons(icon)));
+		button.setOpaque(false);
+		button.setFocusPainted(false);
+//		button.setBorderPainted(false);
+		button.setContentAreaFilled(false);
+//		button.setBorder(null);
+	}
+	
+	public static void addImageAsButton(JButton button, String icon){
 		button.setIcon(new ImageIcon(Tools.getPathToIcons(icon)));
 		button.setOpaque(false);
 		button.setFocusPainted(false);

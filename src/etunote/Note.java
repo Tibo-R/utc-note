@@ -38,7 +38,7 @@ public class Note{
 	 * @param uv
 	 */
 	public Note(Uv uv){
-		this.init("Nouvelle Note", uv, "");
+		this.init("Nouvelle Note", uv);
 	}
 	
 	/**
@@ -46,17 +46,14 @@ public class Note{
 	 * @param uv
 	 */
 	public Note(String name, Uv uv){
-		this.init(name, uv, "");
+		this.init(name, uv);
 	}
+
 	
-	public Note(String name, Uv uv, String color){
-		this.init(name, uv, color);
-	}
-	
-	public void init(String name, Uv uv, String color){
+	public void init(String name, Uv uv){
 		this.name = name;
-		this.color = color;
 		this.uvs = new ArrayList<Uv>();
+		this.color = uv.getColor();
 		this.contents = new ArrayList<Content>();
 		this.uvs.add(uv);
 		this.created_at = new Date();

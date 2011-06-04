@@ -36,7 +36,7 @@ import javax.swing.text.html.HTMLEditorKit;
 import javax.swing.tree.DefaultTreeModel;
 import javax.swing.JOptionPane;
 
-public class PriseNoteView extends javax.swing.JPanel implements ActionListener {
+public class PriseNoteView extends PanelView implements ActionListener {
 	
     // Variables declaration
     private JButton BlocButton;
@@ -66,10 +66,12 @@ public class PriseNoteView extends javax.swing.JPanel implements ActionListener 
 	javax.swing.GroupLayout notePanelLayout;
 	JFileChooser fc = new JFileChooser();
 	String file;
+	private JScrollPane scrollPane;
 	
 	// End of variables declaration
 	
     public PriseNoteView(Note model) {
+    	super();
     	this.noteModel = model;
         initComponents();
     }
@@ -84,7 +86,7 @@ public class PriseNoteView extends javax.swing.JPanel implements ActionListener 
     	app = noteModel.getUvs().get(0).getSemesters().get(0).getApplication();
 		pe = new Persistance();
     	
-    	
+    	scrollPane = new javax.swing.JScrollPane();
         jTreePane = new javax.swing.JScrollPane();
         jTree = new javax.swing.JTree();
         jTabbedPane1 = new javax.swing.JTabbedPane();
@@ -226,13 +228,15 @@ public class PriseNoteView extends javax.swing.JPanel implements ActionListener 
         toolBar.add(ParagraphButton);
         toolBar.add(BlocButton);
         toolBar.add(ImageButton);
+        
         toolBar.addSeparator();
+        
         toolBar.add(BoldButton);
         toolBar.add(ItalicButton);
         toolBar.add(SoulignButton);
        
 
-
+        scrollPane.setViewportView(this);
         //Set a simple layout
         this.setLayout(new BorderLayout());
         this.add(jTreePane, BorderLayout.WEST);
@@ -362,7 +366,7 @@ public class PriseNoteView extends javax.swing.JPanel implements ActionListener 
         		else{
         		JButton levelDown = new JButton();
         		
-        		Tools.addIcon(levelDown, "go-previous.png");
+        		Tools.addImageAsButton(levelDown, "go-previous.png");
         		levelDown.addActionListener(new java.awt.event.ActionListener() {
                     public void actionPerformed(java.awt.event.ActionEvent evt) {
                     	downTitleLevel((Title) c);
@@ -371,7 +375,7 @@ public class PriseNoteView extends javax.swing.JPanel implements ActionListener 
                 });
         		
         		JButton levelUp = new JButton();
-        		Tools.addIcon(levelUp, "go-next.png");
+        		Tools.addImageAsButton(levelUp, "go-next.png");
         		levelUp.addActionListener(new java.awt.event.ActionListener() {
                     public void actionPerformed(java.awt.event.ActionEvent evt) {
                         upTitleLevel((Title) c);

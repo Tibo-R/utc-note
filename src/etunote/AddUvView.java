@@ -21,13 +21,13 @@ import java.util.ArrayList;
  */
 public class AddUvView extends javax.swing.JFrame {
 	
-	private DisplayNoteView  parent;
+	private MainView  parent;
 	private Semester  semester;
     /** Creates new form CreateUV 
-     * @param displayNoteView */
-    public AddUvView(Semester semester, DisplayNoteView displayNoteView) {
+     * @param mainView */
+    public AddUvView(Semester semester, MainView mainView) {
     	this.semester = semester;
-    	this.parent = displayNoteView;
+    	this.parent = mainView;
         initComponents();
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         
@@ -62,7 +62,7 @@ public class AddUvView extends javax.swing.JFrame {
             }
         });
 
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Noir", "Bleu", "Cyan", "Gris foncé", "Gris", "Vert", "Gris clair", "Magenta", "Orange", "Rose", "Rouge", "Blanc", "Jaune" } ));
+        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel(Tools.getCouleurs() ));
         jComboBox1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jComboBox1ActionPerformed(evt);
@@ -122,8 +122,7 @@ public class AddUvView extends javax.swing.JFrame {
     private void ValidateCreateUVActionPerformed(java.awt.event.ActionEvent evt)
     {
     	Uv uv = new Uv(NameCourseField.getText(), this.semester, (String)jComboBox1.getSelectedItem());
-    	System.out.println("Uv " + uv + " ajoutée.");
-    	this.parent.updateAppContent();
+    	this.parent.updateContent();
     	this.setVisible(false);
     }
 

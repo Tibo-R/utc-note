@@ -6,7 +6,7 @@ public class Paragraph extends Content {
 
 	private String text;
 	private ArrayList<String> classes;
-	
+
 	public Paragraph(int position) {
 		super(position);
 		this.classes = new ArrayList<String>();
@@ -32,15 +32,14 @@ public class Paragraph extends Content {
 	public void addClass(String _class) {
 		this.classes.add(_class);
 	}
-	
-	public String getHTML(){
+
+	@Override
+	public String getHTML() {
 		String s = "<div";
-		if(this.classes.size() > 0)
+		if (this.classes.size() > 0)
 			s += " class=\"" + Tools.explode(this.classes, " ") + "\" ";
 		s += ">" + this.text + "</div>";
 		return s;
 	}
-	
-	
 
 }

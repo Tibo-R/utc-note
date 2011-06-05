@@ -2,28 +2,27 @@ package etunote;
 
 import java.awt.Color;
 import java.util.ArrayList;
-import java.util.Hashtable;
 
 public class Uv {
-	
+
 	private ArrayList<Semester> semesters;
 	private ArrayList<Note> notes;
 
 	private String name;
 	private String color;
 	private String Type;
-	
+
 	public Uv(String name, Semester sem) {
 		super();
 		init(name, sem, "");
 	}
-	
+
 	public Uv(String name, Semester sem, String color) {
 		super();
 		init(name, sem, color);
 	}
-	
-	private void init(String name, Semester sem, String color){
+
+	private void init(String name, Semester sem, String color) {
 		this.name = name;
 		this.semesters = new ArrayList<Semester>();
 		this.notes = new ArrayList<Note>();
@@ -31,7 +30,7 @@ public class Uv {
 		this.color = color;
 		sem.getUvs().add(this);
 	}
-	
+
 	public ArrayList<Semester> getSemesters() {
 		return semesters;
 	}
@@ -68,11 +67,11 @@ public class Uv {
 	public String toString() {
 		return name;
 	}
-	
+
 	public Color getColorCode() {
 		return Tools.getColor(color);
 	}
-	
+
 	public ArrayList<Note> getNotes() {
 		return notes;
 	}

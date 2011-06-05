@@ -3,7 +3,7 @@ package etunote;
 import java.util.ArrayList;
 
 public class Tag {
-	
+
 	static ArrayList<Tag> tags = new ArrayList<Tag>();
 
 	private String name;
@@ -29,8 +29,5 @@ public class Tag {
 	public void setName(String name) {
 		this.name = name;
 	}
-	
-	
-	
-	
+
 }

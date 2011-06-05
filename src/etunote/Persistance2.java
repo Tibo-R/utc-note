@@ -10,14 +10,12 @@ import java.util.ArrayList;
 import com.thoughtworks.xstream.XStream;
 import com.thoughtworks.xstream.io.xml.DomDriver;
 
-
-
 public class Persistance2 {
-	
-	private ArrayList<Note> notes;
+
+//	private ArrayList<Note> notes;
 
 	public void SerialisationNote(Note n) {
-		SerialisationNote(n, "note");		
+		SerialisationNote(n, "note");
 	}
 
 	public void SerialisationNote(Note n, String f) {
@@ -26,7 +24,7 @@ public class Persistance2 {
 			// Instanciation de la classe XStream
 			XStream xstream = new XStream(new DomDriver());
 			// Instanciation d'un fichier c:/temp/article.xml
-			File fichier = new File(f+".xml");
+			File fichier = new File(f + ".xml");
 			// Instanciation d'un flux de sortie fichier
 			FileOutputStream fos = new FileOutputStream(fichier);
 			try {
@@ -43,7 +41,7 @@ public class Persistance2 {
 			ioe.printStackTrace();
 		}
 	}
-	
+
 	public void SerialisationNotes(ArrayList<Note> ln) {
 		SerialisationNotes(ln, "notes");
 	}
@@ -53,7 +51,7 @@ public class Persistance2 {
 			// Instanciation de la classe XStream
 			XStream xstream = new XStream(new DomDriver());
 			// Instanciation d'un fichier c:/temp/article.xml
-			File fichier = new File(f+".xml");
+			File fichier = new File(f + ".xml");
 			// Instanciation d'un flux de sortie fichier
 			FileOutputStream fos = new FileOutputStream(fichier);
 			try {
@@ -71,17 +69,17 @@ public class Persistance2 {
 		}
 
 	}
-	
-	public Note DeserialisationNote(){
+
+	public Note DeserialisationNote() {
 		Note note = DeserialisationNote("note");
 		return note;
 	}
 
-	public Note DeserialisationNote(String f){
+	public Note DeserialisationNote(String f) {
 		Note note = null;
 		try {
 			XStream xstream = new XStream(new DomDriver());
-			FileInputStream fis = new FileInputStream(new File(f+".xml"));
+			FileInputStream fis = new FileInputStream(new File(f + ".xml"));
 			try {
 				// D�s�rialisation du fichier article.xml
 				note = (Note) xstream.fromXML(fis);
@@ -101,23 +99,24 @@ public class Persistance2 {
 		}
 		return note;
 	}
-	
-	public ArrayList<Note> DeserialisationNotes(){
+
+	public ArrayList<Note> DeserialisationNotes() {
 		ArrayList<Note> notes = DeserialisationNotes("notes");
 		return notes;
 	}
-	
-	public ArrayList<Note> DeserialisationNotes(String f){
+
+	@SuppressWarnings("unchecked")
+	public ArrayList<Note> DeserialisationNotes(String f) {
 		ArrayList<Note> notes = null;
 		try {
 			XStream xstream = new XStream(new DomDriver());
-			FileInputStream fis = new FileInputStream(new File(f+".xml"));
+			FileInputStream fis = new FileInputStream(new File(f + ".xml"));
 			try {
 				// D�s�rialisation du fichier article.xml
 				notes = (ArrayList<Note>) xstream.fromXML(fis);
 
 				// Affichage sur la console du contenu de l'attribut note
-				//System.out.println(note);
+				// System.out.println(note);
 
 			} finally {
 				// On s'assure de fermer le flux quoi qu'il arrive
@@ -129,9 +128,8 @@ public class Persistance2 {
 		} catch (IOException ioe) {
 			ioe.printStackTrace();
 		}
-		
+
 		return notes;
 	}
-
 
 }

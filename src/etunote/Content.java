@@ -3,8 +3,7 @@
  */
 package etunote;
 
-
-public abstract class Content implements Comparable{
+public abstract class Content implements Comparable<Object> {
 
 	private int position;
 
@@ -13,20 +12,20 @@ public abstract class Content implements Comparable{
 		this.position = position;
 	}
 
-	public final int compareTo(Object cont)
-	{
+	@Override
+	public final int compareTo(Object cont) {
 		int result = 0;
-		if(cont instanceof Content){
-			if (this.position > ((Content)cont).position)
+		if (cont instanceof Content) {
+			if (this.position > ((Content) cont).position)
 				result = 1;
-			if (this.position < ((Content)cont).position)
+			if (this.position < ((Content) cont).position)
 				result = -1;
 		}
 
 		return result;
 	}
 
-	public String getHTML(){
+	public String getHTML() {
 		return "";
 	}
 
@@ -37,8 +36,5 @@ public abstract class Content implements Comparable{
 	public void setPosition(int position) {
 		this.position = position;
 	}
-	
-	
-
 
 }

@@ -43,7 +43,4 @@ public class Semester {
 		this.application = application;
 	}
 
-	
-	
-
 }

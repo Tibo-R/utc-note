@@ -194,7 +194,7 @@ public class Note {
 
 		if (!viewInApp) {
 			s += "<meta http-equiv=\"Content-Type\" content=\"text/html; charset=UTF-8\" />\n";
-			s += "<link rel=\"stylesheet\" media=\"screen\" type=\"text/css\" title=\"Design\" href=\"../../../data/styles/default/style.css\" />\n";
+			s += "<link rel=\"stylesheet\" media=\"screen\" type=\"text/css\" title=\"Design\" href=\"../../styles/default/style.css\" />\n";
 		}
 
 		s += "</head>\n\t<body>\n";

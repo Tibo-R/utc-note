@@ -39,7 +39,6 @@ import javax.swing.filechooser.FileSystemView;
 import javax.swing.text.html.HTMLEditorKit;
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.DefaultTreeModel;
-import javax.swing.tree.TreePath;
 import javax.swing.JOptionPane;
 
 public class PriseNoteView extends PanelView implements ActionListener {
@@ -104,7 +103,7 @@ public class PriseNoteView extends PanelView implements ActionListener {
 
 		racine = new DefaultMutableTreeNode(noteModel.getUvs().get(0));
 
-		Iterator it = noteModel.getUvs().get(0).getNotes().iterator();
+		Iterator<?> it = noteModel.getUvs().get(0).getNotes().iterator();
 		while(it.hasNext()){
 			Note n = (Note) it.next();
 			DefaultMutableTreeNode dmn = new DefaultMutableTreeNode(n);
@@ -160,10 +159,6 @@ public class PriseNoteView extends PanelView implements ActionListener {
 
 		toolBar = new JToolBar(SwingConstants.VERTICAL);
 		toolBar.setRollover(true);
-
-		// JPanel
-		// this.setTitle("Prise de Note");
-		// setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
 		jTreePane.setBackground(new java.awt.Color(0, 102, 102));
 		jTreePane.setViewportView(jTree);

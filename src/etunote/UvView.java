@@ -10,12 +10,9 @@
  */
 package etunote;
 
-import java.awt.Font;
-
 import javax.swing.BorderFactory;
 import javax.swing.GroupLayout;
 import javax.swing.JButton;
-import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.GroupLayout.Group;
 import javax.swing.border.TitledBorder;
@@ -29,7 +26,6 @@ public class UvView extends PanelView {
 	private MainView mainView;
 	private Uv uvModel;
 	private javax.swing.JScrollPane scrollPane;
-	private JLabel uvLabel;
 
 	/** Creates new form UvView */
 	public UvView(MainView mainView, Uv uvModel) {

@@ -173,7 +173,7 @@ public class MainView extends javax.swing.JFrame {
 
 			@Override
 			public void windowClosing(WindowEvent arg0) {
-				String message = "Voulez vous sauvegarder avant de quitter 2 ?";
+				String message = "Voulez vous sauvegarder avant de quitter ?";
 			    String title = "Sauvegarder ?";
 			    // display the JOptionPane showConfirmDialog
 			    int reply = JOptionPane.showConfirmDialog(null, message, title, JOptionPane.YES_NO_CANCEL_OPTION);

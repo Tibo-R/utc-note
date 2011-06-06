@@ -67,7 +67,7 @@ public class Start {
 		Application a = new Application();
 		// //
 		//
-		Semester s1 = new Semester("P10", a);
+		/*Semester s1 = new Semester("P10", a);
 
 		Uv u1 = new Uv("NF17", s1);
 		Note n1 = new Note("Note 1", u1);
@@ -181,11 +181,12 @@ public class Start {
 
 		a.addSemester(s1);
 		a.addSemester(s2);
-		a.addSemester(s3);
+		a.addSemester(s3);*/
 
-		/*Persistance pe = new Persistance();
-		pe.SerialisationApplication(a);
-		pe.export(a);*/
+		Persistance pe = new Persistance();
+		//pe.SerialisationApplication(a);
+		a = pe.DeserialisationApplication();
+		//pe.export(a);
 
 		// PriseNoteView Notev=new PriseNoteView(note);
 		// Notev.setVisible(true);

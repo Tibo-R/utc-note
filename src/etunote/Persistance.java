@@ -32,12 +32,16 @@ public class Persistance {
 	}
 
 	public void SerialisationApplication(Application a, String f) {
+		String path = System.getProperty("user.dir" );
+		System.out.println(path);
+		File fa = new File(path + "/Sauvegarde");
+		fa.mkdirs();
 
 		try {
 			// Instanciation de la classe XStream
 			XStream xstream = new XStream(new DomDriver());
 			// Instanciation d'un fichier xml
-			File fichier = new File(f + ".xml");
+			File fichier = new File(path + "/Sauvegarde/" + f + ".xml");
 			// Instanciation d'un flux de sortie fichier
 			FileOutputStream fos = new FileOutputStream(fichier);
 			try {
@@ -63,26 +67,33 @@ public class Persistance {
 	}
 
 	public Application DeserialisationApplication(String f) {
-		Application app = null;
-		try {
-			XStream xstream = new XStream(new DomDriver());
-			FileInputStream fis = new FileInputStream(new File(f + ".xml"));
+		String path = System.getProperty("user.dir" );
+		if(new File(path + "/Sauvegarde/" + f + ".xml").exists()){
+			Application app = null;
 			try {
-				// D�s�rialisation du fichier xml
-				app = (Application) xstream.fromXML(fis);
+				XStream xstream = new XStream(new DomDriver());
+				FileInputStream fis = new FileInputStream(new File("Sauvegarde/" + f + ".xml"));
+				try {
+					// D�s�rialisation du fichier xml
+					app = (Application) xstream.fromXML(fis);
 
-			} finally {
-				// On s'assure de fermer le flux quoi qu'il arrive
-				fis.close();
+				} finally {
+					// On s'assure de fermer le flux quoi qu'il arrive
+					fis.close();
+				}
+
+			} catch (FileNotFoundException e) {
+				e.printStackTrace();
+			} catch (IOException ioe) {
+				ioe.printStackTrace();
 			}
-
-		} catch (FileNotFoundException e) {
-			e.printStackTrace();
-		} catch (IOException ioe) {
-			ioe.printStackTrace();
+			// On renvoie l'objet r�g�n�r�
+			return app;
 		}
-		// On renvoie l'objet r�g�n�r�
-		return app;
+		else{
+			System.out.println("pas de fichier existant");
+			return(new Application());
+		}
 	}
 
 	/* Fin s�rialisation et des�rialisation d'application */
@@ -350,11 +361,11 @@ public class Persistance {
 					fu.mkdirs();
 					listeUv.concat("<BR> <A HREF=\"");
 					listeUv = listeUv + "<BR> <A HREF=\"" + s.getName() + "/"
-							+ u.getName() + "/" + u.getName()
-							+ ".html\" target=\"gauche_bas\">" + u.getName()
-							+ "</A>";
+					+ u.getName() + "/" + u.getName()
+					+ ".html\" target=\"gauche_bas\">" + u.getName()
+					+ "</A>";
 					String listeNote = "Liste des notes de " + u.getName()
-							+ "<BR>";
+					+ "<BR>";
 
 					// Export des notes
 					ArrayList<Note> listNotes = u.getNotes();
@@ -362,8 +373,8 @@ public class Persistance {
 					while (itNote.hasNext()) {
 						Note n = (Note) itNote.next();
 						listeNote = listeNote + "<BR> <A HREF=\"" + n.getName()
-								+ ".html\" target=\"droite\">" + n.getName()
-								+ "</A>";
+						+ ".html\" target=\"droite\">" + n.getName()
+						+ "</A>";
 						FileWriter writer = null;
 						try {
 							writer = new FileWriter(path + "/EtuNote/"
@@ -413,7 +424,7 @@ public class Persistance {
 			try {
 				writerIndex = new FileWriter(path + "/EtuNote/index.html");
 				writerIndex
-						.write("<FRAMESET COLS=\"12%,88%\"> <FRAMESET ROWS=\"30%, 70%\"> <FRAME SRC=\"uv.html\" NAME=\"gauche_haut\"> <FRAME NAME=\"gauche_bas\"> </FRAMESET> <FRAME NAME=\"droite\"> </FRAMESET> ");
+				.write("<FRAMESET COLS=\"12%,88%\"> <FRAMESET ROWS=\"30%, 70%\"> <FRAME SRC=\"uv.html\" NAME=\"gauche_haut\"> <FRAME NAME=\"gauche_bas\"> </FRAMESET> <FRAME NAME=\"droite\"> </FRAMESET> ");
 			} catch (IOException ex) {
 				ex.printStackTrace();
 			} finally {
@@ -479,7 +490,7 @@ public class Persistance {
 	}
 
 	public static void copyDirectory(File sourceLocation, File targetLocation)
-			throws IOException {
+	throws IOException {
 
 		if (sourceLocation.isDirectory()) {
 			if (!targetLocation.exists()) {

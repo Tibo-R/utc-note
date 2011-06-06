@@ -11,6 +11,8 @@ import java.awt.event.FocusListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.io.IOException;
+import java.util.Iterator;
+
 import javax.swing.AbstractAction;
 import javax.swing.GroupLayout.Group;
 import javax.swing.Action;
@@ -31,8 +33,13 @@ import javax.swing.JTree;
 import javax.swing.KeyStroke;
 import javax.swing.SwingConstants;
 import javax.swing.SwingUtilities;
+import javax.swing.event.TreeSelectionEvent;
+import javax.swing.event.TreeSelectionListener;
 import javax.swing.filechooser.FileSystemView;
 import javax.swing.text.html.HTMLEditorKit;
+import javax.swing.tree.DefaultMutableTreeNode;
+import javax.swing.tree.DefaultTreeModel;
+import javax.swing.tree.TreePath;
 import javax.swing.JOptionPane;
 
 public class PriseNoteView extends PanelView implements ActionListener {
@@ -58,8 +65,11 @@ public class PriseNoteView extends PanelView implements ActionListener {
 	private JScrollPane noteScrollPane;
 	private JTabbedPane jTabbedPane1;
 	private JTree jTree;
+	private DefaultMutableTreeNode racine;
+	private DefaultTreeModel model;
 	private JComponent lastComponentAdded;
 	private JToolBar toolBar;
+	private MainView main;
 
 	int numerotationTitle[] = { 0, 0, 0, 0, 0, 0 };
 	Note noteModel;
@@ -79,14 +89,59 @@ public class PriseNoteView extends PanelView implements ActionListener {
 		initComponents();
 	}
 
+	public PriseNoteView(Note model, MainView mv) {
+		super();
+		this.noteModel = model;
+		initComponents();
+		main=mv;
+	}
+
 
 	private void initComponents() {
 		app = noteModel.getUvs().get(0).getSemesters().get(0).getApplication();
 		pe = new Persistance();
 
+
+		racine = new DefaultMutableTreeNode(noteModel.getUvs().get(0));
+
+		Iterator it = noteModel.getUvs().get(0).getNotes().iterator();
+		while(it.hasNext()){
+			Note n = (Note) it.next();
+			DefaultMutableTreeNode dmn = new DefaultMutableTreeNode(n);
+			racine.add(dmn);
+		}
 		scrollPane = new javax.swing.JScrollPane();
 		jTreePane = new javax.swing.JScrollPane();
 		jTree = new javax.swing.JTree();
+
+		this.model = new DefaultTreeModel(this.racine);
+		jTree.setModel(model);
+
+
+		jTree.addTreeSelectionListener(new TreeSelectionListener(){
+
+			public void valueChanged(TreeSelectionEvent event) {
+
+				if(!(((DefaultMutableTreeNode) jTree.getLastSelectedPathComponent()).getUserObject() instanceof Uv)){	  
+					if(jTree.getLastSelectedPathComponent() != null){
+						DefaultMutableTreeNode node = (DefaultMutableTreeNode) jTree.getLastSelectedPathComponent();
+						Note n = (Note) node.getUserObject();
+						//System.out.println(n.getHTML());
+
+						//MainView mw = new MainView(app);
+						main.showNote(n); 
+
+					}
+				}
+				else{
+					System.out.println("Cest une uv");
+				}
+
+			}
+		});
+
+
+
 		jTabbedPane1 = new javax.swing.JTabbedPane();
 		noteScrollPane = new javax.swing.JScrollPane();
 		notePanel = new javax.swing.JPanel();
@@ -197,7 +252,7 @@ public class PriseNoteView extends PanelView implements ActionListener {
 					.getDefaultToolkit().getMenuShortcutKeyMask()), "addBloc");
 			i.put(KeyStroke.getKeyStroke(KeyEvent.VK_P, Toolkit
 					.getDefaultToolkit().getMenuShortcutKeyMask()),
-					"addParagraph");
+			"addParagraph");
 			i.put(KeyStroke.getKeyStroke(KeyEvent.VK_I, Toolkit
 					.getDefaultToolkit().getMenuShortcutKeyMask()), "addImage");
 			i.put(KeyStroke.getKeyStroke(KeyEvent.VK_M, Toolkit
@@ -218,7 +273,7 @@ public class PriseNoteView extends PanelView implements ActionListener {
 		ImageButton.addActionListener(addImage);
 
 		PreviewButton
-				.setIcon(new ImageIcon(Tools.getPathToIcons("preview.png")));
+		.setIcon(new ImageIcon(Tools.getPathToIcons("preview.png")));
 		PreviewButton.addActionListener(preview);
 
 		// CodeButton.setText("+C");
@@ -377,7 +432,7 @@ public class PriseNoteView extends PanelView implements ActionListener {
 		notePanelLayout.setAutoCreateGaps(true);
 
 		Group parallelGroup = notePanelLayout
-				.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING);
+		.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING);
 		Group verticalGroup = notePanelLayout.createSequentialGroup();
 
 		for (final Content c : this.noteModel.getContents()) {
@@ -406,14 +461,14 @@ public class PriseNoteView extends PanelView implements ActionListener {
 				});
 				if (((Title) c).getLevel() == 1) {
 					parallelGroup
-							.addGroup(notePanelLayout
-									.createSequentialGroup()
-									.addGap(5, 5, 5)
-									.addComponent(
-											f,
-											javax.swing.GroupLayout.PREFERRED_SIZE,
-											600,
-											javax.swing.GroupLayout.PREFERRED_SIZE));
+					.addGroup(notePanelLayout
+							.createSequentialGroup()
+							.addGap(5, 5, 5)
+							.addComponent(
+									f,
+									javax.swing.GroupLayout.PREFERRED_SIZE,
+									600,
+									javax.swing.GroupLayout.PREFERRED_SIZE));
 
 					verticalGroup.addGroup(notePanelLayout
 							.createParallelGroup()
@@ -426,14 +481,14 @@ public class PriseNoteView extends PanelView implements ActionListener {
 
 					Tools.addImageAsButton(levelDown, "go-previous.png");
 					levelDown
-							.addActionListener(new java.awt.event.ActionListener() {
-								@Override
-								public void actionPerformed(
-										java.awt.event.ActionEvent evt) {
-									downTitleLevel((Title) c);
+					.addActionListener(new java.awt.event.ActionListener() {
+						@Override
+						public void actionPerformed(
+								java.awt.event.ActionEvent evt) {
+							downTitleLevel((Title) c);
 
-								}
-							});
+						}
+					});
 
 					JButton levelUp = new JButton();
 					Tools.addImageAsButton(levelUp, "go-next.png");
@@ -459,16 +514,16 @@ public class PriseNoteView extends PanelView implements ActionListener {
 					JLabel number = new JLabel(num);
 					number.setFont(new Font("arial", Font.BOLD, 18));
 					parallelGroup
-							.addGroup(notePanelLayout
-									.createSequentialGroup()
-									.addGap(indent, indent, indent)
-									.addComponent(levelDown)
-									.addComponent(number)
-									.addComponent(
-											f,
-											javax.swing.GroupLayout.PREFERRED_SIZE,
-											400,
-											javax.swing.GroupLayout.PREFERRED_SIZE)
+					.addGroup(notePanelLayout
+							.createSequentialGroup()
+							.addGap(indent, indent, indent)
+							.addComponent(levelDown)
+							.addComponent(number)
+							.addComponent(
+									f,
+									javax.swing.GroupLayout.PREFERRED_SIZE,
+									400,
+									javax.swing.GroupLayout.PREFERRED_SIZE)
 									.addComponent(levelUp));
 
 					verticalGroup.addGroup(notePanelLayout
@@ -479,7 +534,7 @@ public class PriseNoteView extends PanelView implements ActionListener {
 							.addComponent(f,
 									javax.swing.GroupLayout.PREFERRED_SIZE, 29,
 									javax.swing.GroupLayout.PREFERRED_SIZE)
-							.addComponent(levelUp));
+									.addComponent(levelUp));
 
 					if (level == 1) {
 						levelDown.setVisible(false);
@@ -538,16 +593,16 @@ public class PriseNoteView extends PanelView implements ActionListener {
 							Bloc.getTypes()));
 					typeComboBox.setSelectedItem(((Bloc) c).getType());
 					typeComboBox
-							.addActionListener(new java.awt.event.ActionListener() {
-								@Override
-								public void actionPerformed(
-										java.awt.event.ActionEvent evt) {
-									((Bloc) c).setType((String) typeComboBox
-											.getSelectedItem());
-									textArea.setBackground(((Bloc) c)
-											.getColor());
-								}
-							});
+					.addActionListener(new java.awt.event.ActionListener() {
+						@Override
+						public void actionPerformed(
+								java.awt.event.ActionEvent evt) {
+							((Bloc) c).setType((String) typeComboBox
+									.getSelectedItem());
+							textArea.setBackground(((Bloc) c)
+									.getColor());
+						}
+					});
 					parallelGroup.addGroup(notePanelLayout
 							.createSequentialGroup().addComponent(typeComboBox,
 									javax.swing.GroupLayout.DEFAULT_SIZE,
@@ -570,7 +625,7 @@ public class PriseNoteView extends PanelView implements ActionListener {
 								javax.swing.GroupLayout.DEFAULT_SIZE,
 								javax.swing.GroupLayout.DEFAULT_SIZE,
 								javax.swing.GroupLayout.DEFAULT_SIZE)
-						.addGap(10, 10, 10));
+								.addGap(10, 10, 10));
 
 				verticalGroup.addGroup(notePanelLayout
 						.createSequentialGroup()
@@ -592,7 +647,7 @@ public class PriseNoteView extends PanelView implements ActionListener {
 								javax.swing.GroupLayout.DEFAULT_SIZE,
 								javax.swing.GroupLayout.DEFAULT_SIZE,
 								javax.swing.GroupLayout.DEFAULT_SIZE)
-						.addGap(10, 10, 10));
+								.addGap(10, 10, 10));
 
 				verticalGroup.addGroup(notePanelLayout
 						.createSequentialGroup()
@@ -663,7 +718,7 @@ public class PriseNoteView extends PanelView implements ActionListener {
 
 	protected void saveParagraph(JTextPane textArea, Paragraph p) {
 		String text = textArea.getText().replaceAll("\\<.*head?>", "")
-				.replaceAll("\\<.*html?>", "").replaceAll("\\<.*body?>", "");
+		.replaceAll("\\<.*html?>", "").replaceAll("\\<.*body?>", "");
 
 		p.setText(text);
 

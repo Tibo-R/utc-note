@@ -71,8 +71,9 @@ public class Note {
 
 	@Override
 	public String toString() {
-		return "Note [name=" + name + ", created_at=" + created_at + ", uvs="
-				+ uvs + ", contents=" + contents + "]";
+		/*return "Note [name=" + name + ", created_at=" + created_at + ", uvs="
+				+ uvs + ", contents=" + contents + "]";*/
+		return name;
 	}
 
 	public String getName() {
@@ -228,5 +229,6 @@ public class Note {
 	public Color getColorCode() {
 		return Tools.getColor(color);
 	}
+	
 
 }

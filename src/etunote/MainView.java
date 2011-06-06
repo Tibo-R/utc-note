@@ -19,6 +19,7 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.event.ActionEvent;
+import java.io.IOException;
 import java.util.Stack;
 
 import javax.swing.JButton;
@@ -89,11 +90,32 @@ public class MainView extends javax.swing.JFrame {
 
 		toolBar.setRollover(true);
 
-		Tools.addIcon(SaveButton, "Save.png");
-		SaveButton.setToolTipText("Save File");
-
 		Tools.addIcon(ExportButton, "HTML.png");
 		ExportButton.setToolTipText("Export to HTML");
+		ExportButton.addActionListener(new java.awt.event.ActionListener() {
+			@Override
+			public void actionPerformed(java.awt.event.ActionEvent evt) {
+				Persistance pe = new Persistance();
+				try {
+					pe.export(appModel);
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
+		});
+
+
+		Tools.addIcon(SaveButton, "Save.png");
+		SaveButton.setToolTipText("Save File");
+		SaveButton.addActionListener(new java.awt.event.ActionListener() {
+			@Override
+			public void actionPerformed(java.awt.event.ActionEvent evt) {
+				Persistance pe = new Persistance();
+				pe.SerialisationApplication(appModel);
+			}
+		});
+
 
 		ViewByDate.setToolTipText("Vue par date");
 		Tools.addIcon(ViewByDate, "Date.png");
@@ -183,7 +205,7 @@ public class MainView extends javax.swing.JFrame {
 	}
 
 	protected void showNote(Note n) {
-		PriseNoteView pn = new PriseNoteView(n);
+		PriseNoteView pn = new PriseNoteView(n, this);
 		setCurrentPanel(pn);
 
 	}

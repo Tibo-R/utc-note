@@ -183,13 +183,15 @@ public class Start {
 		a.addSemester(s2);
 		a.addSemester(s3);
 
-		Persistance pe = new Persistance();
+		/*Persistance pe = new Persistance();
 		pe.SerialisationApplication(a);
-		pe.export(a);
+		pe.export(a);*/
 
 		// PriseNoteView Notev=new PriseNoteView(note);
 		// Notev.setVisible(true);
 		MainView fr = new MainView(a);
+		//fr.setVisible(true);
+		//PriseNoteView uv = new PriseNoteView(n24);
 		fr.setVisible(true);
 	}
 

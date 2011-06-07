@@ -331,7 +331,7 @@ public class Persistance {
 			path = userDirectory.getAbsolutePath();
 		}
 
-		File sourceCSS = new File("data/styles/default");
+		File sourceCSS = new File("src/data/styles/default");
 		File destCSS = new File(path + "/EtuNote/styles/default");
 		destCSS.mkdirs();
 

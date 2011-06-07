@@ -1,6 +1,7 @@
 package etunote;
 
 import java.awt.Color;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.Hashtable;
 
@@ -64,8 +65,8 @@ public class Tools {
 		button.setBorder(null);
 	}
 
-	public static String getPathToIcons(String icon) {
-		return "data/icon/" + icon;
+	public static URL getPathToIcons(String icon) {
+		return Tools.class.getResource("/data/icon/" + icon);
 	}
 
 }

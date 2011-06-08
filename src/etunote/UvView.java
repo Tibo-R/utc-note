@@ -31,6 +31,7 @@ public class UvView extends PanelView {
 	public UvView(MainView mainView, Uv uvModel) {
 		this.mainView = mainView;
 		this.uvModel = uvModel;
+		this.setName(this.uvModel.getName());
 		initComponents();
 	}
 
@@ -134,4 +135,5 @@ public class UvView extends PanelView {
 		layout.setVerticalGroup(verticalGroup);
 
 	}
+
 }

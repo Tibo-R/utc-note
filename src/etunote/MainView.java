@@ -16,8 +16,11 @@ package etunote;
 //import EtuNoteTest.AddSemester;
 
 import java.awt.BorderLayout;
+import java.awt.CardLayout;
 import java.awt.Color;
+import java.awt.Component;
 import java.awt.Dimension;
+import java.awt.LayoutManager2;
 import java.awt.event.ActionEvent;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
@@ -27,6 +30,7 @@ import java.util.Stack;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
+import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JToolBar;
 
@@ -47,11 +51,13 @@ public class MainView extends javax.swing.JFrame {
 	private JButton goNext;
 	private JButton ExportButton;
 	private JButton SaveButton;
-	private JScrollPane scrollpane;
+	private JPanel mainPane;
 	private JToolBar toolBar;
 	private PanelView currentPanel;
-	private Stack<PanelView> previousPanels;
-	private Stack<PanelView> nextPanels;
+	private Stack<String> previousPanels;
+	private Stack<String> nextPanels;
+
+	private String newPanelName;
 
 	public MainView(Application app) {
 		super("EtuNote");
@@ -75,12 +81,12 @@ public class MainView extends javax.swing.JFrame {
 		home = new javax.swing.JButton();
 		ExportButton = new JButton();
 		SaveButton = new JButton();
-		scrollpane = new JScrollPane();
+		mainPane = new JPanel(new CardLayout());
 		toolBar = new JToolBar();
 		goPrevious = new JButton();
 		goNext = new JButton();
-		previousPanels = new Stack<PanelView>();
-		nextPanels = new Stack<PanelView>();
+		previousPanels = new Stack<String>();
+		nextPanels = new Stack<String>();
 
 		Tools.addIcon(SearchButton, "search.png");
 		SearchButton.addActionListener(new java.awt.event.ActionListener() {
@@ -233,15 +239,16 @@ public class MainView extends javax.swing.JFrame {
 
 		RechercheField.setPreferredSize(new Dimension(50, 50));
 
-		scrollpane.setViewportView(currentPanel);
-		scrollpane.getVerticalScrollBar().setUnitIncrement(16);
+//		mainPane.getVerticalScrollBar().setUnitIncrement(16);
 
 		getContentPane().setLayout(new BorderLayout());
 		this.add(toolBar, BorderLayout.NORTH);
-		this.add(scrollpane, BorderLayout.CENTER);
+		this.add(mainPane, BorderLayout.CENTER);
 
 		currentPanel = new SemesterView(this, appModel);
-		scrollpane.setViewportView(currentPanel);
+		mainPane.add(currentPanel, currentPanel.getName());
+		((CardLayout) mainPane.getLayout()).last(mainPane);
+//		mainPane.setViewportView(currentPanel);
 
 	}
 
@@ -269,33 +276,50 @@ public class MainView extends javax.swing.JFrame {
 	}
 
 	protected void showNote(Note n) {
-		PriseNoteView pn = new PriseNoteView(n, this);
+		NoteView pn = new NoteView(n, this);
 		setCurrentPanel(pn);
 
 	}
 
 	private void setCurrentPanel(PanelView newPanel) {
-		previousPanels.push(currentPanel);
+		previousPanels.push(currentPanel.getName());
+		String cardName = newPanel.getName();
 		currentPanel = newPanel;
-		scrollpane.setViewportView(currentPanel);
+		mainPane.add(currentPanel, cardName);
+		((CardLayout) mainPane.getLayout()).show(mainPane, cardName);
 
 	}
 
 	protected void showPreviousPanel() {
 		if (!previousPanels.isEmpty()) {
-			nextPanels.push(currentPanel);
-			currentPanel = previousPanels.pop();
-			scrollpane.setViewportView(currentPanel);
+			nextPanels.push(currentPanel.getName());
+			newPanelName = previousPanels.pop();
+//			currentPanel = ((CardLayout) mainPane.getLayout()).;
+			for(Component c : mainPane.getComponents()){
+				System.out.println(c.getName());
+				if(c.getName() == newPanelName){
+					currentPanel = (PanelView) c;
+				}
+			}
+			System.out.println("PREVIOUS : new panel : " + newPanelName);
+			((CardLayout) mainPane.getLayout()).show(mainPane, newPanelName);
 		}
 
 	}
 
 	protected void showNextPanel() {
 		if (!nextPanels.isEmpty()) {
-			previousPanels.push(currentPanel);
-			currentPanel = nextPanels.pop();
-			scrollpane.setViewportView(currentPanel);
+			previousPanels.push(currentPanel.getName());
+			newPanelName = nextPanels.pop();
+			for(Component c : mainPane.getComponents()){
+				if(c.getName() == newPanelName){
+					currentPanel = (PanelView) c;
+				}
+			}
+			System.out.println("NEXT : new panel : " + newPanelName);
+			((CardLayout) mainPane.getLayout()).show(mainPane, newPanelName);
 		}
+		
 
 	}
 

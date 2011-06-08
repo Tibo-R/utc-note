@@ -56,14 +56,14 @@ public class Start {
 		// ps.setVisible(true);
 
 		// JFrame main = new JFrame();
-		// PriseNoteView ps=new PriseNoteView(note);
+		// NoteView ps=new NoteView(note);
 		// main.setTitle("Prise de Note");
 		// main.setSize(1024, 600);
 		// main.setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 		// main.add(ps);
 		// main.setVisible(true);
 
-		// PriseNoteView ds=new PriseNoteView(note);
+		// NoteView ds=new NoteView(note);
 		Application a = new Application();
 		// //
 		//
@@ -188,11 +188,11 @@ public class Start {
 		a = pe.DeserialisationApplication();
 		//pe.export(a);
 
-		// PriseNoteView Notev=new PriseNoteView(note);
+		// NoteView Notev=new NoteView(note);
 		// Notev.setVisible(true);
 		MainView fr = new MainView(a);
 		//fr.setVisible(true);
-		//PriseNoteView uv = new PriseNoteView(n24);
+		//NoteView uv = new NoteView(n24);
 		fr.setVisible(true);
 	}
 

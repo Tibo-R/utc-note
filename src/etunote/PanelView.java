@@ -16,5 +16,6 @@ public abstract class PanelView extends JPanel {
 	public void updateContent() {
 
 	}
+	
 
 }

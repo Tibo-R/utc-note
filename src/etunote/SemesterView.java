@@ -35,6 +35,7 @@ public class SemesterView extends PanelView {
 		super();
 		this.mainView = main;
 		this.appModel = app;
+		this.setName("Semester");
 		updateContent();
 	}
 
@@ -200,4 +201,5 @@ public class SemesterView extends PanelView {
 		new AddUvView(s, mainView).setVisible(true);
 		this.updateContent();
 	}
+	
 }

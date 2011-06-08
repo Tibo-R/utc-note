@@ -79,5 +79,5 @@ public class Uv {
 	public void setNotes(ArrayList<Note> notes) {
 		this.notes = notes;
 	}
-
+	
 }

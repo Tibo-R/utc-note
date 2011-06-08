@@ -41,7 +41,7 @@ import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.DefaultTreeModel;
 import javax.swing.JOptionPane;
 
-public class PriseNoteView extends PanelView implements ActionListener {
+public class NoteView extends PanelView implements ActionListener {
 
 	/**
 	 * 
@@ -82,15 +82,16 @@ public class PriseNoteView extends PanelView implements ActionListener {
 
 	// End of variables declaration
 
-	public PriseNoteView(Note model) {
+	public NoteView(Note model) {
 		super();
 		this.noteModel = model;
 		initComponents();
 	}
 
-	public PriseNoteView(Note model, MainView mv) {
+	public NoteView(Note model, MainView mv) {
 		super();
 		this.noteModel = model;
+		this.setName(this.noteModel.getName());
 		initComponents();
 		main=mv;
 	}

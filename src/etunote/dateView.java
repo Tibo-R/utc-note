@@ -46,7 +46,7 @@ public class dateView extends PanelView {
 
 		notesScrollPane = new javax.swing.JScrollPane();
 		notesScrollPane.setViewportView(this);
-
+		this.setName("Date");
 		this.updateContent();
 	}
 
@@ -187,7 +187,7 @@ public class dateView extends PanelView {
 	protected void showNote(Note note) {
 		System.out.print("\n Pour Note \n");
 
-		PriseNoteView pn = new PriseNoteView(note);
+		NoteView pn = new NoteView(note);
 		pn.setVisible(true);
 		this.removeAll();
 		GroupLayout panLayout = new javax.swing.GroupLayout(this);
@@ -214,4 +214,5 @@ public class dateView extends PanelView {
 		panLayout.setVerticalGroup(verticalGroup);
 
 	}
+	
 }

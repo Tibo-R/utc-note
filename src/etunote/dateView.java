@@ -18,10 +18,8 @@ import java.util.Date;
 import javax.swing.BorderFactory;
 import javax.swing.Box;
 import javax.swing.BoxLayout;
-import javax.swing.GroupLayout;
 import javax.swing.JButton;
 import javax.swing.JPanel;
-import javax.swing.GroupLayout.Group;
 import javax.swing.border.TitledBorder;
 
 public class dateView extends PanelView {
@@ -30,14 +28,16 @@ public class dateView extends PanelView {
 	 * 
 	 */
 	private static final long serialVersionUID = -708406665345293557L;
+	private MainView mainView;
 	// Variables declaration
 	private Application app;
 	private javax.swing.JScrollPane notesScrollPane;
 
 	// End of variables declaration
 
-	public dateView(Application app) {
+	public dateView(MainView mainView, Application app) {
 		super();
+		this.mainView = mainView;
 		this.app = app;
 		initComponents();
 	}
@@ -129,7 +129,7 @@ public class dateView extends PanelView {
 			noteButton.addActionListener(new java.awt.event.ActionListener() {
 				@Override
 				public void actionPerformed(java.awt.event.ActionEvent evt) {
-					showNote(note);
+					mainView.showNote(note);
 				}
 			});
 
@@ -184,35 +184,4 @@ public class dateView extends PanelView {
 		// notesPanelLayout.setVerticalGroup(verticalGroup);
 	}
 
-	protected void showNote(Note note) {
-		System.out.print("\n Pour Note \n");
-
-		NoteView pn = new NoteView(note);
-		pn.setVisible(true);
-		this.removeAll();
-		GroupLayout panLayout = new javax.swing.GroupLayout(this);
-		this.setLayout(panLayout);
-		panLayout.setAutoCreateGaps(true);
-
-		Group parallelGroup = panLayout
-				.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING);
-		Group verticalGroup = panLayout.createSequentialGroup();
-
-		parallelGroup.addGroup(panLayout.createSequentialGroup()
-
-		.addComponent(pn, javax.swing.GroupLayout.PREFERRED_SIZE,
-				javax.swing.GroupLayout.PREFERRED_SIZE,
-				javax.swing.GroupLayout.PREFERRED_SIZE));
-
-		verticalGroup.addGroup(panLayout.createParallelGroup()
-
-		.addComponent(pn, javax.swing.GroupLayout.PREFERRED_SIZE,
-				javax.swing.GroupLayout.PREFERRED_SIZE,
-				javax.swing.GroupLayout.PREFERRED_SIZE));
-
-		panLayout.setHorizontalGroup(parallelGroup);
-		panLayout.setVerticalGroup(verticalGroup);
-
-	}
-	
 }

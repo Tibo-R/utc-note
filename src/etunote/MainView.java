@@ -259,7 +259,7 @@ public class MainView extends javax.swing.JFrame {
 	}
 
 	protected void showViewDate(Application app) {
-		dateView dv = new dateView(app);
+		dateView dv = new dateView(this, app);
 		setCurrentPanel(dv);
 	}
 
@@ -299,7 +299,6 @@ public class MainView extends javax.swing.JFrame {
 					currentPanel = (PanelView) c;
 				}
 			}
-			System.out.println("PREVIOUS : new panel : " + newPanelName);
 			((CardLayout) mainPane.getLayout()).show(mainPane, newPanelName);
 		}
 
@@ -314,7 +313,6 @@ public class MainView extends javax.swing.JFrame {
 					currentPanel = (PanelView) c;
 				}
 			}
-			System.out.println("NEXT : new panel : " + newPanelName);
 			((CardLayout) mainPane.getLayout()).show(mainPane, newPanelName);
 		}
 		

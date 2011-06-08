@@ -256,16 +256,20 @@ public class NoteView extends PanelView implements ActionListener {
 					.getDefaultToolkit().getMenuShortcutKeyMask()), "addImage");
 		}
 
+		TitleButton.setToolTipText("Ajouter un titre");
 		TitleButton.setIcon(new ImageIcon(Tools.getPathToIcons("title.png")));
 		TitleButton.addActionListener(addTitle);
 
+		BlocButton.setToolTipText("Ajouter un bloc de texte spécifique");
 		BlocButton.setIcon(new ImageIcon(Tools.getPathToIcons("bloc.png")));
 		BlocButton.addActionListener(addBloc);
 
+		ParagraphButton.setToolTipText("Ajouter un paragraphe");
 		ParagraphButton.setIcon(new ImageIcon(Tools
 				.getPathToIcons("paragraph.png")));
 		ParagraphButton.addActionListener(addParagraph);
 
+		ImageButton.setToolTipText("Ajouter une image");
 		ImageButton.setIcon(new ImageIcon(Tools.getPathToIcons("image.png")));
 		ImageButton.addActionListener(addImage);
 
@@ -289,12 +293,15 @@ public class NoteView extends PanelView implements ActionListener {
 		// }
 		// });
 
+		BoldButton.setToolTipText("Mettre en gras");
 		BoldButton.setIcon(new ImageIcon(Tools
 				.getPathToIcons("format-text-bold.png")));
 
+		SoulignButton.setToolTipText("Souligner");
 		SoulignButton.setIcon(new ImageIcon(Tools
 				.getPathToIcons("format-text-underline.png")));
 
+		ItalicButton.setToolTipText("Mettre en italique");
 		ItalicButton.setIcon(new ImageIcon(Tools
 				.getPathToIcons("format-text-italic.png")));
 
@@ -687,6 +694,7 @@ public class NoteView extends PanelView implements ActionListener {
 		if (a != null) {
 			this.BoldButton.setAction(a);
 			BoldButton.setText("");
+			BoldButton.setToolTipText("Mettre en gras");
 			BoldButton.setIcon(new ImageIcon(Tools
 					.getPathToIcons("format-text-bold.png")));
 		}
@@ -695,6 +703,7 @@ public class NoteView extends PanelView implements ActionListener {
 		if (a != null) {
 			this.ItalicButton.setAction(a);
 			ItalicButton.setText("");
+			ItalicButton.setToolTipText("Mettre en italique");
 			ItalicButton.setIcon(new ImageIcon(Tools
 					.getPathToIcons("format-text-italic.png")));
 		}
@@ -703,6 +712,7 @@ public class NoteView extends PanelView implements ActionListener {
 		if (a != null) {
 			this.SoulignButton.setAction(a);
 			SoulignButton.setText("");
+			SoulignButton.setToolTipText("Souligner");
 			SoulignButton.setIcon(new ImageIcon(Tools
 					.getPathToIcons("format-text-underline.png")));
 		}

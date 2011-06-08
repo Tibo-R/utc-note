@@ -333,16 +333,12 @@ public class Persistance {
 		}
 
 		File sourceCSS;
-		try {
-			sourceCSS = new File(Tools.getPathToCss());
-			File destCSS = new File(path + "/EtuNote/styles/default");
-			destCSS.mkdirs();
+		sourceCSS = new File(Tools.getPathToCss());
+		File destCSS = new File(path + "/EtuNote/styles/default");
+		destCSS.mkdirs();
 
-			copyDirectory(sourceCSS, destCSS);
-		} catch (URISyntaxException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		copyDirectory(sourceCSS, destCSS);
+
 		
 
 		File fa = new File(path + "/EtuNote");

@@ -144,10 +144,15 @@ public class AddUvView extends javax.swing.JFrame {
 	}
 
 	private void ValidateCreateUVActionPerformed(java.awt.event.ActionEvent evt) {
-		new Uv(NameCourseField.getText(), this.semester,
-				(String) jComboBox1.getSelectedItem());
-		this.parent.updateContent();
-		this.setVisible(false);
+		String s = NameCourseField.getText();
+		if((s != null) && (s.length() > 0))
+		{
+			new Uv(s, this.semester,
+					(String) jComboBox1.getSelectedItem());
+			this.parent.updateContent();
+			this.setVisible(false);
+		}
+		
 	}
 
 }

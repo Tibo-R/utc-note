@@ -8,6 +8,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.net.URISyntaxException;
 import java.util.ArrayList;
 import java.util.Iterator;
 import javax.swing.JFileChooser;
@@ -331,11 +332,18 @@ public class Persistance {
 			path = userDirectory.getAbsolutePath();
 		}
 
-		File sourceCSS = new File("src/data/styles/default");
-		File destCSS = new File(path + "/EtuNote/styles/default");
-		destCSS.mkdirs();
+		File sourceCSS;
+		try {
+			sourceCSS = new File(Tools.getPathToCss());
+			File destCSS = new File(path + "/EtuNote/styles/default");
+			destCSS.mkdirs();
 
-		copyDirectory(sourceCSS, destCSS);
+			copyDirectory(sourceCSS, destCSS);
+		} catch (URISyntaxException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
 
 		File fa = new File(path + "/EtuNote");
 		fa.mkdirs();

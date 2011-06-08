@@ -1,6 +1,7 @@
 package etunote;
 
 import java.awt.Color;
+import java.net.URISyntaxException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.Hashtable;
@@ -67,6 +68,11 @@ public class Tools {
 
 	public static URL getPathToIcons(String icon) {
 		return Tools.class.getResource("/data/icon/" + icon);
+	}
+	
+	public static String getPathToCss() throws URISyntaxException {
+		return Tools.class.getResource("/data/styles/default/").getPath();
+		
 	}
 
 }

@@ -344,11 +344,16 @@ public class Persistance {
 			// Export des semestres
 			ArrayList<Semester> listSemester = a.getSemesters();
 			Iterator<Semester> itSemester = listSemester.iterator();
-			String listeUv = "Liste des UV";
+			
+			String listeUv = "<html>\n<head>\n<title> Liste des UV </title>\n";
+			listeUv += "<meta http-equiv=\"Content-Type\" content=\"text/html; charset=UTF-8\" />\n";
+			listeUv += "</head>\n\t<body>\n";
+			listeUv += "<div id=\"content\">\n";
+			
 
 			while (itSemester.hasNext()) {
 				Semester s = (Semester) itSemester.next();
-				listeUv = listeUv + "<BR><BR>" + s.getName();
+				listeUv += "<BR><BR>\n" + s.getName()+"\n";
 				File fs = new File(path + "/EtuNote/" + s.getName());
 				fs.mkdirs();
 				// Export des Uv
@@ -359,22 +364,29 @@ public class Persistance {
 					File fu = new File(path + "/EtuNote/" + s.getName() + "/"
 							+ u.getName());
 					fu.mkdirs();
-					listeUv.concat("<BR> <A HREF=\"");
+					listeUv.concat("<BR> <A HREF=\"\n");
 					listeUv = listeUv + "<BR> <A HREF=\"" + s.getName() + "/"
 					+ u.getName() + "/" + u.getName()
 					+ ".html\" target=\"gauche_bas\">" + u.getName()
-					+ "</A>";
+					+ "</A>\n";
 					String listeNote = "Liste des notes de " + u.getName()
-					+ "<BR>";
+					+ "<BR>\n";
 
 					// Export des notes
 					ArrayList<Note> listNotes = u.getNotes();
 					Iterator<Note> itNote = listNotes.iterator();
+					
+					listeNote = "<html>\n<head>\n<title> Liste des notes </title>\n";
+					listeNote += "<meta http-equiv=\"Content-Type\" content=\"text/html; charset=UTF-8\" />\n";
+					listeNote += "</head>\n\t<body>\n";
+					listeNote += "<div id=\"content\">\n";
+					
 					while (itNote.hasNext()) {
 						Note n = (Note) itNote.next();
+						
 						listeNote = listeNote + "<BR> <A HREF=\"" + n.getName()
 						+ ".html\" target=\"droite\">" + n.getName()
-						+ "</A>";
+						+ "</A>\n";
 						FileWriter writer = null;
 						try {
 							writer = new FileWriter(path + "/EtuNote/"
@@ -390,6 +402,10 @@ public class Persistance {
 							}
 						}
 					}
+					
+
+					listeNote += "</div>";
+					listeNote += "\n\t</body>\n</html>";
 
 					FileWriter writerListeNote = null;
 					try {
@@ -408,6 +424,10 @@ public class Persistance {
 				}
 			}
 
+
+			listeUv += "</div>";
+			listeUv += "\n\t</body>\n</html>";
+			
 			FileWriter writerListeUv = null;
 			try {
 				writerListeUv = new FileWriter(path + "/EtuNote/uv.html");

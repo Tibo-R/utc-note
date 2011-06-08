@@ -69,7 +69,7 @@ public class MainView extends javax.swing.JFrame {
 
 	private void output() {
 		setDefaultCloseOperation(javax.swing.JFrame.EXIT_ON_CLOSE);
-		setSize(800, 600);
+		setSize(getToolkit().getScreenSize());
 		setVisible(true);
 	}
 

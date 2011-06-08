@@ -1,6 +1,7 @@
 package etunote;
 
 import java.awt.BorderLayout;
+import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.Rectangle;
 import java.awt.Toolkit;
@@ -168,6 +169,7 @@ public class NoteView extends PanelView implements ActionListener {
 		notePanel = updateNoteContent();
 
 		noteScrollPane.setViewportView(notePanel);
+		noteScrollPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER );
 
 		jTabbedPane1.addTab("Note de Cours", noteScrollPane);
 
@@ -425,7 +427,7 @@ public class NoteView extends PanelView implements ActionListener {
 		notePanel.removeAll();
 		notePanelLayout = new javax.swing.GroupLayout(notePanel);
 		notePanel.setLayout(notePanelLayout);
-		notePanelLayout.setAutoCreateGaps(true);
+//		notePanelLayout.setAutoCreateGaps(true);
 
 		Group parallelGroup = notePanelLayout
 		.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING);
@@ -468,10 +470,11 @@ public class NoteView extends PanelView implements ActionListener {
 
 					verticalGroup.addGroup(notePanelLayout
 							.createParallelGroup()
-							.addGap(20, 20, 20)
+							.addGap(50, 50, 50)
 							.addComponent(f,
 									javax.swing.GroupLayout.PREFERRED_SIZE, 29,
-									javax.swing.GroupLayout.PREFERRED_SIZE));
+									javax.swing.GroupLayout.PREFERRED_SIZE)
+							.addGap(50, 50, 50));
 				} else {
 					JButton levelDown = new JButton();
 
@@ -530,7 +533,8 @@ public class NoteView extends PanelView implements ActionListener {
 							.addComponent(f,
 									javax.swing.GroupLayout.PREFERRED_SIZE, 29,
 									javax.swing.GroupLayout.PREFERRED_SIZE)
-									.addComponent(levelUp));
+									.addComponent(levelUp)
+									.addGap(20, 20, 20));
 
 					if (level == 1) {
 						levelDown.setVisible(false);
@@ -600,10 +604,12 @@ public class NoteView extends PanelView implements ActionListener {
 						}
 					});
 					parallelGroup.addGroup(notePanelLayout
-							.createSequentialGroup().addComponent(typeComboBox,
+							.createSequentialGroup()
+							.addGap(10, 10, 10)
+							.addComponent(typeComboBox,
 									javax.swing.GroupLayout.DEFAULT_SIZE,
-									javax.swing.GroupLayout.PREFERRED_SIZE,
-									javax.swing.GroupLayout.DEFAULT_SIZE));
+									200,
+									200));
 
 					verticalGroup.addGroup(notePanelLayout
 							.createSequentialGroup().addComponent(typeComboBox,
@@ -619,17 +625,17 @@ public class NoteView extends PanelView implements ActionListener {
 						.addGap(10, 10, 10)
 						.addComponent(textArea,
 								javax.swing.GroupLayout.DEFAULT_SIZE,
-								javax.swing.GroupLayout.DEFAULT_SIZE,
+								noteScrollPane.getSize().width,
 								javax.swing.GroupLayout.DEFAULT_SIZE)
 								.addGap(10, 10, 10));
 
 				verticalGroup.addGroup(notePanelLayout
 						.createSequentialGroup()
-						.addGap(20, 20, 20)
 						.addComponent(textArea,
 								javax.swing.GroupLayout.PREFERRED_SIZE,
 								javax.swing.GroupLayout.PREFERRED_SIZE,
-								javax.swing.GroupLayout.PREFERRED_SIZE));
+								javax.swing.GroupLayout.PREFERRED_SIZE)
+								.addGap(20, 20, 20));
 
 			}
 

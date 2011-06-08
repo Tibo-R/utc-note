@@ -77,7 +77,7 @@ public class UvView extends PanelView {
 		Group verticalGroup = layout.createParallelGroup();
 		
 		TitledBorder title;
-		title = BorderFactory.createTitledBorder("COURS");
+		title = BorderFactory.createTitledBorder(this.uvModel.getName());
 		title.setTitleFont(new java.awt.Font("Tahoma", 1, 20));
 		this.setBorder(title);
 
